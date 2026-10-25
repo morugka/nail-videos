@@ -1,0 +1,475 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><style>@font-face { font-family: 'Cormorant'; src: url('fonts/Cormorant.ttf'); font-weight: 300 700; }
+@font-face { font-family: 'Cormorant'; src: url('fonts/Cormorant-Italic.ttf'); font-weight: 300 700; font-style: italic; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Light.otf'); font-weight: 300; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Regular.otf'); font-weight: 400; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Medium.otf'); font-weight: 500; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-SemiBold.otf'); font-weight: 600; }
+
+:root {
+  --bg: #0b0a09;
+  --ink: #f3eee6;
+  --muted: #b9b1a5;
+  --gold: #c9a46a;
+  --gold-hi: #e2c48f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; }
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(ellipse 80% 55% at 70% 10%, rgba(201, 164, 106, 0.10), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 10% 100%, rgba(201, 164, 106, 0.06), transparent 70%),
+    var(--bg);
+  padding: 72px 96px;
+  display: flex;
+  flex-direction: column;
+}
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 28px;
+  border: 1px solid rgba(201, 164, 106, 0.16);
+  pointer-events: none;
+}
+
+.top { display: flex; justify-content: space-between; align-items: flex-start; }
+.logo {
+  font-family: 'Cormorant', serif;
+  font-size: 54px;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 0.9;
+  letter-spacing: -2px;
+}
+.logo span { position: relative; top: 14px; }
+.logo small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-weight: 500;
+}
+.pg { font-size: 20px; letter-spacing: 4px; color: var(--muted); font-weight: 300; padding-top: 12px; }
+
+.content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+h1, h2 {
+  font-family: 'Cormorant', serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 0.98;
+  letter-spacing: 1px;
+}
+h1 { font-size: 104px; letter-spacing: 0; }
+h1 em { font-size: 94px; }
+h2 { font-size: 92px; }
+h1 em, h2 em { font-style: normal; color: var(--gold); }
+
+.orn { display: flex; align-items: center; gap: 18px; margin: 44px 0; width: 340px; }
+.orn span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.orn i { color: var(--gold); font-style: normal; font-size: 22px; }
+
+.body { font-size: 36px; line-height: 1.45; font-weight: 300; color: var(--muted); max-width: 860px; }
+.body b { color: var(--ink); font-weight: 500; }
+.center { text-align: center; margin: 0 auto; }
+
+.swipe {
+  position: absolute;
+  right: 96px;
+  bottom: 70px;
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.swipe span { margin-left: 10px; }
+.handle {
+  position: absolute;
+  left: 96px;
+  bottom: 70px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: rgba(185, 177, 165, 0.6);
+}
+
+/* Обкладинка */
+.cover .glow {
+  position: absolute;
+  right: -160px;
+  top: 300px;
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(circle, rgba(201, 164, 106, 0.22), transparent 62%);
+}
+.cover .content { justify-content: flex-start; padding-top: 120px; z-index: 1; }
+.cover .sub { font-size: 38px; line-height: 1.4; font-weight: 300; color: var(--ink); }
+.cover-nail { position: absolute; right: 70px; bottom: 120px; width: 300px; opacity: 0.85; }
+
+/* Вступ */
+.dots { list-style: none; margin-top: 56px; }
+.dots li {
+  font-size: 34px;
+  padding: 26px 0 26px 44px;
+  border-top: 1px solid rgba(201, 164, 106, 0.2);
+  position: relative;
+}
+.dots li:last-child { border-bottom: 1px solid rgba(201, 164, 106, 0.2); }
+.dots li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; font-size: 22px; top: 34px; }
+.hint { margin-top: 48px; font-family: 'Cormorant', serif; font-style: italic; font-size: 44px; color: var(--gold-hi); }
+
+/* Причина */
+.tag {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+.tag i { font-style: normal; margin: 0 10px; }
+.reason .content { justify-content: flex-start; padding-top: 70px; }
+.reason h2 { font-size: 84px; }
+.bottom { margin-top: auto; margin-bottom: 70px; display: flex; align-items: center; gap: 56px; }
+.nail { width: 250px; flex: none; }
+.finger { fill: #1a1612; stroke: #4a4036; stroke-width: 2; }
+.edge { fill: none; stroke: #8a7350; stroke-width: 2.5; }
+.hl { fill: var(--gold); opacity: 0.55; }
+.hl.soft { opacity: 0.22; }
+.crk { fill: none; stroke: var(--gold-hi); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
+.drop { fill: var(--gold); opacity: 0.7; }
+.sign {
+  border-left: 2px solid var(--gold);
+  padding: 8px 0 8px 36px;
+  font-size: 32px;
+  line-height: 1.45;
+  font-weight: 300;
+  color: var(--ink);
+}
+.sign b {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+/* Метод */
+.kicker { font-family: 'Cormorant', serif; font-size: 110px; text-transform: uppercase; line-height: 1; }
+.method h2.big { font-family: 'Cormorant', serif; font-style: italic; text-transform: none; font-size: 120px; color: var(--gold); font-weight: 500; }
+.steps { list-style: none; margin-top: 40px; }
+.steps li {
+  display: flex;
+  gap: 32px;
+  align-items: baseline;
+  font-size: 33px;
+  line-height: 1.35;
+  padding: 22px 0;
+  border-top: 1px solid rgba(201, 164, 106, 0.2);
+}
+.steps span { font-family: 'Cormorant', serif; color: var(--gold); font-size: 40px; flex: none; width: 48px; }
+.note { margin-top: 40px; font-family: 'Cormorant', serif; font-style: italic; font-size: 40px; color: var(--gold-hi); }
+
+/* Заклик */
+.cta .content { align-items: center; text-align: center; }
+.cta h2 { font-size: 86px; }
+.opts { display: flex; gap: 28px; margin: 10px 0 56px; }
+.opts div {
+  width: 170px;
+  height: 170px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant', serif;
+  font-size: 84px;
+  font-weight: 500;
+  color: var(--gold-hi);
+}
+.foot {
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.foot i { display: none; }
+</style></head><body>
+<section class="slide cover" id="s0">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">01 / 10</div>
+</div>
+  <div class="content">
+    <div class="glow"></div>
+    <div class="cover-text">
+      <h1>Чому манікюр<br><em>відшаровується</em><br>на 2-й тиждень?</h1>
+      <div class="orn"><span></span><i>✦</i><span></span></div>
+      <p class="sub">і хто насправді винен:<br>майстер, ви чи організм</p>
+    </div>
+    <div class="cover-nail">
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-cuticle"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-cuticle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-cuticle)"/>
+  <g clip-path="url(#c-cuticle)"><rect x="40" y="214" width="120" height="80" class="hl"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg></div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide intro" id="s1">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">02 / 10</div>
+</div>
+  <div class="content">
+    <h2>Це не «просто<br>такі нігті»</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">У відшарування завжди є причина. І її видно по тому, <b>де саме</b> відходить покриття.</p>
+    <ul class="dots"><li>3 причини — на боці майстра</li><li>2 причини — на вашому боці</li><li>1 причина — в організмі</li></ul>
+    <p class="hint">Перевірте, що з цього — про вас</p></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s2">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">03 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 01 <i>·</i> майстер</div>
+    <h2>Залишки кутикули на нігті</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Тонка плівка шкіри (птеригій) лишилася на пластині. Покриття лягає на шкіру, а шкіра його не тримає.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-cuticle"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-cuticle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-cuticle)"/>
+  <g clip-path="url(#c-cuticle)"><rect x="40" y="214" width="120" height="80" class="hl"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg>
+      <div class="sign"><b>Як впізнати</b>покриття піднімається біля кутикули, під ним видно край або «бульбашку».</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s3">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">04 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 02 <i>·</i> майстер</div>
+    <h2>Незапечатаний торець</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Вільний край нігтя не покрили матеріалом. Вода й мийні засоби заходять під покриття з кінчика.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-tip"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-tip" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-tip)"/>
+  <g clip-path="url(#c-tip)"><rect x="40" y="0" width="120" height="64" class="hl"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg>
+      <div class="sign"><b>Як впізнати</b>сколи й відшарування починаються з краю нігтя.</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s4">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">05 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 03 <i>·</i> майстер</div>
+    <h2>Покриття не під ваші нігті</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Тонким і гнучким нігтям потрібні укріплення й правильна архітектура. Ніготь гнеться, а жорстке покриття — ні.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-sides"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-sides" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-sides)"/>
+  <g clip-path="url(#c-sides)"><rect x="40" y="60" width="26" height="220" class="hl"/><rect x="134" y="60" width="26" height="220" class="hl"/><path d="M100,110 L92,140 L106,165 L95,195" class="crk"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg>
+      <div class="sign"><b>Як впізнати</b>тріщина посередині або відшарування по боках.</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s5">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">06 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 04 <i>·</i> ви</div>
+    <h2>Вода й хімія без рукавичок</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Посуд, прибирання, засоби з хлором. Пластина вбирає воду, розширюється, і покриття втрачає зчеплення.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-water"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-water" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-water)"/>
+  <g clip-path="url(#c-water)"><rect x="40" y="0" width="120" height="300" class="hl soft"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  <path d="M20,70 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M190,120 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M16,190 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M186,230 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/>
+</svg>
+      <div class="sign"><b>Як впізнати</b>відходить на кількох нігтях одразу, частіше на робочій руці.</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s6">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">07 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 05 <i>·</i> ви</div>
+    <h2>Нігті як інструмент</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Відкрити банку, підчепити наклейку, зняти кришку. Один такий рух — і мікротріщина, з якої все починається.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-crack"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-crack" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-crack)"/>
+  <g clip-path="url(#c-crack)"><path d="M78,22 L90,48 L80,66 L94,92" class="crk"/><rect x="40" y="0" width="120" height="50" class="hl soft"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg>
+      <div class="sign"><b>Як впізнати</b>проблема на 1–2 нігтях, найчастіше на великому та вказівному.</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide reason" id="s7">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">08 / 10</div>
+</div>
+  <div class="content">
+    <div class="tag">Причина 06 <i>·</i> організм</div>
+    <h2>Гормони, ліки, стрес</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Вагітність, антибіотики, гормональні препарати, різка зміна ваги чи сильний стрес змінюють нігтьову пластину.</p>
+    <div class="bottom">
+      
+<svg viewBox="-10 0 220 340" class="nail">
+  <defs>
+    <clipPath id="c-whole"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
+    <linearGradient id="g-whole" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
+    </linearGradient>
+  </defs>
+  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-whole)"/>
+  <g clip-path="url(#c-whole)"><rect x="40" y="0" width="120" height="300" class="hl"/></g>
+  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
+  
+</svg>
+      <div class="sign"><b>Як впізнати</b>у того самого майстра роками все трималося — і раптом почало відходити.</div>
+    </div></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide method" id="s8">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">09 / 10</div>
+</div>
+  <div class="content">
+    <div class="kicker">Не магія.</div>
+    <h2 class="big">Техніка.</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <p class="body">Що я роблю, щоб манікюр доживав до корекції:</p>
+    <ol class="steps"><li><span>01</span>Чиста підготовка — без жодного залишку кутикули</li><li><span>02</span>База під ваш тип нігтів, а не «одна на всіх»</li><li><span>03</span>Вирівнювання й архітектура для тонких нігтів</li><li><span>04</span>Запечатаний торець на кожному нігті</li></ol>
+    <p class="note">А якщо причина не в техніці — я чесно про це скажу.</p></div>
+  <div class="swipe">гортай <span>⟶</span></div>
+  <div class="handle">@moruga_nailart</div>
+</section>
+<section class="slide cta" id="s9">
+  
+<div class="top">
+  <div class="logo">K<span>M</span><small>nail artist</small></div>
+  <div class="pg">10 / 10</div>
+</div>
+  <div class="content">
+    <h2>А у вас на якому тижні<br>починає відходити?</h2>
+    <div class="orn"><span></span><i>✦</i><span></span></div>
+    <div class="opts"><div>1</div><div>2</div><div>3</div><div>4+</div></div>
+    <p class="body center">Напишіть цифру в коментарях — <br>підкажу ймовірну причину</p>
+    <div class="foot"><span>Збережіть, щоб не загубити</span><i>✦</i><span>Запис — слово «ЗАПИС» у директ</span><i>✦</i><span>Дніпро · Сонячна набережна, 34</span></div></div>
+  
+  <div class="handle">@moruga_nailart</div>
+</section>
+</body></html>

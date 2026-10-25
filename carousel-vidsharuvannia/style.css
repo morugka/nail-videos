@@ -1,0 +1,211 @@
+@font-face { font-family: 'Cormorant'; src: url('fonts/Cormorant.ttf'); font-weight: 300 700; }
+@font-face { font-family: 'Cormorant'; src: url('fonts/Cormorant-Italic.ttf'); font-weight: 300 700; font-style: italic; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Light.otf'); font-weight: 300; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Regular.otf'); font-weight: 400; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-Medium.otf'); font-weight: 500; }
+@font-face { font-family: 'Inter'; src: url('fonts/Inter-SemiBold.otf'); font-weight: 600; }
+
+:root {
+  --bg: #0b0a09;
+  --ink: #f3eee6;
+  --muted: #b9b1a5;
+  --gold: #c9a46a;
+  --gold-hi: #e2c48f;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #000; }
+
+.slide {
+  position: relative;
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  background:
+    radial-gradient(ellipse 80% 55% at 70% 10%, rgba(201, 164, 106, 0.10), transparent 70%),
+    radial-gradient(ellipse 70% 50% at 10% 100%, rgba(201, 164, 106, 0.06), transparent 70%),
+    var(--bg);
+  padding: 72px 96px;
+  display: flex;
+  flex-direction: column;
+}
+.slide::after {
+  content: '';
+  position: absolute;
+  inset: 28px;
+  border: 1px solid rgba(201, 164, 106, 0.16);
+  pointer-events: none;
+}
+
+.top { display: flex; justify-content: space-between; align-items: flex-start; }
+.logo {
+  font-family: 'Cormorant', serif;
+  font-size: 54px;
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 0.9;
+  letter-spacing: -2px;
+}
+.logo span { position: relative; top: 14px; }
+.logo small {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-weight: 500;
+}
+.pg { font-size: 20px; letter-spacing: 4px; color: var(--muted); font-weight: 300; padding-top: 12px; }
+
+.content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+
+h1, h2 {
+  font-family: 'Cormorant', serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 0.98;
+  letter-spacing: 1px;
+}
+h1 { font-size: 104px; letter-spacing: 0; }
+h1 em { font-size: 94px; }
+h2 { font-size: 92px; }
+h1 em, h2 em { font-style: normal; color: var(--gold); }
+
+.orn { display: flex; align-items: center; gap: 18px; margin: 44px 0; width: 340px; }
+.orn span { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.orn i { color: var(--gold); font-style: normal; font-size: 22px; }
+
+.body { font-size: 36px; line-height: 1.45; font-weight: 300; color: var(--muted); max-width: 860px; }
+.body b { color: var(--ink); font-weight: 500; }
+.center { text-align: center; margin: 0 auto; }
+
+.swipe {
+  position: absolute;
+  right: 96px;
+  bottom: 70px;
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.swipe span { margin-left: 10px; }
+.handle {
+  position: absolute;
+  left: 96px;
+  bottom: 70px;
+  font-size: 20px;
+  letter-spacing: 2px;
+  color: rgba(185, 177, 165, 0.6);
+}
+
+/* Обкладинка */
+.cover .glow {
+  position: absolute;
+  right: -160px;
+  top: 300px;
+  width: 760px;
+  height: 760px;
+  background: radial-gradient(circle, rgba(201, 164, 106, 0.22), transparent 62%);
+}
+.cover .content { justify-content: flex-start; padding-top: 120px; z-index: 1; }
+.cover .sub { font-size: 38px; line-height: 1.4; font-weight: 300; color: var(--ink); }
+.cover-nail { position: absolute; right: 70px; bottom: 120px; width: 300px; opacity: 0.85; }
+
+/* Вступ */
+.dots { list-style: none; margin-top: 56px; }
+.dots li {
+  font-size: 34px;
+  padding: 26px 0 26px 44px;
+  border-top: 1px solid rgba(201, 164, 106, 0.2);
+  position: relative;
+}
+.dots li:last-child { border-bottom: 1px solid rgba(201, 164, 106, 0.2); }
+.dots li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; font-size: 22px; top: 34px; }
+.hint { margin-top: 48px; font-family: 'Cormorant', serif; font-style: italic; font-size: 44px; color: var(--gold-hi); }
+
+/* Причина */
+.tag {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+.tag i { font-style: normal; margin: 0 10px; }
+.reason .content { justify-content: flex-start; padding-top: 70px; }
+.reason h2 { font-size: 84px; }
+.bottom { margin-top: auto; margin-bottom: 70px; display: flex; align-items: center; gap: 56px; }
+.nail { width: 250px; flex: none; }
+.finger { fill: #1a1612; stroke: #4a4036; stroke-width: 2; }
+.edge { fill: none; stroke: #8a7350; stroke-width: 2.5; }
+.hl { fill: var(--gold); opacity: 0.55; }
+.hl.soft { opacity: 0.22; }
+.crk { fill: none; stroke: var(--gold-hi); stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
+.drop { fill: var(--gold); opacity: 0.7; }
+.sign {
+  border-left: 2px solid var(--gold);
+  padding: 8px 0 8px 36px;
+  font-size: 32px;
+  line-height: 1.45;
+  font-weight: 300;
+  color: var(--ink);
+}
+.sign b {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+/* Метод */
+.kicker { font-family: 'Cormorant', serif; font-size: 110px; text-transform: uppercase; line-height: 1; }
+.method h2.big { font-family: 'Cormorant', serif; font-style: italic; text-transform: none; font-size: 120px; color: var(--gold); font-weight: 500; }
+.steps { list-style: none; margin-top: 40px; }
+.steps li {
+  display: flex;
+  gap: 32px;
+  align-items: baseline;
+  font-size: 33px;
+  line-height: 1.35;
+  padding: 22px 0;
+  border-top: 1px solid rgba(201, 164, 106, 0.2);
+}
+.steps span { font-family: 'Cormorant', serif; color: var(--gold); font-size: 40px; flex: none; width: 48px; }
+.note { margin-top: 40px; font-family: 'Cormorant', serif; font-style: italic; font-size: 40px; color: var(--gold-hi); }
+
+/* Заклик */
+.cta .content { align-items: center; text-align: center; }
+.cta h2 { font-size: 86px; }
+.opts { display: flex; gap: 28px; margin: 10px 0 56px; }
+.opts div {
+  width: 170px;
+  height: 170px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant', serif;
+  font-size: 84px;
+  font-weight: 500;
+  color: var(--gold-hi);
+}
+.foot {
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.foot i { display: none; }
