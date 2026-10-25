@@ -15,10 +15,14 @@ const title = '<span class="acc">3</span> ЕТАПИ,';
 const subtitle = 'які я більше не роблю';
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
-@font-face { font-family: C; src: url('fonts/Cormorant.ttf'); font-weight: 300 700; }
-@font-face { font-family: I; src: url('fonts/Inter-Regular.otf'); }
-@font-face { font-family: O; src: url('fonts/oranienbaum-cyrillic-400-normal.woff2'); }
-@font-face { font-family: O; src: url('fonts/oranienbaum-latin-400-normal.woff2'); }
+@font-face { font-family: CG; src: url('fonts/cormorant-garamond-cyrillic-400-normal.woff2'); font-weight: 400; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: CG; src: url('fonts/cormorant-garamond-latin-400-normal.woff2'); font-weight: 400; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: CG; src: url('fonts/cormorant-garamond-cyrillic-500-normal.woff2'); font-weight: 500; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: CG; src: url('fonts/cormorant-garamond-latin-500-normal.woff2'); font-weight: 500; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: M; src: url('fonts/montserrat-cyrillic-300-normal.woff2'); font-weight: 300; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: M; src: url('fonts/montserrat-latin-300-normal.woff2'); font-weight: 300; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: M; src: url('fonts/montserrat-cyrillic-400-normal.woff2'); font-weight: 400; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: M; src: url('fonts/montserrat-latin-400-normal.woff2'); font-weight: 400; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 * { margin: 0; box-sizing: border-box; }
 body { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #0a0a0a; }
 .bg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
@@ -26,13 +30,13 @@ body { width: 1080px; height: 1920px; position: relative; overflow: hidden; back
 .shade { position: absolute; left: 0; right: 0; top: 0; height: ${shadeEnd}px;
   background: linear-gradient(#0a0a0a 0px, #0a0a0a ${solidEnd}px, rgba(10,10,10,.6) ${solidEnd + (shadeEnd - solidEnd) * 0.45}px, rgba(10,10,10,0) ${shadeEnd}px); }
 .logo { position: absolute; left: ${LOGO.left}px; top: ${LOGO.top}px; width: ${LOGO.width}px; }
-.t { position: absolute; left: 80px; right: 200px; top: ${textTop}px; color: #fff; font-family: C, serif; font-variant-numeric: lining-nums; }
-h1 { font-family: O, serif; font-size: 190px; font-weight: 400; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; }
+.t { position: absolute; left: 80px; right: 200px; top: ${textTop}px; color: #fff; font-family: CG, serif; font-variant-numeric: lining-nums; }
+h1 { font-family: CG, serif; font-size: 156px; font-weight: 500; line-height: 0.95; letter-spacing: 2px; text-transform: uppercase; }
 .acc { color: #c9a45c; }
 .rule { position: relative; width: 420px; height: 14px; margin: 36px 0 30px; }
 .rule::before { content: ''; position: absolute; left: 0; right: 0; top: 6.5px; height: 1px; background: #c9a45c; }
 .rule i { position: absolute; left: 50%; top: 0; width: 14px; height: 14px; margin-left: -7px; background: #c9a45c; transform: rotate(45deg) scale(.7); box-shadow: 0 0 0 6px #0a0a0a; }
-.sub { font-family: I, sans-serif; font-size: 30px; letter-spacing: 8px; text-transform: uppercase; color: #e9e4dc; }
+.sub { font-family: M, sans-serif; font-weight: 400; font-size: 28px; letter-spacing: 7px; text-transform: uppercase; color: #e9e4dc; }
 </style></head><body>
 <img class="bg" src="file://${bg}">
 <div class="shade"></div>
