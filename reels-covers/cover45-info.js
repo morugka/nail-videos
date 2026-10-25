@@ -1,4 +1,5 @@
-// Обкладинка поста 4:5 (1080×1350): логотип у вільному куті, внизу заголовок + золота лінія + підзаголовок.
+// Обкладинка поста 4:5 (1080×1350) або Reels 9:16 ("height":1920): логотип у вільному куті,
+// заголовок + золота лінія + підзаголовок.
 // node cover45-info.js <фото> <out.png> <json-налаштування>
 // напр.: '{"title":"Quiet Luxury","sub":"А ви з якої команди?","subStyle":"cg","textTop":930,"logo":{"right":50,"top":60,"width":160}}'
 // subStyle: "" — Montserrat Regular капсом, "light" — Montserrat Light, "cg" — Cormorant Garamond золотом,
@@ -26,10 +27,10 @@ ${face('M', 'montserrat', 300)}
 ${face('M', 'montserrat', 400)}
 ${face('O', 'oranienbaum', 400)}
 * { margin: 0; box-sizing: border-box; }
-body { width: 1080px; height: 1350px; position: relative; overflow: hidden; background: #0a0a0a; }
-.ph { position: absolute; inset: 0; width: 1080px; height: 1350px; object-fit: cover; }
+body { width: 1080px; height: ${cfg.height || 1350}px; position: relative; overflow: hidden; background: #0a0a0a; }
+.ph { position: absolute; inset: 0; width: 1080px; height: ${cfg.height || 1350}px; object-fit: cover; }
 .logo { position: absolute; ${logoCss} top: ${logo.top}px; width: ${logo.width}px; }
-.t { position: absolute; left: 80px; right: 80px; top: ${cfg.textTop}px; color: #fff; }
+.t { position: absolute; left: 80px; right: ${cfg.textRight || 80}px; top: ${cfg.textTop}px; color: #fff; }
 h1 { font-family: CG, serif; font-weight: 500; font-size: ${cfg.size || 100}px; line-height: 1; letter-spacing: 3px; text-transform: uppercase; }
 .rule { position: relative; width: 380px; height: 14px; margin: 30px 0 26px; }
 .rule::before { content: ''; position: absolute; left: 0; right: 0; top: 6.5px; height: 1px; background: #c9a45c; }
@@ -60,7 +61,7 @@ ${cfg.subStyle === 'ref' || cfg.subStyle === 'ref-cg'
   const f = path.join(__dirname, 'tmp-45i.html');
   fs.writeFileSync(f, html);
   const browser = await chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1080, height: 1350 } });
+  const page = await browser.newPage({ viewport: { width: 1080, height: cfg.height || 1350 } });
   await page.goto('file://' + f);
   await page.evaluate(() => document.fonts.ready);
   await page.screenshot({ path: path.resolve(out) });
