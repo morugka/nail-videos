@@ -1,6 +1,7 @@
 // Обкладинка поста 4:5 (1080×1350): логотип у вільному куті, внизу заголовок + золота лінія + підзаголовок.
 // node cover45-info.js <фото> <out.png> <json-налаштування>
-// напр.: '{"title":"Quiet Luxury","sub":"А ви з якої команди?","textTop":1040,"logo":{"right":50,"top":60,"width":160}}'
+// напр.: '{"title":"Quiet Luxury","sub":"А ви з якої команди?","subStyle":"cg","textTop":930,"logo":{"right":50,"top":60,"width":160}}'
+// subStyle: "" — Montserrat Regular капсом, "light" — Montserrat Light, "cg" — Cormorant Garamond золотом
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -17,7 +18,9 @@ const logo = cfg.logo;
 const logoCss = logo.right != null ? `right: ${logo.right}px;` : `left: ${logo.left}px;`;
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
+${face('CG', 'cormorant-garamond', 400)}
 ${face('CG', 'cormorant-garamond', 500)}
+${face('M', 'montserrat', 300)}
 ${face('M', 'montserrat', 400)}
 * { margin: 0; box-sizing: border-box; }
 body { width: 1080px; height: 1350px; position: relative; overflow: hidden; background: #0a0a0a; }
@@ -29,10 +32,14 @@ h1 { font-family: CG, serif; font-weight: 500; font-size: ${cfg.size || 100}px; 
 .rule::before { content: ''; position: absolute; left: 0; right: 0; top: 6.5px; height: 1px; background: #c9a45c; }
 .rule i { position: absolute; left: 50%; top: 0; width: 14px; height: 14px; margin-left: -7px; background: #c9a45c; transform: rotate(45deg) scale(.7); box-shadow: 0 0 0 6px #0a0a0a; }
 .sub { font-family: M, sans-serif; font-weight: 400; font-size: 26px; letter-spacing: 6px; text-transform: uppercase; color: #e9e4dc; }
+/* підзаголовок-акцент: Cormorant Garamond, звичайний регістр, золото */
+.sub.cg { font-family: CG, serif; font-weight: 400; font-size: 56px; letter-spacing: 1px; text-transform: none; color: #c9a45c; }
+/* підзаголовок тонким Montserrat Light, звичайний регістр */
+.sub.light { font-weight: 300; font-size: 32px; letter-spacing: 1.5px; text-transform: none; }
 </style></head><body>
 <img class="ph" src="file://${path.resolve(photo)}">
 <img class="logo" src="file://${path.join(__dirname, 'assets/km-logo.png')}">
-<div class="t"><h1>${cfg.title}</h1><div class="rule"><i></i></div><div class="sub">${cfg.sub}</div></div>
+<div class="t"><h1>${cfg.title}</h1><div class="rule"><i></i></div><div class="sub ${cfg.subStyle || ''}">${cfg.sub}</div></div>
 </body></html>`;
 
 (async () => {
