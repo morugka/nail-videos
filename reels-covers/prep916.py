@@ -14,11 +14,12 @@ im = Image.open(src).convert('RGB')
 im = im.resize((W, round(im.height * W / im.width)), Image.LANCZOS)
 a = np.asarray(im, dtype=np.float32)
 
-# Чорна точка: темні ділянки тягнемо до нейтрального ~#0A0A0A, світлі майже не чіпаємо.
+# Чорна точка: темні ділянки тягнемо до нейтрального тону не світлішого за #0A0A0A
+# (прибирає і сіруватий, і синюватий відтінок фону), світлі майже не чіпаємо.
 lum = a.mean(axis=2, keepdims=True)
 weight = np.clip(1 - lum / 90, 0, 1)
 bg = a[-120:].reshape(-1, 3).mean(axis=0)
-a = a - weight * (bg - 10)
+a = a - weight * (bg - min(bg.min(), 10))
 a = np.clip(a, 0, 255)
 
 canvas = np.zeros((H, W, 3), np.float32)

@@ -5,6 +5,7 @@ const path = require('path');
 const { chromium } = require('playwright');
 
 const bg = path.resolve(process.argv[2]);
+const textTop = Number(process.argv[4] || 1190);
 const out = path.resolve(process.argv[3]);
 
 const LOGO = { left: 80, top: 290, width: 200 };
@@ -21,7 +22,7 @@ body { width: 1080px; height: 1920px; position: relative; overflow: hidden; back
 .shade { position: absolute; left: 0; right: 0; top: 0; height: 800px;
   background: linear-gradient(#0a0a0a 0%, #0a0a0a 64%, rgba(10,10,10,.6) 80%, rgba(10,10,10,0) 100%); }
 .logo { position: absolute; left: ${LOGO.left}px; top: ${LOGO.top}px; width: ${LOGO.width}px; }
-.t { position: absolute; left: 80px; right: 200px; top: 1190px; color: #fff; font-family: C, serif; font-variant-numeric: lining-nums; }
+.t { position: absolute; left: 80px; right: 200px; top: ${textTop}px; color: #fff; font-family: C, serif; font-variant-numeric: lining-nums; }
 h1 { font-size: 150px; font-weight: 500; line-height: 1; letter-spacing: 3px; text-transform: uppercase; }
 .acc { color: #c9a45c; }
 .rule { position: relative; width: 420px; height: 14px; margin: 42px 0 36px; }
