@@ -6,6 +6,7 @@ const { chromium } = require('playwright');
 
 const bg = path.resolve(process.argv[2]);
 const textTop = Number(process.argv[4] || 1190);
+const shadeEnd = Number(process.argv[5] || 800);
 const out = path.resolve(process.argv[3]);
 
 const LOGO = { left: 80, top: 290, width: 200 };
@@ -19,8 +20,8 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 body { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #0a0a0a; }
 .bg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
 /* притемнення під логотипом */
-.shade { position: absolute; left: 0; right: 0; top: 0; height: 800px;
-  background: linear-gradient(#0a0a0a 0%, #0a0a0a 64%, rgba(10,10,10,.6) 80%, rgba(10,10,10,0) 100%); }
+.shade { position: absolute; left: 0; right: 0; top: 0; height: ${shadeEnd}px;
+  background: linear-gradient(#0a0a0a 0px, #0a0a0a 505px, rgba(10,10,10,.6) ${505 + (shadeEnd - 505) * 0.45}px, rgba(10,10,10,0) ${shadeEnd}px); }
 .logo { position: absolute; left: ${LOGO.left}px; top: ${LOGO.top}px; width: ${LOGO.width}px; }
 .t { position: absolute; left: 80px; right: 200px; top: ${textTop}px; color: #fff; font-family: C, serif; font-variant-numeric: lining-nums; }
 h1 { font-size: 150px; font-weight: 500; line-height: 1; letter-spacing: 3px; text-transform: uppercase; }
