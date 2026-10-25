@@ -2,7 +2,8 @@
 // node cover45-info.js <фото> <out.png> <json-налаштування>
 // напр.: '{"title":"Quiet Luxury","sub":"А ви з якої команди?","subStyle":"cg","textTop":930,"logo":{"right":50,"top":60,"width":160}}'
 // subStyle: "" — Montserrat Regular капсом, "light" — Montserrat Light, "cg" — Cormorant Garamond золотом,
-//           "ref" — як на референсі: усе Oranienbaum, золотий рядок під назвою, ромбик з лінією внизу
+//           "ref" — як на референсі: усе Oranienbaum, золотий рядок під назвою, ромбик з лінією внизу,
+//           "ref-cg" — той самий макет шрифтом Cormorant Garamond, золотий рядок великими літерами
 const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
@@ -42,13 +43,16 @@ h1 { font-family: CG, serif; font-weight: 500; font-size: ${cfg.size || 100}px; 
 .ref .orn { display: flex; align-items: center; gap: 18px; margin-top: 30px; width: 420px; }
 .ref .orn i { width: 14px; height: 14px; background: #c9a45c; transform: rotate(45deg) scale(.75); flex: none; }
 .ref .orn span { flex: 1; height: 1px; background: linear-gradient(90deg, #c9a45c, rgba(201,164,92,0)); }
+/* той самий макет, але Cormorant Garamond і золотий рядок великими літерами */
+.ref.cgf h1 { font-family: CG, serif; font-weight: 500; letter-spacing: 3px; }
+.ref.cgf .sub { font-family: CG, serif; font-weight: 500; font-size: ${Math.round((cfg.size || 100) * 0.5)}px; letter-spacing: 3px; text-transform: uppercase; }
 /* підзаголовок тонким Montserrat Light, звичайний регістр */
 .sub.light { font-weight: 300; font-size: 32px; letter-spacing: 1.5px; text-transform: none; }
 </style></head><body>
 <img class="ph" src="file://${path.resolve(photo)}">
 <img class="logo" src="file://${path.join(__dirname, 'assets/km-logo.png')}">
-${cfg.subStyle === 'ref'
-  ? `<div class="t ref"><h1>${cfg.title}</h1><div class="sub">${cfg.sub}</div><div class="orn"><i></i><span></span></div></div>`
+${cfg.subStyle === 'ref' || cfg.subStyle === 'ref-cg'
+  ? `<div class="t ref ${cfg.subStyle === 'ref-cg' ? 'cgf' : ''}"><h1>${cfg.title}</h1><div class="sub">${cfg.sub}</div><div class="orn"><i></i><span></span></div></div>`
   : `<div class="t"><h1>${cfg.title}</h1><div class="rule"><i></i></div><div class="sub ${cfg.subStyle || ''}">${cfg.sub}</div></div>`}
 </body></html>`;
 
