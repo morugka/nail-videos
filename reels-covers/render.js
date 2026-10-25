@@ -40,7 +40,7 @@ body { width: 1080px; height: 1920px; background: #050505; position: relative; o
 .big { font-size: 150px; font-weight: 500; text-transform: uppercase; line-height: 1; letter-spacing: 2px; }
 .big.sm { font-size: 120px; letter-spacing: 6px; }
 .num { font-size: 300px; line-height: 1; margin-bottom: 10px; color: #c9a46a; font-weight: 500; }
-.it { font-style: italic; font-size: 92px; color: #d4b17a; line-height: 1.05; margin-top: 18px; }
+.it { font-style: normal; font-size: 88px; color: #d4b17a; line-height: 1.05; margin-top: 18px; }
 .orn { display: flex; align-items: center; gap: 20px; width: 380px; margin: 44px auto 0; }
 .orn span { flex: 1; height: 1.5px; background: linear-gradient(90deg, transparent, #c9a46a, transparent); }
 .orn i { color: #c9a46a; font-style: normal; font-size: 26px; }
