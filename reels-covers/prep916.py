@@ -1,7 +1,7 @@
 """Готує фон 1080×1920 з фото 4:5: опускає чорну точку фону до ~#0A0A0A
 і добудовує темний низ кадру тим самим тоном із легким зерном, щоб не було шва.
 Використання: python3 prep916.py photos/in.jpg photos/out-916.png [зсув_вниз] [масштаб] [x_початку_кадру]
-Масштаб і x — у пікселях оригіналу; без них фото вписується по ширині."""
+Масштаб і x — у пікселях оригіналу; без них фото вписується по ширині. 'flip' — дзеркально."""
 import sys
 
 import numpy as np
@@ -14,6 +14,8 @@ W, H = 1080, 1920
 im = Image.open(src).convert('RGB')
 scale = float(sys.argv[4]) if len(sys.argv) > 4 else W / im.width
 x0 = int(sys.argv[5]) if len(sys.argv) > 5 else 0
+if len(sys.argv) > 6 and sys.argv[6] == 'flip':
+    im = im.transpose(Image.FLIP_LEFT_RIGHT)
 im = im.resize((round(im.width * scale), round(im.height * scale)), Image.LANCZOS)
 im = im.crop((round(x0 * scale), 0, round(x0 * scale) + W, im.height))
 a = np.asarray(im, dtype=np.float32)

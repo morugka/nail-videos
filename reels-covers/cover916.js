@@ -7,6 +7,7 @@ const { chromium } = require('playwright');
 const bg = path.resolve(process.argv[2]);
 const textTop = Number(process.argv[4] || 1190);
 const shadeEnd = Number(process.argv[5] || 800);
+const solidEnd = Number(process.argv[6] || 505);
 const out = path.resolve(process.argv[3]);
 
 const LOGO = { left: 80, top: 290, width: 200 };
@@ -16,20 +17,22 @@ const subtitle = 'які я більше не роблю';
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face { font-family: C; src: url('fonts/Cormorant.ttf'); font-weight: 300 700; }
 @font-face { font-family: I; src: url('fonts/Inter-Regular.otf'); }
+@font-face { font-family: O; src: url('fonts/oranienbaum-cyrillic-400-normal.woff2'); }
+@font-face { font-family: O; src: url('fonts/oranienbaum-latin-400-normal.woff2'); }
 * { margin: 0; box-sizing: border-box; }
 body { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #0a0a0a; }
 .bg { position: absolute; inset: 0; width: 1080px; height: 1920px; }
 /* притемнення під логотипом */
 .shade { position: absolute; left: 0; right: 0; top: 0; height: ${shadeEnd}px;
-  background: linear-gradient(#0a0a0a 0px, #0a0a0a 505px, rgba(10,10,10,.6) ${505 + (shadeEnd - 505) * 0.45}px, rgba(10,10,10,0) ${shadeEnd}px); }
+  background: linear-gradient(#0a0a0a 0px, #0a0a0a ${solidEnd}px, rgba(10,10,10,.6) ${solidEnd + (shadeEnd - solidEnd) * 0.45}px, rgba(10,10,10,0) ${shadeEnd}px); }
 .logo { position: absolute; left: ${LOGO.left}px; top: ${LOGO.top}px; width: ${LOGO.width}px; }
 .t { position: absolute; left: 80px; right: 200px; top: ${textTop}px; color: #fff; font-family: C, serif; font-variant-numeric: lining-nums; }
-h1 { font-size: 150px; font-weight: 500; line-height: 1; letter-spacing: 3px; text-transform: uppercase; }
+h1 { font-family: O, serif; font-size: 190px; font-weight: 400; line-height: 0.95; letter-spacing: 1px; text-transform: uppercase; }
 .acc { color: #c9a45c; }
-.rule { position: relative; width: 420px; height: 14px; margin: 42px 0 36px; }
+.rule { position: relative; width: 420px; height: 14px; margin: 36px 0 30px; }
 .rule::before { content: ''; position: absolute; left: 0; right: 0; top: 6.5px; height: 1px; background: #c9a45c; }
 .rule i { position: absolute; left: 50%; top: 0; width: 14px; height: 14px; margin-left: -7px; background: #c9a45c; transform: rotate(45deg) scale(.7); box-shadow: 0 0 0 6px #0a0a0a; }
-.sub { font-family: I, sans-serif; font-size: 34px; letter-spacing: 7px; text-transform: uppercase; color: #e9e4dc; }
+.sub { font-family: I, sans-serif; font-size: 30px; letter-spacing: 8px; text-transform: uppercase; color: #e9e4dc; }
 </style></head><body>
 <img class="bg" src="file://${bg}">
 <div class="shade"></div>
