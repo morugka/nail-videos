@@ -112,7 +112,7 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
 }
 .cover .content { justify-content: flex-start; padding-top: 120px; z-index: 1; }
 .cover .sub { font-size: 38px; line-height: 1.4; font-weight: 300; color: var(--ink); }
-.cover-nail { position: absolute; right: 70px; bottom: 120px; width: 300px; opacity: 0.85; }
+.cover-illus { position: absolute; right: 50px; bottom: 120px; width: 470px; }
 
 /* Вступ */
 .dots { list-style: none; margin-top: 56px; }
@@ -123,7 +123,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   position: relative;
 }
 .dots li:last-child { border-bottom: 1px solid rgba(201, 164, 106, 0.2); }
-.dots li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; font-size: 22px; top: 34px; }
+.dots li { padding-left: 76px !important; }
+.dots .ico { position: absolute; left: 0; top: 22px; width: 48px; height: 48px; }
 .hint { margin-top: 48px; font-family: 'Cormorant', serif; font-style: italic; font-size: 44px; color: var(--gold-hi); }
 
 /* Причина */
@@ -138,8 +139,11 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
 .tag i { font-style: normal; margin: 0 10px; }
 .reason .content { justify-content: flex-start; padding-top: 70px; }
 .reason h2 { font-size: 84px; }
-.bottom { margin-top: auto; margin-bottom: 70px; display: flex; align-items: center; gap: 56px; }
-.nail { width: 250px; flex: none; }
+.bottom { margin-top: auto; margin-bottom: 60px; display: flex; align-items: flex-end; gap: 36px; }
+.bottom .illus { width: 500px; flex: none; }
+.side { display: flex; flex-direction: column; gap: 28px; }
+.nail { width: 120px; flex: none; }
+.sign { font-size: 29px !important; }
 .finger { fill: #1a1612; stroke: #4a4036; stroke-width: 2; }
 .edge { fill: none; stroke: #8a7350; stroke-width: 2.5; }
 .hl { fill: var(--gold); opacity: 0.55; }
@@ -209,6 +213,27 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   color: var(--muted);
 }
 .foot i { display: none; }
+
+/* Ілюстрації */
+.illus { overflow: visible; }
+.il-skin { fill: #17130f; stroke: var(--gold); stroke-width: 2.4; stroke-linejoin: round; }
+.il-nail { fill: url(#none); fill: rgba(201, 164, 106, 0.28); stroke: var(--gold-hi); stroke-width: 2.2; }
+.il-thin { fill: none; stroke: rgba(201, 164, 106, 0.55); stroke-width: 1.6; stroke-linecap: round; }
+.il-accent { fill: none; stroke: var(--gold-hi); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.il-dot { fill: var(--gold-hi); }
+.il-tool { fill: #120f0c; stroke: var(--gold); stroke-width: 2.2; stroke-linejoin: round; }
+.il-key { fill: #17130f; stroke: rgba(201, 164, 106, 0.6); stroke-width: 1.6; }
+.il-plate { fill: #120f0c; stroke: var(--gold); stroke-width: 2.2; }
+.il-sponge { fill: rgba(201, 164, 106, 0.18); stroke: var(--gold); stroke-width: 2.2; }
+.il-pill { fill: rgba(201, 164, 106, 0.3); stroke: var(--gold-hi); stroke-width: 1.8; }
+.il-water { fill: none; stroke: #d9c9a8; stroke-width: 2; opacity: 0.7; }
+.il-drop { fill: rgba(217, 201, 168, 0.25); stroke: #d9c9a8; stroke-width: 1.6; }
+.il-bubble { fill: none; stroke: #d9c9a8; stroke-width: 1.6; opacity: 0.75; }
+.il-spark { fill: var(--gold-hi); opacity: 0.9; }
+.il-lens { fill: rgba(201, 164, 106, 0.06); stroke: var(--gold-hi); stroke-width: 4; }
+.il-handle { stroke: var(--gold); stroke-width: 16; stroke-linecap: round; }
+.method-head { display: flex; justify-content: space-between; align-items: center; }
+.method-head .illus { width: 340px; margin-right: -30px; }
 </style></head><body>
 <section class="slide cover" id="s0">
   
@@ -223,20 +248,44 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
       <div class="orn"><span></span><i>✦</i><span></span></div>
       <p class="sub">і хто насправді винен:<br>майстер, ви чи організм</p>
     </div>
-    <div class="cover-nail">
-<svg viewBox="-10 0 220 340" class="nail">
-  <defs>
-    <clipPath id="c-cuticle"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
-    <linearGradient id="g-cuticle" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a241d"/><stop offset="1" stop-color="#15120f"/>
-    </linearGradient>
-  </defs>
-  <path d="M30,150 Q30,96 100,92 Q170,96 170,150 L176,340 L24,340 Z" class="finger"/>
-  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" fill="url(#g-cuticle)"/>
-  <g clip-path="url(#c-cuticle)"><rect x="40" y="214" width="120" height="80" class="hl"/></g>
-  <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
-  
-</svg></div></div>
+    <div class="cover-illus"><svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(220,210) scale(0.92)">
+    <g transform="translate(-84,130) rotate(-38)">
+    <path d="M-25,0 L-25,-115 A25,25 0 0 1 25,-115 L25,0" class="il-skin"/>
+    <path d="M-17.5,-77.2 L-17.5,-118.5 Q-17.5,-136 0,-136 Q17.5,-136 17.5,-118.5 L17.5,-77.2 Q0,-69.5 -17.5,-77.2 Z" class="il-nail"/>
+    <path d="M-11.25,-44.800000000000004 q11.25,4.5 22.5,0" class="il-thin"/>
+    
+  </g>
+    <path d="M-92,30 Q-104,140 -70,230 L70,230 Q104,140 96,30 Z" class="il-skin"/>
+    <g transform="translate(-66,40) rotate(-8)">
+    <path d="M-20,0 L-20,-130 A20,20 0 0 1 20,-130 L20,0" class="il-skin"/>
+    <path d="M-14,-96.80000000000001 L-14,-132.8 Q-14,-146.8 0,-146.8 Q14,-146.8 14,-132.8 L14,-96.80000000000001 Q0,-90.64000000000001 -14,-96.80000000000001 Z" class="il-nail"/>
+    <path d="M-9,-48 q9,3.5999999999999996 18,0" class="il-thin"/>
+    
+  </g>
+    <g transform="translate(-24,34) rotate(-3)">
+    <path d="M-22,0 L-22,-183 A22,22 0 0 1 22,-183 L22,0" class="il-skin"/>
+    <path d="M-15.399999999999999,-146.48 L-15.399999999999999,-186.07999999999998 Q-15.399999999999999,-201.48 0,-201.48 Q15.399999999999999,-201.48 15.399999999999999,-186.07999999999998 L15.399999999999999,-146.48 Q0,-139.70399999999998 -15.399999999999999,-146.48 Z" class="il-nail"/>
+    <path d="M-9.9,-65.6 q9.9,3.96 19.8,0" class="il-thin"/>
+    
+  </g>
+    <g transform="translate(22,34) rotate(2)">
+    <path d="M-22.5,0 L-22.5,-197.5 A22.5,22.5 0 0 1 22.5,-197.5 L22.5,0" class="il-skin"/>
+    <path d="M-15.749999999999998,-160.15 L-15.749999999999998,-200.65 Q-15.749999999999998,-216.4 0,-216.4 Q15.749999999999998,-216.4 15.749999999999998,-200.65 L15.749999999999998,-160.15 Q0,-153.22 -15.749999999999998,-160.15 Z" class="il-nail"/>
+    <path d="M-10.125,-70.4 q10.125,4.05 20.25,0" class="il-thin"/>
+    <path d="M-19.75,-166.15 Q0,-139.22 19.75,-166.15" class="il-accent"/><circle cx="31.75" cy="-156.15" r="3" class="il-dot"/>
+  </g>
+    <g transform="translate(66,42) rotate(7)">
+    <path d="M-21.5,0 L-21.5,-168.5 A21.5,21.5 0 0 1 21.5,-168.5 L21.5,0" class="il-skin"/>
+    <path d="M-15.049999999999999,-132.81 L-15.049999999999999,-171.51 Q-15.049999999999999,-186.56 0,-186.56 Q15.049999999999999,-186.56 15.049999999999999,-171.51 L15.049999999999999,-132.81 Q0,-126.188 -15.049999999999999,-132.81 Z" class="il-nail"/>
+    <path d="M-9.675,-60.800000000000004 q9.675,3.8699999999999997 19.35,0" class="il-thin"/>
+    
+  </g>
+    <path d="M-60,200 q60,18 120,0" class="il-thin"/>
+  </g>
+    <circle cx="246" cy="98" r="78" class="il-lens"/>
+    <path d="M300,152 L360,214" class="il-handle"/>
+    <path d="M360,54.599999999999994 Q362.2,67.8 375.4,70 Q362.2,72.2 360,85.4 Q357.8,72.2 344.6,70 Q357.8,67.8 360,54.599999999999994 Z" class="il-spark"/><path d="M110,110.2 Q111.4,118.6 119.8,120 Q111.4,121.4 110,129.8 Q108.6,121.4 100.2,120 Q108.6,118.6 110,110.2 Z" class="il-spark"/></svg></div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
 </section>
@@ -250,7 +299,7 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <h2>Це не «просто<br>такі нігті»</h2>
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">У відшарування завжди є причина. І її видно по тому, <b>де саме</b> відходить покриття.</p>
-    <ul class="dots"><li>3 причини — на боці майстра</li><li>2 причини — на вашому боці</li><li>1 причина — в організмі</li></ul>
+    <ul class="dots"><li><svg viewBox="0 0 48 48" class="ico"><rect x="6" y="20" width="36" height="8" rx="4" transform="rotate(-35 24 24)" class="il-tool"/></svg>3 причини — на боці майстра</li><li><svg viewBox="0 0 48 48" class="ico"><path d="M24,8 q-14,21 0,30.799999999999997 q14,-9.799999999999999 0,-30.799999999999997 Z" class="il-drop"/></svg>2 причини — на вашому боці</li><li><svg viewBox="0 0 48 48" class="ico"><rect x="6" y="16" width="36" height="16" rx="8" class="il-tool"/><path d="M24,16 V32" class="il-thin"/></svg>1 причина — в організмі</li></ul>
     <p class="hint">Перевірте, що з цього — про вас</p></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -267,7 +316,21 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Тонка плівка шкіри (птеригій) лишилася на пластині. Покриття лягає на шкіру, а шкіра його не тримає.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(220,470) rotate(0)">
+    <path d="M-100,0 L-100,-300 A100,100 0 0 1 100,-300 L100,0" class="il-skin"/>
+    <path d="M-70,-216 L-70,-314 Q-70,-384 0,-384 Q70,-384 70,-314 L70,-216 Q0,-185.2 -70,-216 Z" class="il-nail"/>
+    <path d="M-45,-128 q45,18 90,0" class="il-thin"/>
+    <path d="M-74,-222 Q0,-171.2 74,-222" class="il-accent"/><circle cx="86" cy="-212" r="3" class="il-dot"/>
+  </g>
+    <g transform="translate(400,40) rotate(38)">
+      <rect x="-9" y="0" width="18" height="300" rx="9" class="il-tool"/>
+      <path d="M-9,300 Q0,338 9,300" class="il-tool"/>
+      <path d="M-6,60 h12 M-6,74 h12 M-6,88 h12" class="il-thin"/>
+    </g>
+    <circle cx="290" cy="228" r="5" class="il-bubble"/><circle cx="302" cy="212" r="3" class="il-bubble"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-cuticle"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -281,7 +344,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   
 </svg>
-      <div class="sign"><b>Як впізнати</b>покриття піднімається біля кутикули, під ним видно край або «бульбашку».</div>
+        <div class="sign"><b>Як впізнати</b>покриття піднімається біля кутикули, під ним видно край або «бульбашку».</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -298,7 +362,19 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Вільний край нігтя не покрили матеріалом. Вода й мийні засоби заходять під покриття з кінчика.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40,40 H200 Q236,40 236,76 V96" class="il-tool"/>
+    <rect x="216" y="96" width="40" height="22" rx="4" class="il-tool"/>
+    <path d="M226,124 Q222,180 230,236 M246,124 Q250,180 242,236" class="il-water"/>
+    <g transform="translate(240,470) rotate(0)">
+    <path d="M-85,0 L-85,-215 A85,85 0 0 1 85,-215 L85,0" class="il-skin"/>
+    <path d="M-59.49999999999999,-160.39999999999998 L-59.49999999999999,-226.89999999999998 Q-59.49999999999999,-286.4 0,-286.4 Q59.49999999999999,-286.4 59.49999999999999,-226.89999999999998 L59.49999999999999,-160.39999999999998 Q0,-134.21999999999997 -59.49999999999999,-160.39999999999998 Z" class="il-nail"/>
+    <path d="M-38.25,-96 q38.25,15.299999999999999 76.5,0" class="il-thin"/>
+    <path d="M-29.749999999999996,-283.4 l6,10 l7,-7 l6,9" class="il-accent"/>
+  </g>
+    <path d="M180,240 q-10,15 0,22 q10,-7 0,-22 Z" class="il-drop"/><path d="M310,262 q-8,12 0,17.6 q8,-5.6000000000000005 0,-17.6 Z" class="il-drop"/><path d="M150,310 q-7,10.5 0,15.399999999999999 q7,-4.8999999999999995 0,-15.399999999999999 Z" class="il-drop"/><path d="M330,330 q-6,9 0,13.2 q6,-4.2 0,-13.2 Z" class="il-drop"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-tip"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -312,7 +388,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   
 </svg>
-      <div class="sign"><b>Як впізнати</b>сколи й відшарування починаються з краю нігтя.</div>
+        <div class="sign"><b>Як впізнати</b>сколи й відшарування починаються з краю нігтя.</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -329,7 +406,19 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Тонким і гнучким нігтям потрібні укріплення й правильна архітектура. Ніготь гнеться, а жорстке покриття — ні.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20,330 L460,330 L470,420 L10,420 Z" class="il-tool"/>
+    <rect x="40" y="346" width="66" height="54" rx="8" class="il-key"/><rect x="120" y="346" width="66" height="54" rx="8" class="il-key"/><rect x="200" y="346" width="66" height="54" rx="8" class="il-key"/><rect x="280" y="346" width="66" height="54" rx="8" class="il-key"/><rect x="360" y="346" width="66" height="54" rx="8" class="il-key"/>
+    <g transform="translate(250,60) rotate(172)">
+    <path d="M-60,0 L-60,-220 A60,60 0 0 1 60,-220 L60,0" class="il-skin"/>
+    <path d="M-42,-152.79999999999998 L-42,-228.39999999999998 Q-42,-270.4 0,-270.4 Q42,-270.4 42,-228.39999999999998 L42,-152.79999999999998 Q0,-134.32 -42,-152.79999999999998 Z" class="il-nail"/>
+    <path d="M-27,-89.60000000000001 q27,10.799999999999999 54,0" class="il-thin"/>
+    <path d="M-4.2,-240.99999999999997 l10.08,23.52 l-11.760000000000002,18.816 l8.4,23.52" class="il-accent"/>
+  </g>
+    <path d="M178,318 q-18,-20 -10,-46 M322,318 q18,-20 10,-46" class="il-accent"/>
+    <path d="M410,78.8 Q411.6,88.4 421.2,90 Q411.6,91.6 410,101.2 Q408.4,91.6 398.8,90 Q408.4,88.4 410,78.8 Z" class="il-spark"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-sides"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -343,7 +432,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   
 </svg>
-      <div class="sign"><b>Як впізнати</b>тріщина посередині або відшарування по боках.</div>
+        <div class="sign"><b>Як впізнати</b>тріщина посередині або відшарування по боках.</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -360,7 +450,36 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Посуд, прибирання, засоби з хлором. Пластина вбирає воду, розширюється, і покриття втрачає зчеплення.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <path d="M60,30 H250 Q290,30 290,70 V86" class="il-tool"/>
+    <rect x="268" y="86" width="44" height="22" rx="4" class="il-tool"/>
+    <path d="M282,112 Q278,160 286,206 M300,112 Q304,160 296,206" class="il-water"/>
+    <ellipse cx="270" cy="300" rx="190" ry="60" class="il-plate"/>
+    <ellipse cx="270" cy="300" rx="110" ry="32" class="il-thin"/>
+    <path d="M-20,262 Q50,256 82,284 L92,404 Q40,432 -20,424 Z" class="il-skin"/>
+    <g transform="translate(60,300) rotate(78)">
+    <path d="M-22,0 L-22,-128 A22,22 0 0 1 22,-128 L22,0" class="il-skin"/>
+    <path d="M-15.399999999999999,-91.47999999999999 L-15.399999999999999,-131.07999999999998 Q-15.399999999999999,-146.48 0,-146.48 Q15.399999999999999,-146.48 15.399999999999999,-131.07999999999998 L15.399999999999999,-91.47999999999999 Q0,-84.704 -15.399999999999999,-91.47999999999999 Z" class="il-nail"/>
+    <path d="M-9.9,-48 q9.9,3.96 19.8,0" class="il-thin"/>
+    
+  </g>
+    <g transform="translate(70,340) rotate(84)">
+    <path d="M-22,0 L-22,-128 A22,22 0 0 1 22,-128 L22,0" class="il-skin"/>
+    <path d="M-15.399999999999999,-91.47999999999999 L-15.399999999999999,-131.07999999999998 Q-15.399999999999999,-146.48 0,-146.48 Q15.399999999999999,-146.48 15.399999999999999,-131.07999999999998 L15.399999999999999,-91.47999999999999 Q0,-84.704 -15.399999999999999,-91.47999999999999 Z" class="il-nail"/>
+    <path d="M-9.9,-48 q9.9,3.96 19.8,0" class="il-thin"/>
+    
+  </g>
+    <g transform="translate(80,380) rotate(90)">
+    <path d="M-21,0 L-21,-119 A21,21 0 0 1 21,-119 L21,0" class="il-skin"/>
+    <path d="M-14.7,-84.13999999999999 L-14.7,-121.93999999999998 Q-14.7,-136.64 0,-136.64 Q14.7,-136.64 14.7,-121.93999999999998 L14.7,-84.13999999999999 Q0,-77.67199999999998 -14.7,-84.13999999999999 Z" class="il-nail"/>
+    <path d="M-9.450000000000001,-44.800000000000004 q9.450000000000001,3.78 18.900000000000002,0" class="il-thin"/>
+    
+  </g>
+    <rect x="330" y="214" width="96" height="58" rx="14" class="il-sponge"/>
+    <circle cx="360" cy="196" r="12" class="il-bubble"/><circle cx="392" cy="182" r="8" class="il-bubble"/><circle cx="420" cy="200" r="14" class="il-bubble"/><circle cx="246" cy="236" r="7" class="il-bubble"/><circle cx="214" cy="252" r="10" class="il-bubble"/>
+    <path d="M330,120 q-7,10.5 0,15.399999999999999 q7,-4.8999999999999995 0,-15.399999999999999 Z" class="il-drop"/><path d="M244,150 q-6,9 0,13.2 q6,-4.2 0,-13.2 Z" class="il-drop"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-water"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -374,7 +493,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   <path d="M20,70 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M190,120 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M16,190 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/><path d="M186,230 q-9,14 0,20 q9,-6 0,-20 Z" class="drop"/>
 </svg>
-      <div class="sign"><b>Як впізнати</b>відходить на кількох нігтях одразу, частіше на робочій руці.</div>
+        <div class="sign"><b>Як впізнати</b>відходить на кількох нігтях одразу, частіше на робочій руці.</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -391,7 +511,22 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Відкрити банку, підчепити наклейку, зняти кришку. Один такий рух — і мікротріщина, з якої все починається.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <path d="M70,150 V430 M330,150 V430" class="il-tool"/>
+    <ellipse cx="200" cy="150" rx="130" ry="36" class="il-tool"/>
+    <ellipse cx="200" cy="150" rx="112" ry="28" class="il-thin"/>
+    <path d="M160,148 Q200,120 240,140 Q250,152 236,160 Q200,170 166,160 Z" class="il-tool"/>
+    <circle cx="186" cy="150" r="8" class="il-thin"/>
+    <g transform="translate(470,120) rotate(-78)">
+    <path d="M-29,0 L-29,-221 A29,29 0 0 1 29,-221 L29,0" class="il-skin"/>
+    <path d="M-20.299999999999997,-172.86 L-20.299999999999997,-225.06 Q-20.299999999999997,-245.36 0,-245.36 Q20.299999999999997,-245.36 20.299999999999997,-225.06 L20.299999999999997,-172.86 Q0,-163.92800000000003 -20.299999999999997,-172.86 Z" class="il-nail"/>
+    <path d="M-13.05,-80 q13.05,5.22 26.1,0" class="il-thin"/>
+    <path d="M-10.149999999999999,-242.36 l6,10 l7,-7 l6,9" class="il-accent"/>
+  </g>
+    <path d="M224,90 Q226,102 238,104 Q226,106 224,118 Q222,106 210,104 Q222,102 224,90 Z" class="il-spark"/>
+    <path d="M120,250 h160 M120,290 h160" class="il-thin"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-crack"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -405,7 +540,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   
 </svg>
-      <div class="sign"><b>Як впізнати</b>проблема на 1–2 нігтях, найчастіше на великому та вказівному.</div>
+        <div class="sign"><b>Як впізнати</b>проблема на 1–2 нігтях, найчастіше на великому та вказівному.</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -422,7 +558,18 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Вагітність, антибіотики, гормональні препарати, різка зміна ваги чи сильний стрес змінюють нігтьову пластину.</p>
     <div class="bottom">
-      
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(60,140) rotate(-8)">
+      <rect width="230" height="150" rx="16" class="il-tool"/>
+      <ellipse cx="46" cy="44" rx="24" ry="17" class="il-pill"/><ellipse cx="46" cy="106" rx="24" ry="17" class="il-pill"/><ellipse cx="116" cy="44" rx="24" ry="17" class="il-pill"/><ellipse cx="116" cy="106" rx="24" ry="17" class="il-pill"/><ellipse cx="186" cy="44" rx="24" ry="17" class="il-pill"/><ellipse cx="186" cy="106" rx="24" ry="17" class="il-pill"/>
+    </g>
+    <path d="M330,180 L346,410 H426 L442,180 Z" class="il-tool"/>
+    <path d="M336,250 L436,250" class="il-water"/>
+    <path d="M386,300 q-7,10.5 0,15.399999999999999 q7,-4.8999999999999995 0,-15.399999999999999 Z" class="il-drop"/>
+    <path d="M160,40 a46,46 0 1 0 46,64 a36,36 0 1 1 -46,-64 Z" class="il-spark"/>
+    <path d="M260,51.6 Q261.2,58.8 268.4,60 Q261.2,61.2 260,68.4 Q258.8,61.2 251.6,60 Q258.8,58.8 260,51.6 Z" class="il-spark"/><path d="M90,83 Q91,89 97,90 Q91,91 90,97 Q89,91 83,90 Q89,89 90,83 Z" class="il-spark"/></svg>
+      <div class="side">
+        
 <svg viewBox="-10 0 220 340" class="nail">
   <defs>
     <clipPath id="c-whole"><path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z"/></clipPath>
@@ -436,7 +583,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <path d="M52,262 L52,118 Q52,22 100,12 Q148,22 148,118 L148,262 Q100,284 52,262 Z" class="edge"/>
   
 </svg>
-      <div class="sign"><b>Як впізнати</b>у того самого майстра роками все трималося — і раптом почало відходити.</div>
+        <div class="sign"><b>Як впізнати</b>у того самого майстра роками все трималося — і раптом почало відходити.</div>
+      </div>
     </div></div>
   <div class="swipe">гортай <span>⟶</span></div>
   <div class="handle">@moruga_nailart</div>
@@ -448,8 +596,21 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   <div class="pg">09 / 10</div>
 </div>
   <div class="content">
-    <div class="kicker">Не магія.</div>
-    <h2 class="big">Техніка.</h2>
+    <div class="method-head">
+      <div><div class="kicker">Не магія.</div><h2 class="big">Техніка.</h2></div>
+      <svg viewBox="0 0 480 440" class="illus" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(190,460) rotate(0)">
+    <path d="M-80,0 L-80,-250 A80,80 0 0 1 80,-250 L80,0" class="il-skin"/>
+    <path d="M-56,-178.6 L-56,-261.2 Q-56,-317.2 0,-317.2 Q56,-317.2 56,-261.2 L56,-178.6 Q0,-153.95999999999998 -56,-178.6 Z" class="il-nail"/>
+    <path d="M-36,-105.60000000000001 q36,14.399999999999999 72,0" class="il-thin"/>
+    
+  </g>
+    <g transform="translate(70,90) rotate(-20)">
+      <rect width="360" height="34" rx="17" class="il-tool"/>
+      <path d="M30,17 H330" class="il-thin"/>
+    </g>
+    <path d="M350,176 Q352,188 364,190 Q352,192 350,204 Q348,192 336,190 Q348,188 350,176 Z" class="il-spark"/><path d="M80,251.6 Q81.2,258.8 88.4,260 Q81.2,261.2 80,268.4 Q78.8,261.2 71.6,260 Q78.8,258.8 80,251.6 Z" class="il-spark"/></svg>
+    </div>
     <div class="orn"><span></span><i>✦</i><span></span></div>
     <p class="body">Що я роблю, щоб манікюр доживав до корекції:</p>
     <ol class="steps"><li><span>01</span>Чиста підготовка — без жодного залишку кутикули</li><li><span>02</span>База під ваш тип нігтів, а не «одна на всіх»</li><li><span>03</span>Вирівнювання й архітектура для тонких нігтів</li><li><span>04</span>Запечатаний торець на кожному нігті</li></ol>

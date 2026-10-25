@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { chromium } = require('playwright');
 const { handle, slides } = require('./slides');
+const illus = require('./illus');
 
 const W = 1080;
 const H = 1350;
@@ -64,12 +65,12 @@ const render = {
       ${ornament}
       <p class="sub">${s.sub}</p>
     </div>
-    <div class="cover-nail">${nailSvg('cuticle')}</div>`,
+    <div class="cover-illus">${illus('cover')}</div>`,
   intro: (s) => `
     <h2>${s.title}</h2>
     ${ornament}
     <p class="body">${s.body}</p>
-    <ul class="dots">${s.list.map((l) => `<li>${l}</li>`).join('')}</ul>
+    <ul class="dots">${s.list.map((l, i) => `<li>${illus.icons[['master', 'you', 'body'][i]]}${l}</li>`).join('')}</ul>
     <p class="hint">Перевірте, що з цього — про вас</p>`,
   reason: (s) => `
     <div class="tag">Причина ${s.n} <i>·</i> ${s.who}</div>
@@ -77,12 +78,17 @@ const render = {
     ${ornament}
     <p class="body">${s.body}</p>
     <div class="bottom">
-      ${nailSvg(s.zone)}
-      <div class="sign"><b>Як впізнати</b>${s.sign}</div>
+      ${illus(s.zone)}
+      <div class="side">
+        ${nailSvg(s.zone)}
+        <div class="sign"><b>Як впізнати</b>${s.sign}</div>
+      </div>
     </div>`,
   method: (s) => `
-    <div class="kicker">${s.kicker}</div>
-    <h2 class="big">${s.title}</h2>
+    <div class="method-head">
+      <div><div class="kicker">${s.kicker}</div><h2 class="big">${s.title}</h2></div>
+      ${illus('method')}
+    </div>
     ${ornament}
     <p class="body">${s.lead}</p>
     <ol class="steps">${s.list.map((l, i) => `<li><span>0${i + 1}</span>${l}</li>`).join('')}</ol>

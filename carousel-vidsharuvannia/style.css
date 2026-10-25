@@ -112,7 +112,7 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
 }
 .cover .content { justify-content: flex-start; padding-top: 120px; z-index: 1; }
 .cover .sub { font-size: 38px; line-height: 1.4; font-weight: 300; color: var(--ink); }
-.cover-nail { position: absolute; right: 70px; bottom: 120px; width: 300px; opacity: 0.85; }
+.cover-illus { position: absolute; right: 50px; bottom: 120px; width: 470px; }
 
 /* Вступ */
 .dots { list-style: none; margin-top: 56px; }
@@ -123,7 +123,8 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   position: relative;
 }
 .dots li:last-child { border-bottom: 1px solid rgba(201, 164, 106, 0.2); }
-.dots li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; font-size: 22px; top: 34px; }
+.dots li { padding-left: 76px !important; }
+.dots .ico { position: absolute; left: 0; top: 22px; width: 48px; height: 48px; }
 .hint { margin-top: 48px; font-family: 'Cormorant', serif; font-style: italic; font-size: 44px; color: var(--gold-hi); }
 
 /* Причина */
@@ -138,8 +139,11 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
 .tag i { font-style: normal; margin: 0 10px; }
 .reason .content { justify-content: flex-start; padding-top: 70px; }
 .reason h2 { font-size: 84px; }
-.bottom { margin-top: auto; margin-bottom: 70px; display: flex; align-items: center; gap: 56px; }
-.nail { width: 250px; flex: none; }
+.bottom { margin-top: auto; margin-bottom: 60px; display: flex; align-items: flex-end; gap: 36px; }
+.bottom .illus { width: 500px; flex: none; }
+.side { display: flex; flex-direction: column; gap: 28px; }
+.nail { width: 120px; flex: none; }
+.sign { font-size: 29px !important; }
 .finger { fill: #1a1612; stroke: #4a4036; stroke-width: 2; }
 .edge { fill: none; stroke: #8a7350; stroke-width: 2.5; }
 .hl { fill: var(--gold); opacity: 0.55; }
@@ -209,3 +213,24 @@ h1 em, h2 em { font-style: normal; color: var(--gold); }
   color: var(--muted);
 }
 .foot i { display: none; }
+
+/* Ілюстрації */
+.illus { overflow: visible; }
+.il-skin { fill: #17130f; stroke: var(--gold); stroke-width: 2.4; stroke-linejoin: round; }
+.il-nail { fill: url(#none); fill: rgba(201, 164, 106, 0.28); stroke: var(--gold-hi); stroke-width: 2.2; }
+.il-thin { fill: none; stroke: rgba(201, 164, 106, 0.55); stroke-width: 1.6; stroke-linecap: round; }
+.il-accent { fill: none; stroke: var(--gold-hi); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+.il-dot { fill: var(--gold-hi); }
+.il-tool { fill: #120f0c; stroke: var(--gold); stroke-width: 2.2; stroke-linejoin: round; }
+.il-key { fill: #17130f; stroke: rgba(201, 164, 106, 0.6); stroke-width: 1.6; }
+.il-plate { fill: #120f0c; stroke: var(--gold); stroke-width: 2.2; }
+.il-sponge { fill: rgba(201, 164, 106, 0.18); stroke: var(--gold); stroke-width: 2.2; }
+.il-pill { fill: rgba(201, 164, 106, 0.3); stroke: var(--gold-hi); stroke-width: 1.8; }
+.il-water { fill: none; stroke: #d9c9a8; stroke-width: 2; opacity: 0.7; }
+.il-drop { fill: rgba(217, 201, 168, 0.25); stroke: #d9c9a8; stroke-width: 1.6; }
+.il-bubble { fill: none; stroke: #d9c9a8; stroke-width: 1.6; opacity: 0.75; }
+.il-spark { fill: var(--gold-hi); opacity: 0.9; }
+.il-lens { fill: rgba(201, 164, 106, 0.06); stroke: var(--gold-hi); stroke-width: 4; }
+.il-handle { stroke: var(--gold); stroke-width: 16; stroke-linecap: round; }
+.method-head { display: flex; justify-content: space-between; align-items: center; }
+.method-head .illus { width: 340px; margin-right: -30px; }
