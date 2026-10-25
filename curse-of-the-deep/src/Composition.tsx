@@ -77,48 +77,35 @@ const GoldDivider: React.FC<{ width: number; progress: number }> = ({
 type ShotProps = {
   from: number; // seconds into the source clip
   playbackRate?: number;
-  zoomFrom: number;
-  zoomTo: number;
-  originX: number; // % of frame the zoom heads towards
-  originY: number;
-  driftX?: number; // px pan over the shot
-  driftY?: number;
+  // Optional push-in on one detail: starts at `at` (0..1 of the shot), ends at scale `to`
+  detail?: { at: number; to: number; x: number; y: number };
 };
 
-const Shot: React.FC<ShotProps> = ({
-  from,
-  playbackRate = 1,
-  zoomFrom,
-  zoomTo,
-  originX,
-  originY,
-  driftX = 0,
-  driftY = 0,
-}) => {
+const Shot: React.FC<ShotProps> = ({ from, playbackRate = 1, detail }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const p = interpolate(frame, [0, durationInFrames], [0, 1], {
     extrapolateRight: "clamp",
-    easing: ease,
   });
-  // short punch-in on every cut keeps the rhythm
-  const punch = interpolate(frame, [0, 6], [1.07, 1], {
-    extrapolateRight: "clamp",
-    easing: Easing.out(Easing.cubic),
-  });
-  const flash = interpolate(frame, [0, 4], [0.35, 0], {
+  const flash = interpolate(frame, [0, 4], [0.18, 0], {
     extrapolateRight: "clamp",
   });
-  const scale = interpolate(p, [0, 1], [zoomFrom, zoomTo]) * punch;
+  // whole frame stays visible; just a barely noticeable drift so the shot feels alive
+  let scale = interpolate(p, [0, 1], [1, 1.03]);
+  let origin = "50% 50%";
+  if (detail) {
+    const d = interpolate(p, [detail.at, Math.min(1, detail.at + 0.35)], [0, 1], {
+      extrapolateLeft: "clamp",
+      extrapolateRight: "clamp",
+      easing: ease,
+    });
+    scale *= interpolate(d, [0, 1], [1, detail.to]);
+    origin = `${detail.x}% ${detail.y}%`;
+  }
 
   return (
     <AbsoluteFill style={{ backgroundColor: "black", overflow: "hidden" }}>
-      <AbsoluteFill
-        style={{
-          transform: `translate(${driftX * p}px, ${driftY * p}px) scale(${scale})`,
-          transformOrigin: `${originX}% ${originY}%`,
-        }}
-      >
+      <AbsoluteFill style={{ transform: `scale(${scale})`, transformOrigin: origin }}>
         <Video
           src={CLIP}
           trimBefore={Math.round(from * FPS)}
@@ -130,7 +117,7 @@ const Shot: React.FC<ShotProps> = ({
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(ellipse 85% 70% at 50% 45%, transparent 55%, rgba(0,0,0,0.75) 100%)",
+            "radial-gradient(ellipse 90% 75% at 50% 45%, transparent 65%, rgba(0,0,0,0.3) 100%)",
         }}
       />
       <AbsoluteFill style={{ backgroundColor: GOLD, opacity: flash }} />
@@ -361,52 +348,33 @@ export const NailReel: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: "black" }}>
       <Series>
         <Series.Sequence name="Відкриття: дротяне плетіння" durationInFrames={66}>
-          <Shot from={0.6} zoomFrom={1.12} zoomTo={1.32} originX={45} originY={40} />
+          <Shot from={0.6} />
           <TitleCard subtitle="нейл-інсталяція" />
         </Series.Sequence>
         <Series.Sequence name="Гачок і риба" durationInFrames={60}>
-          <Shot from={3.2} zoomFrom={1.15} zoomTo={1.55} originX={50} originY={30} />
+          <Shot from={3.2} />
           <Caption text="Ручна робота" />
         </Series.Sequence>
         <Series.Sequence name="Довгі форми" durationInFrames={54}>
-          <Shot
-            from={6.1}
-            playbackRate={1.25}
-            zoomFrom={1.2}
-            zoomTo={1.3}
-            originX={45}
-            originY={35}
-            driftY={40}
-          />
+          <Shot from={6.1} playbackRate={1.25} />
         </Series.Sequence>
         <Series.Sequence name="Обертання" durationInFrames={60}>
-          <Shot from={9.0} zoomFrom={1.15} zoomTo={1.45} originX={40} originY={38} />
+          <Shot from={9.0} />
           <Caption text="Форма · Фактура" accent="Глибина." />
         </Series.Sequence>
         <Series.Sequence name="Макро: плетіння" durationInFrames={78}>
-          <Shot
-            from={12.1}
-            playbackRate={0.8}
-            zoomFrom={1.15}
-            zoomTo={1.6}
-            originX={55}
-            originY={45}
-            driftX={-30}
-          />
+          <Shot from={12.1} playbackRate={0.8} />
         </Series.Sequence>
         <Series.Sequence name="Макро: деталі" durationInFrames={84}>
           <Shot
             from={15.3}
             playbackRate={0.85}
-            zoomFrom={1.1}
-            zoomTo={1.75}
-            originX={58}
-            originY={42}
+            detail={{ at: 0.35, to: 1.35, x: 50, y: 70 }}
           />
           <Caption text="У кожній деталі" delay={10} />
         </Series.Sequence>
         <Series.Sequence name="Фінал" durationInFrames={60}>
-          <Shot from={17.1} playbackRate={0.5} zoomFrom={1.4} zoomTo={1.5} originX={55} originY={40} />
+          <Shot from={17.1} playbackRate={0.5} />
           <EndCard />
         </Series.Sequence>
       </Series>

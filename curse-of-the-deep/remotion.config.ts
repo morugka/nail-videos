@@ -9,7 +9,11 @@ const shellDir = "/opt/pw-browsers";
 if (existsSync(shellDir)) {
   const dir = readdirSync(shellDir).find((d) => d.startsWith("chromium_headless_shell"));
   if (dir) {
-    const sub = readdirSync(`${shellDir}/${dir}`)[0];
-    Config.setBrowserExecutable(`${shellDir}/${dir}/${sub}/chrome-headless-shell`);
+    const sub = readdirSync(`${shellDir}/${dir}`).find((d) =>
+      existsSync(`${shellDir}/${dir}/${d}/chrome-headless-shell`),
+    );
+    if (sub) {
+      Config.setBrowserExecutable(`${shellDir}/${dir}/${sub}/chrome-headless-shell`);
+    }
   }
 }
