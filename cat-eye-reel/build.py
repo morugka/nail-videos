@@ -75,8 +75,7 @@ def track(frames, cx, cy, w):
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 d = np.sqrt(((xx - 540) / 330) ** 2 + ((yy - 1130) / 560) ** 2)
 KEEP = np.clip((1.55 - d) / 0.9, 0, 1) ** 1.5
-_t = np.clip((yy - 600) / 260, 0, 1)
-TOP = 0.16 + 0.84 * _t * _t * (3 - 2 * _t)             # верх кадру майже чорний — там написи
+TOP = np.ones_like(yy)                                  # без окремого затемнення верху
 
 
 def grade(fr):
@@ -84,7 +83,7 @@ def grade(fr):
     mx, mn = f.max(2), f.min(2)
     sat = (mx - mn) / (mx + 1)
     satw = np.clip(sat / 0.35, 0, 1)
-    dim = 0.28 + 0.3 * satw                              # сірі рукавичка й стіна темнішають сильніше за шкіру
+    dim = 0.62 + 0.23 * satw                              # легке приглушення: сірі рукавичка й стіна трохи темніші
     m = KEEP + (1 - KEEP) * dim
     f *= (m * TOP)[..., None]
     f = 255 * (np.clip(f, 0, 255) / 255) ** 1.07         # трохи глибші тіні

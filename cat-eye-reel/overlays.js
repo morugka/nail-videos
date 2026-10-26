@@ -17,22 +17,24 @@ const overlays = {
   s2: `<div class="t" style="top:330px"><div class="lab"><b>02</b>Колір</div>${orn}</div>`,
   s3: `<div class="t" style="top:330px"><div class="lab"><b>03</b>Ефект</div>${orn}</div>`,
   cta: `<img class="logo" src="file://${path.join(__dirname, 'overlays/km-logo.png')}">
-        <div class="t" style="top:465px"><h1 style="font-size:96px">Хочете таке?</h1><div class="sub">Запис у директ</div>${orn}</div>`,
+        <div class="t" style="top:330px"><h1 style="font-size:104px">Хочете таке?</h1><div class="sub">Запис у директ</div>${orn}</div>`,
 };
 
 const html = (body) => `<!doctype html><html><head><meta charset="utf-8"><style>
 ${face(400)}${face(500)}
 * { margin: 0; box-sizing: border-box; }
 html, body { width: 1080px; height: 1920px; background: transparent; }
-.t { position: absolute; left: 80px; right: 120px; color: #fff; font-family: CG, serif; text-shadow: 0 2px 18px rgba(0,0,0,.55); }
+.t::before { content: ''; position: absolute; left: -120px; right: -60px; top: -70px; bottom: -70px; z-index: -1;
+  background: radial-gradient(closest-side, rgba(0,0,0,.5), rgba(0,0,0,.28) 55%, rgba(0,0,0,0)); }
+.t { position: absolute; left: 80px; right: 120px; color: #fff; font-family: CG, serif; text-shadow: 0 0 3px rgba(0,0,0,.6), 0 2px 22px rgba(0,0,0,.85), 0 0 46px rgba(0,0,0,.6); }
 h1 { font-weight: 500; font-size: 120px; line-height: .95; letter-spacing: 3px; text-transform: uppercase; }
-.sub { font-weight: 500; font-size: 56px; letter-spacing: 4px; text-transform: uppercase; color: #c9a45c; margin-top: 18px; }
+.sub { font-weight: 500; font-size: 56px; letter-spacing: 4px; text-transform: uppercase; color: #e2c07e; margin-top: 18px; }
 .lab { font-weight: 500; font-size: 84px; letter-spacing: 4px; text-transform: uppercase; line-height: 1; }
-.lab b { font-weight: 500; color: #c9a45c; margin-right: 26px; font-variant-numeric: lining-nums; }
+.lab b { font-weight: 500; color: #e2c07e; margin-right: 26px; font-variant-numeric: lining-nums; }
 .orn { display: flex; align-items: center; gap: 16px; margin-top: 26px; width: 380px; }
 .orn i { width: 14px; height: 14px; background: #c9a45c; transform: rotate(45deg) scale(.75); flex: none; }
 .orn span { flex: 1; height: 1.5px; background: linear-gradient(90deg, #c9a45c, rgba(201,164,92,0)); }
-.logo { position: absolute; left: 80px; top: 290px; width: 140px; }
+.logo { position: absolute; left: 80px; top: 90px; width: 170px; }
 </style></head><body>${body}</body></html>`;
 
 (async () => {
