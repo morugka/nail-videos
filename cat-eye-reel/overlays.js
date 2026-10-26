@@ -15,7 +15,8 @@ const overlays = {
   hook: `<div class="t" style="top:330px"><h1>Котяче око</h1><div class="sub">від бази до ефекту</div>${orn}</div>`,
   s1: `<div class="t" style="top:330px"><div class="lab"><b>01</b>База</div>${orn}</div>`,
   s2: `<div class="t" style="top:330px"><div class="lab"><b>02</b>Колір</div>${orn}</div>`,
-  s3: `<div class="t" style="top:330px"><div class="lab"><b>03</b>Ефект</div>${orn}</div>`,
+  s3: `<div class="t" style="top:330px"><div class="lab"><b>03</b>Магніт</div>${orn}</div>`,
+  s4: `<div class="t" style="top:330px"><div class="lab"><b>04</b>Ефект</div>${orn}</div>`,
   cta: `<img class="logo" src="file://${path.join(__dirname, 'overlays/km-logo.png')}">
         <div class="t" style="top:330px"><h1 style="font-size:104px">Хочете таке?</h1><div class="sub">Запис у директ</div>${orn}</div>`,
 };

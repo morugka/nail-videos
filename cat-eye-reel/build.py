@@ -20,7 +20,8 @@ SEGMENTS = [
     ('VID_20261009_125241_835_bsl.mp4', 0.0, 2.2, 1.0, (484, 757, 192), 'hook'),
     ('VID_20261007_195956.mp4', 5.5, 7.0, 1.0, (1057, 1472, 280), 's1'),
     ('VID_20261007_195956.mp4', 11.0, 17.0, 2.0, (1190, 1500, 293), 's2'),
-    ('VID_20261007_203932.mp4', 0.0, 6.5, 1.3, (984, 1300, 405), 's3'),
+    ('video_2026-10-26_12-54-31.mp4', 48.5, 56.5, 2.0, (420, 572, 110), 's3'),
+    ('VID_20261007_203932.mp4', 0.0, 6.5, 1.4, (984, 1300, 405), 's4'),
     ('VID_20261007_203932.mp4', 8.0, 11.0, 1.0, (1053, 1531, 306), 'cta'),
 ]
 
@@ -109,6 +110,9 @@ def main(out='out/cat-eye-reel.mp4'):
             M = np.float32([[k, 0, ANCHOR_OUT[0] - k * px], [0, k, ANCHOR_OUT[1] - k * py]])
             o = cv2.warpAffine(fr, M, (W, H), flags=cv2.INTER_AREA if k < 1 else cv2.INTER_CUBIC,
                                borderMode=cv2.BORDER_REPLICATE)
+            if k > 1.6:
+                blur = cv2.GaussianBlur(o, (0, 0), 2.2)
+                o = cv2.addWeighted(o, 1.6, blur, -0.6, 0)
             o = grade(o).astype(np.float32)
             # напис плавно з'являється за 6 кадрів і зникає за 4 до кінця шматка
             fade = min(1.0, i / 6, (n - 1 - i) / 4) if ov != 'cta' else min(1.0, i / 6)
