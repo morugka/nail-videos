@@ -20,8 +20,11 @@ SEGMENTS = [
     ('VID_20261009_125241_835_bsl.mp4', 0.0, 2.2, 1.0, (484, 757, 192), 'hook'),
     ('VID_20261007_195956.mp4', 5.5, 7.0, 1.0, (1057, 1472, 280), 's1'),
     ('VID_20261007_195956.mp4', 11.0, 17.0, 2.0, (1190, 1500, 293), 's2'),
-    ('video_2026-10-26_12-54-31.mp4', 48.5, 56.5, 2.0, (420, 572, 110), 's3'),
-    ('VID_20261007_203932.mp4', 0.0, 6.5, 1.4, (984, 1300, 405), 's4'),
+    ('video_2026-10-26_12-54-31.mp4', 12.5, 16.0, 2.0, (393, 514, 110), 's3'),
+    ('video_2026-10-26_12-54-31.mp4', 25.0, 29.0, 2.0, (362, 542, 104), 's3'),
+    ('video_2026-10-26_12-54-31.mp4', 38.5, 43.5, 2.0, (372, 520, 99), 's4'),
+    ('video_2026-10-26_12-54-31.mp4', 48.5, 56.5, 2.0, (420, 572, 110), 's5'),
+    ('VID_20261007_203932.mp4', 0.0, 6.5, 1.4, (984, 1300, 405), 's6'),
     ('VID_20261007_203932.mp4', 8.0, 11.0, 1.0, (1053, 1531, 306), 'cta'),
 ]
 
@@ -100,7 +103,9 @@ def main(out='out/cat-eye-reel.mp4'):
     ff = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-s', f'{W}x{H}',
                            '-r', str(FPS), '-i', '-', '-c:v', 'libx264', '-preset', 'slow', '-crf', '17',
                            '-pix_fmt', 'yuv420p', '-movflags', '+faststart', out], stdin=subprocess.PIPE)
-    for clip, t0, t1, sp, (cx, cy, w), ov in SEGMENTS:
+    for si, (clip, t0, t1, sp, (cx, cy, w), ov) in enumerate(SEGMENTS):
+        prev_ov = SEGMENTS[si - 1][5] if si else None
+        next_ov = SEGMENTS[si + 1][5] if si + 1 < len(SEGMENTS) else None
         frames = pick_frames(CLIPS + clip, t0, t1, sp)
         pos = track(frames, cx, cy, w)
         k = NAIL_OUT / w
@@ -115,7 +120,12 @@ def main(out='out/cat-eye-reel.mp4'):
                 o = cv2.addWeighted(o, 1.6, blur, -0.6, 0)
             o = grade(o).astype(np.float32)
             # напис плавно з'являється за 6 кадрів і зникає за 4 до кінця шматка
-            fade = min(1.0, i / 6, (n - 1 - i) / 4) if ov != 'cta' else min(1.0, i / 6)
+            # напис з'являється/зникає лише на межі етапів, усередині етапу тримається
+            fade = 1.0
+            if ov != prev_ov:
+                fade = min(fade, i / 6)
+            if ov != next_ov and next_ov is not None:
+                fade = min(fade, (n - 1 - i) / 4)
             al = a * max(fade, 0)
             o = o * (1 - al) + rgb * al
             ff.stdin.write(o.astype(np.uint8).tobytes())

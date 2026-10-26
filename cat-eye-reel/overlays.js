@@ -11,12 +11,16 @@ const face = (w) =>
    @font-face { font-family: CG; src: url('file://${F}/cormorant-garamond-latin-${w}-normal.woff2'); font-weight: ${w}; unicode-range: ${LAT}; }`;
 const orn = '<div class="orn"><i></i><span></span></div>';
 
+const lab = (n, t, note) =>
+  `<div class="t" style="top:330px"><div class="lab"><b>${n}</b>${t}</div>${note ? `<div class="sub sm">${note}</div>` : ''}${orn}</div>`;
 const overlays = {
-  hook: `<div class="t" style="top:330px"><h1>Котяче око</h1><div class="sub">від бази до ефекту</div>${orn}</div>`,
-  s1: `<div class="t" style="top:330px"><div class="lab"><b>01</b>База</div>${orn}</div>`,
-  s2: `<div class="t" style="top:330px"><div class="lab"><b>02</b>Колір</div>${orn}</div>`,
-  s3: `<div class="t" style="top:330px"><div class="lab"><b>03</b>Магніт</div>${orn}</div>`,
-  s4: `<div class="t" style="top:330px"><div class="lab"><b>04</b>Ефект</div>${orn}</div>`,
+  hook: `<div class="t" style="top:330px"><h1>Котяче око</h1><div class="sub">з нуля до WOW</div>${orn}</div>`,
+  s1: lab('01', 'Укріплення'),
+  s2: lab('02', 'Колір'),
+  s3: lab('03', 'Перший шар', 'прибираємо блік'),
+  s4: lab('04', 'Другий шар', 'чистовий під магніт'),
+  s5: lab('05', 'Магніт'),
+  s6: lab('06', 'Ефект'),
   cta: `<img class="logo" src="file://${path.join(__dirname, 'overlays/km-logo.png')}">
         <div class="t" style="top:330px"><h1 style="font-size:104px">Хочете таке?</h1><div class="sub">Запис у директ</div>${orn}</div>`,
 };
@@ -30,6 +34,7 @@ html, body { width: 1080px; height: 1920px; background: transparent; }
 .t { position: absolute; left: 80px; right: 120px; color: #fff; font-family: CG, serif; text-shadow: 0 0 3px rgba(0,0,0,.6), 0 2px 22px rgba(0,0,0,.85), 0 0 46px rgba(0,0,0,.6); }
 h1 { font-weight: 500; font-size: 120px; line-height: .95; letter-spacing: 3px; text-transform: uppercase; }
 .sub { font-weight: 500; font-size: 56px; letter-spacing: 4px; text-transform: uppercase; color: #e2c07e; margin-top: 18px; }
+.sub.sm { font-size: 44px; margin-top: 14px; }
 .lab { font-weight: 500; font-size: 84px; letter-spacing: 4px; text-transform: uppercase; line-height: 1; }
 .lab b { font-weight: 500; color: #e2c07e; margin-right: 26px; font-variant-numeric: lining-nums; }
 .orn { display: flex; align-items: center; gap: 16px; margin-top: 26px; width: 380px; }
