@@ -53,7 +53,7 @@ export const Cover: React.FC<{
       style={{
         position: "absolute",
         ...(logoRight ? { right: LEFT } : { left: LEFT }),
-        top: 255,
+        top: 130,
         width: 175,
         filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
       }}
