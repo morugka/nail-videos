@@ -11,16 +11,31 @@ const GOLD = "#c9a36a";
 const LEFT = 80;
 
 // Reels cover laid out like the cat-eye cover: logo top left, big title, gold line with a diamond
-export const Cover: React.FC<{ src: string; position?: string; logoRight?: boolean }> = ({
-  src,
-  position = "50% 50%",
-  logoRight = false,
-}) => (
+export const Cover: React.FC<{
+  src: string;
+  position?: string;
+  logoRight?: boolean;
+  // dark grade like the rest of the feed; the light stays on the face at this point (% of the frame)
+  moody?: { x: number; y: number };
+}> = ({ src, position = "50% 50%", logoRight = false, moody }) => (
   <AbsoluteFill style={{ backgroundColor: "black" }}>
     <Img
       src={staticFile(src)}
-      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: position }}
+      style={{
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        objectPosition: position,
+        filter: moody ? "brightness(0.88) contrast(1.1) saturate(0.78) sepia(0.16)" : undefined,
+      }}
     />
+    {moody ? (
+      <AbsoluteFill
+        style={{
+          background: `radial-gradient(ellipse 75% 45% at ${moody.x}% ${moody.y}%, rgba(0,0,0,0) 0%, rgba(8,6,5,0.35) 55%, rgba(8,6,5,0.82) 100%)`,
+        }}
+      />
+    ) : null}
     <AbsoluteFill
       style={{
         background:
@@ -100,7 +115,12 @@ export const CoverStill = () => (
       component={Cover}
       width={1080}
       height={1920}
-      defaultProps={{ src: "photos/railing.jpg", position: "40% 50%", logoRight: true }}
+      defaultProps={{
+        src: "photos/railing.jpg",
+        position: "40% 50%",
+        logoRight: true,
+        moody: { x: 32, y: 30 },
+      }}
     />
     <Still
       id="CoverGrass"
