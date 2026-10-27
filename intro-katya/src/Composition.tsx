@@ -259,34 +259,50 @@ type Scene = {
   name: string;
   from: number; // seconds into the source clip
   frames: number;
-  label: string;
-  text: string;
+  label?: string;
+  text?: string;
   size?: number;
 };
 
 const SCENES: Scene[] = [
-  { name: "Алея, сонце", from: 0.0, frames: 66, label: "привіт, я", text: "КАТЯ", size: 150 },
-  { name: "Кружляння", from: 4.2, frames: 72, label: "досвід", text: "МАЙЖЕ 6 РОКІВ\nУ МАНІКЮРІ", size: 84 },
+  { name: "Алея, сонце", from: 0.0, frames: 90, label: "привіт, я", text: "КАТЯ", size: 150 },
+  { name: "Кружляння", from: 4.0, frames: 105, label: "досвід", text: "МАЙЖЕ 6 РОКІВ\nУ МАНІКЮРІ", size: 84 },
+  {
+    name: "Сосни, погляд угору",
+    from: 11.0,
+    frames: 105,
+    label: "мій стиль",
+    text: "ЕЛЕГАНТНИЙ НЮД\nІ ЕКСТРАВАГАНТНИЙ\nАРТ",
+    size: 70,
+  },
   {
     name: "Посмішка біля перил",
-    from: 21.6,
-    frames: 78,
+    from: 21.0,
+    frames: 105,
     label: "Дніпро · Сонячний",
     text: "МАНІКЮР\nПЕДИКЮР\nНАРОЩУВАННЯ",
     size: 80,
   },
   {
     name: "Розворот",
-    from: 28.8,
-    frames: 84,
+    from: 27.5,
+    frames: 105,
     label: "мої принципи",
     text: "ЯКІСТЬ\nТУРБОТА ПРО\nКОЖНОГО КЛІЄНТА\nВІДПОВІДАЛЬНІСТЬ",
     size: 66,
   },
   {
+    name: "Профіль біля перил",
+    from: 32.0,
+    frames: 90,
+    label: "мій підхід",
+    text: "ІНДИВІДУАЛЬНИЙ\nДО КОЖНОЇ\nКЛІЄНТКИ",
+    size: 76,
+  },
+  {
     name: "Погляд у небо",
-    from: 36.0,
-    frames: 72,
+    from: 35.8,
+    frames: 105,
     label: "поза роботою",
     text: "ТВОРЧІСТЬ\nПРИРОДА\nРОДИНА",
     size: 80,
@@ -294,13 +310,13 @@ const SCENES: Scene[] = [
   {
     name: "У воді",
     from: 43.0,
-    frames: 78,
+    frames: 105,
     label: "моя мета",
     text: "ВЛАСНІ КУРСИ\nІ СВІЙ СТИЛЬ",
     size: 80,
   },
 ];
-const FINAL = { name: "Фінал: запис", from: 50.2, frames: 96 };
+const FINAL = { name: "Фінал: запис", from: 48.4, frames: 150 };
 
 const FRAMES = [...SCENES.map((s) => s.frames), FINAL.frames];
 const TOTAL = FRAMES.reduce((a, b) => a + b, 0) - (FRAMES.length - 1) * FADE;
@@ -314,7 +330,9 @@ export const IntroReel: React.FC = () => {
         {SCENES.flatMap((s) => [
           <TransitionSeries.Sequence key={s.name} name={s.name} durationInFrames={s.frames}>
             <Shot from={s.from} />
-            <Caption label={s.label} text={s.text} position="bottom" size={s.size} />
+            {s.text ? (
+              <Caption label={s.label} text={s.text} position="bottom" size={s.size} />
+            ) : null}
           </TransitionSeries.Sequence>,
           <TransitionSeries.Transition key={`${s.name}-fade`} presentation={fade()} timing={t} />,
         ])}
