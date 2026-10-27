@@ -11,11 +11,15 @@ const GOLD = "#c9a36a";
 const LEFT = 80;
 
 // Reels cover laid out like the cat-eye cover: logo top left, big title, gold line with a diamond
-export const Cover: React.FC = () => (
+export const Cover: React.FC<{ src: string; position?: string; logoRight?: boolean }> = ({
+  src,
+  position = "50% 50%",
+  logoRight = false,
+}) => (
   <AbsoluteFill style={{ backgroundColor: "black" }}>
     <Img
-      src={staticFile("cover-frame.jpg")}
-      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      src={staticFile(src)}
+      style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: position }}
     />
     <AbsoluteFill
       style={{
@@ -26,14 +30,14 @@ export const Cover: React.FC = () => (
     <AbsoluteFill
       style={{
         background:
-          "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 22%, rgba(0,0,0,0) 32%)",
+          "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 18%, rgba(0,0,0,0) 32%)",
       }}
     />
     <Img
       src={staticFile("logo-full.png")}
       style={{
         position: "absolute",
-        left: LEFT,
+        ...(logoRight ? { right: LEFT } : { left: LEFT }),
         top: 290,
         width: 200,
         filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
@@ -90,5 +94,21 @@ export const Cover: React.FC = () => (
 );
 
 export const CoverStill = () => (
-  <Still id="Cover" component={Cover} width={1080} height={1920} />
+  <>
+    <Still
+      id="Cover"
+      component={Cover}
+      width={1080}
+      height={1920}
+      defaultProps={{ src: "photos/railing.jpg", position: "40% 50%", logoRight: true }}
+    />
+    <Still
+      id="CoverGrass"
+      component={Cover}
+      width={1080}
+      height={1920}
+      defaultProps={{ src: "photos/grass.jpg", position: "62% 50%" }}
+    />
+    <Still id="CoverVideoFrame" component={Cover} width={1080} height={1920} defaultProps={{ src: "cover-frame.jpg" }} />
+  </>
 );
