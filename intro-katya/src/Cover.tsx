@@ -108,10 +108,68 @@ export const Cover: React.FC<{
   </AbsoluteFill>
 );
 
+// Same look as the feed's dark covers (ЧОРНИЙ?, НАРОЩУВАННЯ…): person on black, title on top, centred.
+// The background comes from scripts/dark_cover.py
+export const CoverDark: React.FC<{ src: string }> = ({ src }) => (
+  <AbsoluteFill style={{ backgroundColor: "black" }}>
+    <Img src={staticFile(src)} style={{ width: "100%", height: "100%" }} />
+    <div
+      style={{
+        position: "absolute",
+        left: 40,
+        right: 40,
+        top: 330,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 22,
+      }}
+    >
+      <div
+        style={{
+          fontFamily: cinzel,
+          fontSize: 96,
+          lineHeight: 1.05,
+          letterSpacing: 3,
+          color: "white",
+          textAlign: "center",
+        }}
+      >
+        ДАВАЙТЕ
+        <br />
+        ЗНАЙОМИТИСЬ
+      </div>
+      <div
+        style={{
+          fontFamily: cormorant,
+          fontWeight: 500,
+          fontSize: 50,
+          letterSpacing: 7,
+          color: GOLD,
+        }}
+      >
+        КАТЯ · NAIL ARTIST
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, width: 420 }}>
+        <div style={{ flex: 1, height: 2, background: `linear-gradient(90deg, transparent, ${GOLD})` }} />
+        <div style={{ width: 12, height: 12, background: GOLD, transform: "rotate(45deg)" }} />
+        <div style={{ flex: 1, height: 2, background: `linear-gradient(90deg, ${GOLD}, transparent)` }} />
+      </div>
+    </div>
+  </AbsoluteFill>
+);
+
 export const CoverStill = () => (
   <>
     <Still
       id="Cover"
+      component={CoverDark}
+      width={1080}
+      height={1920}
+      defaultProps={{ src: "photos/railing-dark.jpg" }}
+    />
+    <Still
+      id="CoverLight"
       component={Cover}
       width={1080}
       height={1920}
