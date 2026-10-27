@@ -118,7 +118,7 @@ export const CoverDark: React.FC<{ src: string }> = ({ src }) => (
         position: "absolute",
         left: 40,
         right: 40,
-        top: 330,
+        top: 290,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -163,6 +163,13 @@ export const CoverStill = () => (
   <>
     <Still
       id="Cover"
+      component={CoverDark}
+      width={1080}
+      height={1920}
+      defaultProps={{ src: "photos/white-dress-dark.jpg" }}
+    />
+    <Still
+      id="CoverRailingDark"
       component={CoverDark}
       width={1080}
       height={1920}
