@@ -163,6 +163,13 @@ export const CoverStill = () => (
   <>
     <Still
       id="Cover"
+      component={Cover}
+      width={1080}
+      height={1920}
+      defaultProps={{ src: "photos/railing-graded.jpg", position: "40% 50%", logoRight: true }}
+    />
+    <Still
+      id="CoverCutout"
       component={CoverDark}
       width={1080}
       height={1920}
