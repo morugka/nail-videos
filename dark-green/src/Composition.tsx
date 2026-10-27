@@ -7,6 +7,7 @@ import {
   Easing,
   Img,
   interpolate,
+  Sequence,
   staticFile,
   useCurrentFrame,
   useVideoConfig,
@@ -136,6 +137,7 @@ type CaptionProps = {
   size?: number;
   // the accent line appears a beat after the main line
   accentDelay?: number;
+  topOffset?: number;
 };
 
 const Caption: React.FC<CaptionProps> = ({
@@ -145,6 +147,7 @@ const Caption: React.FC<CaptionProps> = ({
   delay = 6,
   size = 84,
   accentDelay = 8,
+  topOffset = 250,
 }) => {
   const frame = useCurrentFrame();
   const inP = interpolate(frame - delay, [0, 14], [0, 1], {
@@ -164,7 +167,7 @@ const Caption: React.FC<CaptionProps> = ({
         justifyContent: top ? "flex-start" : "flex-end",
         alignItems: "center",
         // bottom text sits above the Instagram UI; top text below the profile row
-        paddingTop: top ? 250 : 0,
+        paddingTop: top ? topOffset : 0,
         paddingBottom: top ? 0 : 420,
       }}
     >
@@ -230,7 +233,51 @@ const Flash: React.FC = () => {
   return <AbsoluteFill style={{ backgroundColor: GOLD, opacity: o }} />;
 };
 
+// Small KM monogram over the middle shots: top center, above the captions and clear of the Instagram UI
+const Monogram: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { durationInFrames } = useVideoConfig();
+  const o = interpolate(
+    frame,
+    [0, 12, durationInFrames - 10, durationInFrames],
+    [0, 0.75, 0.75, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
+  return (
+    <AbsoluteFill style={{ alignItems: "center", paddingTop: 120 }}>
+      <Img src={staticFile("logo-km.png")} style={{ height: 92, opacity: o }} />
+    </AbsoluteFill>
+  );
+};
+
+// Full logo on the final shot, above the call to action
+const FinalLogo: React.FC = () => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [4, 24], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: ease,
+  });
+  return (
+    <AbsoluteFill style={{ alignItems: "center", paddingTop: 150 }}>
+      <Img
+        src={staticFile("logo-full.png")}
+        style={{
+          width: 400,
+          opacity: p,
+          transform: `scale(${0.94 + 0.06 * p})`,
+          filter: `blur(${(1 - p) * 6}px)`,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 const SHOTS = [60, 78, 72, 66, 90, 96];
+// first frame of each shot on the timeline (shots 3–6 overlap the previous one by FADE)
+const START = SHOTS.map((_, i) =>
+  SHOTS.slice(0, i).reduce((a, b) => a + b, 0) - Math.max(0, i - 1) * FADE,
+);
 
 export const GreenReel: React.FC = () => {
   const t = linearTiming({ durationInFrames: FADE });
@@ -243,24 +290,24 @@ export const GreenReel: React.FC = () => {
         </TransitionSeries.Sequence>
         {/* hard cut on purpose: the answer should land like a punchline */}
         <TransitionSeries.Sequence name="Відповідь: темно-зелений" durationInFrames={SHOTS[1]}>
-          <Photo src="photos/2-fist.jpg" to={1.07} x={45} y={45} />
+          <Photo src="photos/graded/2-fist.jpg" to={1.07} x={45} y={45} />
           <Flash />
           <Caption text="НІ." accent="Темно-зелений." position="top" size={120} delay={2} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Один ніготь" durationInFrames={SHOTS[2]}>
-          <Photo src="photos/3-single.jpg" to={1.1} x={52} y={52} />
+          <Photo src="photos/graded/3-single.jpg" to={1.1} x={52} y={52} />
           <Caption text="РОЗКРИВАЄТЬСЯ" accent="на світлі" position="bottom" size={72} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Листівки" durationInFrames={SHOTS[3]}>
-          <Photo src="photos/4-cards.jpg" to={1.06} x={45} y={62} />
+          <Photo src="photos/graded/4-cards.jpg" to={1.06} x={45} y={62} />
           <Caption text="ГЛИБОКИЙ · ГЛЯНЦЕВИЙ" position="bottom" size={60} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Торці" durationInFrames={SHOTS[4]}>
           {/* push in on the thin free edges of the middle nails */}
-          <Photo src="photos/5-edge.jpg" to={1.45} x={46} y={58} />
+          <Photo src="photos/graded/5-edge.jpg" to={1.45} x={46} y={58} />
           <Caption
             text="ТОНКІ ТОРЦІ"
             accent="як власний ніготь"
@@ -271,16 +318,23 @@ export const GreenReel: React.FC = () => {
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Фінал: флакон #0056" durationInFrames={SHOTS[5]}>
-          <Photo src="photos/6-bottle.jpg" to={1.05} x={55} y={45} offsetY={80} />
+          <Photo src="photos/graded/6-bottle.jpg" to={1.05} x={55} y={45} offsetY={80} />
           <Caption
             text="ЗАПИС — DIRECT"
             accent="слово «ЗЕЛЕНИЙ»"
             position="top"
-            size={84}
-            delay={8}
+            size={72}
+            delay={26}
+            topOffset={560}
           />
+          {/* after the caption, so its dark gradient doesn't dim the gold */}
+          <FinalLogo />
         </TransitionSeries.Sequence>
       </TransitionSeries>
+      {/* no mark on the hook (nothing should distract from it) or on the finale (full logo there) */}
+      <Sequence from={START[1]} durationInFrames={START[5] - START[1] + FADE} layout="none">
+        <Monogram />
+      </Sequence>
     </AbsoluteFill>
   );
 };
