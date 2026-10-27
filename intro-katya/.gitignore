@@ -1,0 +1,6 @@
+node_modules
+dist
+.DS_Store
+.env
+# 150 MB after grading, rebuilt with scripts/grade.sh
+public/clean.mp4
