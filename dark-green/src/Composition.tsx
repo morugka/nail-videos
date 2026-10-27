@@ -233,7 +233,7 @@ const Flash: React.FC = () => {
   return <AbsoluteFill style={{ backgroundColor: GOLD, opacity: o }} />;
 };
 
-// Small KM monogram over the middle shots: top center, above the captions and clear of the Instagram UI
+// Small KM monogram over the middle shots: top left, a bit below the edge so the "Reels" header does not cover it
 const Monogram: React.FC = () => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
@@ -244,8 +244,16 @@ const Monogram: React.FC = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
   return (
-    <AbsoluteFill style={{ alignItems: "center", paddingTop: 120 }}>
-      <Img src={staticFile("logo-km.png")} style={{ height: 92, opacity: o }} />
+    <AbsoluteFill style={{ alignItems: "flex-start", paddingTop: 210, paddingLeft: 64 }}>
+      {/* soft shadow keeps the gold readable where it lands on the light sleeve */}
+      <Img
+        src={staticFile("logo-km.png")}
+        style={{
+          height: 92,
+          opacity: o,
+          filter: "drop-shadow(0 0 10px rgba(0,0,0,0.85)) drop-shadow(0 0 3px rgba(0,0,0,0.9))",
+        }}
+      />
     </AbsoluteFill>
   );
 };
