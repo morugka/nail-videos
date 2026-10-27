@@ -1,0 +1,16 @@
+# ТЕМНО-ЗЕЛЕНИЙ #0056 — рилс з фото
+
+Вертикальне відео 1080×1920, ~14 с, зібране в [Remotion](https://remotion.dev) з шести архівних фото.
+Сюжет: «Чорний?» → «Ні. Темно-зелений.» → на світлі → тонкі торці → флакон #0056 і запис.
+
+- `out/dark-green-0056-reels.mp4` — готовий ролик (без звуку: трек додається в Instagram)
+- `public/photos/` — фото в порядку появи
+- `src/Composition.tsx` — плани, наближення, титри
+
+## Як працювати
+
+```bash
+npm i
+npx remotion studio                                                   # попередній перегляд
+npx remotion render GreenReel out/dark-green-0056-reels.mp4 --crf=16 --concurrency=1  # рендер
+```
