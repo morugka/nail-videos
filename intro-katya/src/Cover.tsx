@@ -53,8 +53,8 @@ export const Cover: React.FC<{
       style={{
         position: "absolute",
         ...(logoRight ? { right: LEFT } : { left: LEFT }),
-        top: 290,
-        width: 200,
+        top: 255,
+        width: 175,
         filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
       }}
     />
@@ -166,7 +166,7 @@ export const CoverStill = () => (
       component={Cover}
       width={1080}
       height={1920}
-      defaultProps={{ src: "photos/railing-graded.jpg", position: "40% 50%", logoRight: true }}
+      defaultProps={{ src: "photos/railing-graded.jpg", position: "40% 50%" }}
     />
     <Still
       id="CoverCutout"
