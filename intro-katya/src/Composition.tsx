@@ -95,13 +95,14 @@ const Shot: React.FC<{ from: number; to?: number }> = ({ from, to = 1.05 }) => {
 
 const Caption: React.FC<{
   text: string;
+  label?: string; // small gold question above the answer
   accent?: string;
   position: "top" | "bottom";
   delay?: number;
   size?: number;
   topOffset?: number;
   stay?: boolean; // the last caption stays to the end
-}> = ({ text, accent, position, delay = 6, size = 84, topOffset = 250, stay = false }) => {
+}> = ({ text, label, accent, position, delay = 6, size = 84, topOffset = 250, stay = false }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const inP = interpolate(frame - delay, [0, 14], [0, 1], {
@@ -137,8 +138,8 @@ const Caption: React.FC<{
           left: 0,
           right: 0,
           [top ? "top" : "bottom"]: 0,
-          height: 900,
-          background: `linear-gradient(${top ? 180 : 0}deg, rgba(0,0,0,0.85), rgba(0,0,0,0.65) 50%, rgba(0,0,0,0))`,
+          height: 1100,
+          background: `linear-gradient(${top ? 180 : 0}deg, rgba(0,0,0,0.88), rgba(0,0,0,0.8) 45%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0))`,
           opacity: inP,
         }}
       />
@@ -152,16 +153,34 @@ const Caption: React.FC<{
           paddingRight: 60,
         }}
       >
+        {label ? (
+          <div
+            style={{
+              fontFamily: cormorant,
+              fontWeight: 600,
+              fontSize: 62,
+              letterSpacing: 2,
+              color: GOLD,
+              textAlign: "center",
+              opacity: inP,
+              transform: `translateY(${(1 - inP) * 14}px)`,
+              textShadow: "0 2px 14px rgba(0,0,0,0.55)",
+            }}
+          >
+            {label}
+          </div>
+        ) : null}
         <div
           style={{
             fontFamily: cinzel,
             fontSize: size,
-            letterSpacing: 6 + (1 - inP) * 20,
+            letterSpacing: 6 + (1 - (label ? accP : inP)) * 20,
             color: IVORY,
             textAlign: "center",
-            lineHeight: 1.08,
-            opacity: inP,
-            filter: `blur(${(1 - inP) * 8}px)`,
+            lineHeight: 1.12,
+            whiteSpace: "pre-line",
+            opacity: label ? accP : inP,
+            filter: `blur(${(1 - (label ? accP : inP)) * 8}px)`,
             textShadow: "0 2px 18px rgba(0,0,0,0.5)",
           }}
         >
@@ -185,7 +204,7 @@ const Caption: React.FC<{
             {accent}
           </div>
         ) : null}
-        <GoldDivider width={420} progress={accent ? accP : inP} />
+        <GoldDivider width={420} progress={accent || label ? accP : inP} />
       </div>
     </AbsoluteFill>
   );
@@ -240,45 +259,45 @@ type Scene = {
   name: string;
   from: number; // seconds into the source clip
   frames: number;
+  label: string;
   text: string;
-  accent?: string;
   size?: number;
 };
 
 const SCENES: Scene[] = [
-  { name: "Алея, сонце", from: 0.0, frames: 66, text: "ПРИВІТ!", accent: "я Катя", size: 120 },
-  { name: "Кружляння", from: 4.2, frames: 72, text: "МАЙЖЕ 6 РОКІВ", accent: "у манікюрі", size: 92 },
+  { name: "Алея, сонце", from: 0.0, frames: 66, label: "привіт, я", text: "КАТЯ", size: 150 },
+  { name: "Кружляння", from: 4.2, frames: 72, label: "досвід", text: "МАЙЖЕ 6 РОКІВ\nУ МАНІКЮРІ", size: 84 },
   {
     name: "Посмішка біля перил",
     from: 21.6,
     frames: 78,
-    text: "ДНІПРО · СОНЯЧНИЙ",
-    accent: "манікюр · педикюр\nнарощування",
-    size: 76,
+    label: "Дніпро · Сонячний",
+    text: "МАНІКЮР\nПЕДИКЮР\nНАРОЩУВАННЯ",
+    size: 80,
   },
   {
     name: "Розворот",
     from: 28.8,
-    frames: 72,
-    text: "ПОЗА РОБОТОЮ",
-    accent: "творчість, природа\nі час з родиною",
-    size: 84,
+    frames: 84,
+    label: "мої принципи",
+    text: "ЯКІСТЬ\nТУРБОТА ПРО\nКОЖНОГО КЛІЄНТА\nВІДПОВІДАЛЬНІСТЬ",
+    size: 66,
   },
   {
     name: "Погляд у небо",
     from: 36.0,
     frames: 72,
-    text: "МОЯ МЕТА",
-    accent: "власні курси\nі свій стиль у роботі",
-    size: 96,
+    label: "поза роботою",
+    text: "ТВОРЧІСТЬ\nПРИРОДА\nРОДИНА",
+    size: 80,
   },
   {
     name: "У воді",
     from: 43.0,
     frames: 78,
-    text: "−100 ГРН",
-    accent: "новим клієнткам\nна перший візит",
-    size: 120,
+    label: "моя мета",
+    text: "ВЛАСНІ КУРСИ\nІ СВІЙ СТИЛЬ",
+    size: 80,
   },
 ];
 const FINAL = { name: "Фінал: запис", from: 50.2, frames: 96 };
@@ -295,7 +314,7 @@ export const IntroReel: React.FC = () => {
         {SCENES.flatMap((s) => [
           <TransitionSeries.Sequence key={s.name} name={s.name} durationInFrames={s.frames}>
             <Shot from={s.from} />
-            <Caption text={s.text} accent={s.accent} position="bottom" size={s.size} />
+            <Caption label={s.label} text={s.text} position="bottom" size={s.size} />
           </TransitionSeries.Sequence>,
           <TransitionSeries.Transition key={`${s.name}-fade`} presentation={fade()} timing={t} />,
         ])}
