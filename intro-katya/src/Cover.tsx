@@ -63,7 +63,7 @@ export const Cover: React.FC<{
         position: "absolute",
         left: LEFT,
         right: 60,
-        top: 1190,
+        top: 1300,
         display: "flex",
         flexDirection: "column",
         gap: 26,
