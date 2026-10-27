@@ -17,12 +17,6 @@ const cinzel = "Cinzel";
 const cormorant = "Cormorant Garamond";
 loadFont({ family: cinzel, url: staticFile("fonts/Cinzel.ttf"), weight: "400 900" });
 loadFont({ family: cormorant, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
-loadFont({
-  family: cormorant,
-  url: staticFile("fonts/Cormorant-Italic.ttf"),
-  weight: "300 700",
-  style: "italic",
-});
 
 const GOLD = "#c9a36a";
 const IVORY = "#f2ece2";
@@ -208,8 +202,8 @@ const Caption: React.FC<CaptionProps> = ({
           <div
             style={{
               fontFamily: cormorant,
-              fontStyle: "italic",
-              fontSize: 84,
+              fontWeight: 500,
+              fontSize: 76,
               color: GOLD,
               textAlign: "center",
               lineHeight: 1.05,
@@ -244,7 +238,7 @@ const Monogram: React.FC = () => {
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
   return (
-    <AbsoluteFill style={{ alignItems: "flex-start", paddingTop: 210, paddingLeft: 64 }}>
+    <AbsoluteFill style={{ alignItems: "flex-start", paddingTop: 110, paddingLeft: 48 }}>
       {/* soft shadow keeps the gold readable where it lands on the light sleeve */}
       <Img
         src={staticFile("logo-km.png")}
@@ -271,7 +265,7 @@ const FinalLogo: React.FC = () => {
       <Img
         src={staticFile("logo-full.png")}
         style={{
-          width: 400,
+          width: 230,
           opacity: p,
           transform: `scale(${0.94 + 0.06 * p})`,
           filter: `blur(${(1 - p) * 6}px)`,
@@ -333,7 +327,7 @@ export const GreenReel: React.FC = () => {
             position="top"
             size={72}
             delay={26}
-            topOffset={560}
+            topOffset={430}
           />
           {/* after the caption, so its dark gradient doesn't dim the gold */}
           <FinalLogo />
