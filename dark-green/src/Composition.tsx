@@ -233,8 +233,8 @@ const Monogram: React.FC = () => {
   const { durationInFrames } = useVideoConfig();
   const o = interpolate(
     frame,
-    [0, 12, durationInFrames - 10, durationInFrames],
-    [0, 0.75, 0.75, 0],
+    [durationInFrames - 10, durationInFrames],
+    [0.75, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
   return (
@@ -308,15 +308,9 @@ export const GreenReel: React.FC = () => {
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Торці" durationInFrames={SHOTS[4]}>
-          {/* push in on the thin free edges of the middle nails */}
-          <Photo src="photos/graded/5-edge.jpg" to={1.45} x={46} y={58} />
-          <Caption
-            text="ТОНКІ ТОРЦІ"
-            accent="як власний ніготь"
-            position="top"
-            size={90}
-            delay={12}
-          />
+          {/* photo lifted so the caption sits on the dark area under the hand */}
+          <Photo src="photos/graded/5-edge.jpg" to={1.12} x={50} y={30} offsetY={-230} />
+          <Caption text="СМАРАГД У ТІНІ" position="bottom" size={72} delay={10} />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Фінал: флакон #0056" durationInFrames={SHOTS[5]}>
@@ -333,8 +327,8 @@ export const GreenReel: React.FC = () => {
           <FinalLogo />
         </TransitionSeries.Sequence>
       </TransitionSeries>
-      {/* no mark on the hook (nothing should distract from it) or on the finale (full logo there) */}
-      <Sequence from={START[1]} durationInFrames={START[5] - START[1] + FADE} layout="none">
+      {/* the mark stays from the first frame until the finale, where the full logo takes over */}
+      <Sequence durationInFrames={START[5] + FADE} layout="none">
         <Monogram />
       </Sequence>
     </AbsoluteFill>
