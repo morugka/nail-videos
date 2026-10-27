@@ -1,0 +1,94 @@
+import { loadFont } from "@remotion/fonts";
+import { AbsoluteFill, Img, Still, staticFile } from "remotion";
+
+const cinzel = "Cinzel";
+const cormorant = "Cormorant Garamond";
+loadFont({ family: cinzel, url: staticFile("fonts/Cinzel.ttf"), weight: "400 900" });
+loadFont({ family: cormorant, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
+
+const GOLD = "#c9a36a";
+// Everything stays inside the middle 1080×1440, which the profile grid shows (3:4)
+const LEFT = 80;
+
+// Reels cover laid out like the cat-eye cover: logo top left, big title, gold line with a diamond
+export const Cover: React.FC = () => (
+  <AbsoluteFill style={{ backgroundColor: "black" }}>
+    <Img
+      src={staticFile("cover-frame.jpg")}
+      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+    />
+    <AbsoluteFill
+      style={{
+        background:
+          "linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.78) 25%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0) 58%)",
+      }}
+    />
+    <AbsoluteFill
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 22%, rgba(0,0,0,0) 32%)",
+      }}
+    />
+    <Img
+      src={staticFile("logo-full.png")}
+      style={{
+        position: "absolute",
+        left: LEFT,
+        top: 290,
+        width: 200,
+        filter: "drop-shadow(0 0 12px rgba(0,0,0,0.6))",
+      }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        left: LEFT,
+        right: 60,
+        top: 1190,
+        display: "flex",
+        flexDirection: "column",
+        gap: 26,
+      }}
+    >
+      <div
+        style={{
+          fontFamily: cinzel,
+          fontSize: 104,
+          lineHeight: 1.05,
+          letterSpacing: 2,
+          color: "white",
+          textShadow: "0 3px 24px rgba(0,0,0,0.5)",
+        }}
+      >
+        ДАВАЙТЕ
+        <br />
+        ЗНАЙОМИТИСЬ
+      </div>
+      <div
+        style={{
+          fontFamily: cormorant,
+          fontWeight: 500,
+          fontSize: 54,
+          letterSpacing: 7,
+          color: GOLD,
+        }}
+      >
+        КАТЯ · ДНІПРО
+      </div>
+      <div style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 8 }}>
+        <div style={{ width: 14, height: 14, background: GOLD, transform: "rotate(45deg)" }} />
+        <div
+          style={{
+            height: 2,
+            width: 380,
+            background: `linear-gradient(90deg, ${GOLD}, transparent)`,
+          }}
+        />
+      </div>
+    </div>
+  </AbsoluteFill>
+);
+
+export const CoverStill = () => (
+  <Still id="Cover" component={Cover} width={1080} height={1920} />
+);

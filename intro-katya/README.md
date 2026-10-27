@@ -4,6 +4,7 @@
 Стиль сторінки: заголовки Cinzel, підписи Cormorant (без курсиву), золото `#c9a36a` і слонова кістка `#f2ece2`, знак KM у кутку, повний логотип у фіналі.
 
 - `out/intro-katya-reels.mp4` — готовий ролик (без звуку: трек додається в Instagram)
+- `out/intro-katya-cover.png` — обкладинка 1080×1920 (`npx remotion still Cover`), `out/intro-katya-cover-grid-3x4.png` — як вона виглядає в сітці профілю
 - `source/original.mp4` — вихідне відео (720×1280, 53 с)
 - `scripts/grade.sh` — 1080×1920, легке шумозаглушення, світліші тіні, тепліша шкіра, різкість → `public/clean.mp4`
 - `src/Composition.tsx` — плани й титри (масив `SCENES`)
