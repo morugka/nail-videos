@@ -5,7 +5,6 @@ import {
   Composition,
   Easing,
   interpolate,
-  Sequence,
   Series,
   staticFile,
   useCurrentFrame,
@@ -780,39 +779,67 @@ const Outro: React.FC = () => (
   </Scene>
 );
 
-// Punchline: the caption sets it up on black, then the marmot screams under it
-const MARMOT_LEAD = 24; // frames of caption alone before the scream
+// The scream itself, full screen, no caption
 const MARMOT_CLIP = 48; // public/marmot.mp4, 1.6 s
 
 const Marmot: React.FC = () => {
   const frame = useCurrentFrame();
-  const punch = interpolate(frame - MARMOT_LEAD, [0, 4, MARMOT_CLIP], [1.12, 1, 1.06], clamp);
+  const punch = interpolate(frame, [0, 4, MARMOT_CLIP], [1.12, 1, 1.06], clamp);
   return (
-    <AbsoluteFill style={{ fontFamily: SERIF, color: IVORY }}>
-      <Bg />
-      <Sequence from={MARMOT_LEAD} layout="none">
-        <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
-          <div style={{ width: 1080, height: 1080, overflow: "hidden", marginTop: 230 }}>
-            <Video
-              src={staticFile("marmot.mp4")}
-              style={{ width: "100%", height: "100%", transform: `scale(${punch})` }}
-            />
-          </div>
-        </AbsoluteFill>
-      </Sequence>
-      <AbsoluteFill style={{ padding: "260px 90px 0", alignItems: "center", textAlign: "center" }}>
-        <Rise delay={0}>
-          <Title size={74} style={{ letterSpacing: 2 }}>
-            Коли майстри чують
-          </Title>
-          <Title size={74} style={{ letterSpacing: 2, color: GOLD, marginTop: 8 }}>
-            «ви зажралися»
-          </Title>
-        </Rise>
-      </AbsoluteFill>
+    <AbsoluteFill style={{ backgroundColor: BLACK, overflow: "hidden" }}>
+      {/* square clip scaled to the frame height and cropped at the sides */}
+      <Video
+        src={staticFile("marmot.mp4")}
+        style={{
+          position: "absolute",
+          width: 1920,
+          height: 1920,
+          left: (1080 - 1920) / 2 + 70, // marmot sits a bit left of centre in the source
+          top: 0,
+          transform: `scale(${punch})`,
+        }}
+      />
     </AbsoluteFill>
   );
 };
+
+// Call to action: comment a keyword, get the cost spreadsheet
+const Cta: React.FC = () => (
+  <Scene>
+    <Rise delay={2}>
+      <Title size={120}>Знайомо?</Title>
+    </Rise>
+    <div style={{ margin: "44px 0 50px" }}>
+      <GoldDivider width={520} delay={14} />
+    </div>
+    <Rise delay={20}>
+      <Body style={{ fontSize: 56 }}>Пиши в коментарях слово</Body>
+    </Rise>
+    <Rise delay={30} style={{ margin: "26px 0" }}>
+      <div
+        style={{
+          display: "inline-block",
+          border: `2px solid ${GOLD}`,
+          padding: "14px 44px 6px",
+          fontWeight: 600,
+          fontSize: 130,
+          letterSpacing: 14,
+          color: GOLD,
+        }}
+      >
+        ЛОПАТА
+      </div>
+    </Rise>
+    <Rise delay={44}>
+      <Body style={{ fontSize: 56 }}>
+        та отримуй <span style={{ color: GOLD }}>таблицю для розрахунку собівартості</span>
+      </Body>
+    </Rise>
+    <Rise delay={62} style={{ marginTop: 30 }}>
+      <Aside>щоб не працювати в мінус</Aside>
+    </Rise>
+  </Scene>
+);
 
 const s = (sec: number) => Math.round(sec * FPS);
 
@@ -825,15 +852,15 @@ const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
   { id: "inflation", dur: s(11), el: <Inflation /> },
   { id: "fair-price", dur: s(6), el: <FairPrice /> },
   { id: "where", dur: s(3.5), el: <WhereTitle /> },
-  ...OBJECTIONS.flatMap((o, i) => [
-    // the marmot screams first, then comes the calm answer to "Ви вже зажралися!"
-    ...(o.quote === "Ви вже зажралися!"
-      ? [{ id: "marmot", dur: MARMOT_LEAD + MARMOT_CLIP, el: <Marmot /> }]
-      : []),
-    { id: `objection-${i + 1}`, dur: s(o.aside ? 8 : 7), el: <ObjectionScene o={o} /> },
-  ]),
+  ...OBJECTIONS.map((o, i) => ({
+    id: `objection-${i + 1}`,
+    dur: s(o.aside ? 8 : 7),
+    el: <ObjectionScene o={o} />,
+  })),
   { id: "extras", dur: s(9), el: <Extras /> },
+  { id: "marmot", dur: MARMOT_CLIP, el: <Marmot /> },
   { id: "outro", dur: s(5), el: <Outro /> },
+  { id: "cta", dur: s(6), el: <Cta /> },
 ];
 
 export const TOTAL = SCENES.reduce((t, sc) => t + sc.dur, 0);
