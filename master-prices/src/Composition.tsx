@@ -699,7 +699,7 @@ const OBJECTIONS: Objection[] = [
     quote: "Я знаю, ви все в Китаї купуєте, там дешево!",
     answer: (
       <>
-        О, <span style={{ color: GOLD }}>експертка з логістики</span>!
+        Купую там, де <span style={{ color: GOLD }}>якісно</span>, а не там, де дешево.
       </>
     ),
     more: "Нормальні матеріали коштують у валюті. Навіть українські бренди купують сировину за долари і євро.",
@@ -743,6 +743,52 @@ const ObjectionScene: React.FC<{ o: Objection; n: number }> = ({ o, n }) => (
         <Aside style={{ fontSize: 54 }}>{o.aside}</Aside>
       </Rise>
     ) : null}
+  </Scene>
+);
+
+// "And also": the small everyday requests that cost money too
+const EXTRAS: { ask: string; cost: string }[] = [
+  { ask: "А що в тебе є новенького з кольорів?", cost: "нові колекції щосезону" },
+  { ask: "А можна як на цьому фото?", cost: "втирки, фольга, слайдери, стрази" },
+  { ask: "А в тебе є кава?", cost: "кава, чай, цукерки" },
+  { ask: "Відкололось, переробиш безкоштовно?", cost: "гарантія — за мій рахунок" },
+  { ask: "А можна в неділю о восьмій ранку?", cost: "вихідних немає" },
+  { ask: "Перенесемо на завтра?", cost: "порожнє вікно — мінус гроші" },
+];
+
+const Extras: React.FC = () => (
+  <Scene>
+    <Rise delay={0}>
+      <Title size={110}>
+        А <span style={{ color: GOLD }}>ще:</span>
+      </Title>
+    </Rise>
+    <div style={{ marginTop: 40, display: "flex", flexDirection: "column", gap: 26 }}>
+      {EXTRAS.map((x, i) => (
+        <Rise key={x.ask} delay={14 + i * 22}>
+          <div style={{ display: "flex", gap: 24, alignItems: "baseline" }}>
+            <div
+              style={{
+                width: 12,
+                height: 12,
+                flexShrink: 0,
+                background: GOLD,
+                transform: "rotate(45deg) translateY(-6px)",
+              }}
+            />
+            <div>
+              <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 52, lineHeight: 1.1 }}>
+                «{x.ask}»
+              </div>
+              <Kicker style={{ fontSize: 28, letterSpacing: 5, marginTop: 6 }}>{x.cost}</Kicker>
+            </div>
+          </div>
+        </Rise>
+      ))}
+    </div>
+    <Rise delay={14 + EXTRAS.length * 22 + 10} style={{ marginTop: 44 }}>
+      <Aside>і все це — з тих самих {PRICE} ₴</Aside>
+    </Rise>
   </Scene>
 );
 
@@ -790,6 +836,7 @@ const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
     dur: s(o.aside ? 8 : 7),
     el: <ObjectionScene o={o} n={i + 1} />,
   })),
+  { id: "extras", dur: s(9), el: <Extras /> },
   { id: "outro", dur: s(7), el: <Outro /> },
 ];
 
