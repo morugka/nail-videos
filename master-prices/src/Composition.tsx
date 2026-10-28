@@ -272,6 +272,15 @@ const Count: React.FC<{ from: number; to: number; start: number; dur?: number }>
   return <>{fmt(v)}</>;
 };
 
+// Small disclaimer under the money slides
+const Disclaimer: React.FC<{ delay: number }> = ({ delay }) => (
+  <Rise delay={delay} style={{ marginTop: 28 }}>
+    <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 38, color: DIM }}>
+      * цифри умовні
+    </div>
+  </Rise>
+);
+
 // Thin gold-framed panel for the expense lists
 const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div
@@ -446,6 +455,7 @@ const Receipt: React.FC = () => {
           </div>
         </Panel>
       </Rise>
+      <Disclaimer delay={20} />
     </Scene>
   );
 };
@@ -567,6 +577,7 @@ const Inflation: React.FC = () => {
           Витрати: {fmt(COSTS_BEFORE)} → {fmt(COSTS_AFTER)} ₴ на місяць
         </Body>
       </Rise>
+      <Disclaimer delay={30} />
     </Scene>
   );
 };
