@@ -3,7 +3,6 @@ import {
   AbsoluteFill,
   Composition,
   Easing,
-  Img,
   interpolate,
   Series,
   staticFile,
@@ -42,11 +41,6 @@ const GOLD = "#c9a36a";
 const DIM = "#8f877c";
 const LINE = "rgba(201,163,106,0.28)";
 const FPS = 30;
-
-// Background photos: swap these for the page's own shots (public/photos/)
-const PHOTO_HOOK = "photos/t17.5.jpg";
-const PHOTO_WHERE = "photos/t1.0.jpg";
-const PHOTO_OUTRO = "photos/t9.5.jpg";
 
 const ease = Easing.bezier(0.33, 0, 0.2, 1);
 const clamp = { extrapolateLeft: "clamp", extrapolateRight: "clamp" } as const;
@@ -87,26 +81,6 @@ const GoldDivider: React.FC<{ width: number; delay: number }> = ({ width, delay 
   );
 };
 
-// Dark photo with a slow push-in, fading into black where the text sits
-const Photo: React.FC<{ src: string; fadeFrom?: number }> = ({ src, fadeFrom = 35 }) => {
-  const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
-  const scale = interpolate(frame, [0, durationInFrames], [1.04, 1.12]);
-  return (
-    <AbsoluteFill>
-      <Img
-        src={staticFile(src)}
-        style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${scale})` }}
-      />
-      <AbsoluteFill
-        style={{
-          background: `linear-gradient(0deg, ${BLACK} ${fadeFrom}%, rgba(11,10,9,0.55) ${fadeFrom + 25}%, rgba(11,10,9,0.15) 100%)`,
-        }}
-      />
-    </AbsoluteFill>
-  );
-};
-
 // Black with a faint warm glow, so plain slides don't look flat
 const Bg: React.FC = () => (
   <AbsoluteFill
@@ -118,24 +92,19 @@ const Bg: React.FC = () => (
 );
 
 // Every scene fades in and out so cuts stay soft
-const Scene: React.FC<{
-  children: React.ReactNode;
-  photo?: string;
-  fadeFrom?: number;
-  align?: "center" | "flex-end";
-}> = ({ children, photo, fadeFrom, align = "center" }) => {
+const Scene: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const out = interpolate(frame, [durationInFrames - 8, durationInFrames], [1, 0], clamp);
   const inP = interpolate(frame, [0, 8], [0, 1], clamp);
   return (
     <AbsoluteFill style={{ opacity: Math.min(out, inP) }}>
-      {photo ? <Photo src={photo} fadeFrom={fadeFrom} /> : <Bg />}
+      <Bg />
       <AbsoluteFill
         style={{
           // keep clear of Reels UI: top bar, caption/buttons at the bottom, icons on the right
           padding: "250px 130px 400px 90px",
-          justifyContent: align,
+          justifyContent: "center",
           color: IVORY,
           fontFamily: SERIF,
           fontVariantNumeric: "lining-nums",
@@ -321,7 +290,7 @@ const Hook: React.FC = () => {
   const frame = useCurrentFrame();
   const spacing = interpolate(frame, [4, 30], [26, 4], { ...clamp, easing: ease });
   return (
-    <Scene photo={PHOTO_HOOK} fadeFrom={38} align="flex-end">
+    <Scene>
       <Rise delay={4}>
         <Title size={112} style={{ letterSpacing: spacing }}>
           Майстри
@@ -635,7 +604,7 @@ const FairPrice: React.FC = () => (
 );
 
 const WhereTitle: React.FC = () => (
-  <Scene photo={PHOTO_WHERE} fadeFrom={40} align="flex-end">
+  <Scene>
     <Rise delay={2}>
       <Kicker>А тепер ваші улюблені</Kicker>
     </Rise>
@@ -793,7 +762,7 @@ const Extras: React.FC = () => (
 );
 
 const Outro: React.FC = () => (
-  <Scene photo={PHOTO_OUTRO} fadeFrom={48} align="flex-end">
+  <Scene>
     <Rise delay={2}>
       <Title size={80}>Підняти ціну —</Title>
     </Rise>
