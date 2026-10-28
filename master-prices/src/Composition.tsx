@@ -167,7 +167,7 @@ const Kicker: React.FC<{ children: React.ReactNode; style?: React.CSSProperties 
   <div
     style={{
       fontWeight: 600,
-      fontSize: 34,
+      fontSize: 42,
       letterSpacing: 7,
       textTransform: "uppercase",
       color: GOLD,
@@ -189,7 +189,7 @@ const Aside: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }
   children,
   style,
 }) => (
-  <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 58, lineHeight: 1.15, color: GOLD, ...style }}>
+  <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 66, lineHeight: 1.15, color: GOLD, ...style }}>
     {children}
   </div>
 );
@@ -290,7 +290,7 @@ const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 
 const Hook: React.FC = () => {
   const frame = useCurrentFrame();
-  const spacing = interpolate(frame, [4, 30], [26, 4], { ...clamp, easing: ease });
+  const spacing = interpolate(frame, [2, 22], [26, 4], { ...clamp, easing: ease });
   return (
     <Scene>
       <Rise delay={4}>
@@ -298,20 +298,20 @@ const Hook: React.FC = () => {
           Майстри
         </Title>
       </Rise>
-      <Rise delay={10}>
+      <Rise delay={7}>
         <Title size={112} style={{ letterSpacing: spacing, color: GOLD }}>
           зажралися,
         </Title>
       </Rise>
-      <Rise delay={18}>
+      <Rise delay={12}>
         <Title size={112} style={{ letterSpacing: spacing }}>
           або...?
         </Title>
       </Rise>
       <div style={{ margin: "40px 0 28px" }}>
-        <GoldDivider width={520} delay={32} />
+        <GoldDivider width={520} delay={22} />
       </div>
-      <Rise delay={40}>
+      <Rise delay={28}>
         <Kicker>Крик душі майстра</Kicker>
       </Rise>
     </Scene>
@@ -335,7 +335,7 @@ const NotEqual: React.FC = () => (
       <Title size={92}>зарплата майстра</Title>
     </Rise>
     <Rise delay={64} style={{ marginTop: 60 }}>
-      <Aside>з ваших {PRICE} ₴ мені лишається далеко не {PRICE} ₴</Aside>
+      <Aside>з ваших {PRICE} ₴ майстру лишається далеко не {PRICE} ₴</Aside>
     </Rise>
   </Scene>
 );
@@ -454,7 +454,7 @@ const Receipt: React.FC = () => {
 const Salary: React.FC = () => (
   <Scene>
     <Rise delay={2}>
-      <Kicker>Залишок — це і є моя зарплата</Kicker>
+      <Kicker>Залишок — це і є зарплата майстра</Kicker>
     </Rise>
     <Rise delay={10} style={{ marginTop: 30 }}>
       <Num size={180} style={{ color: GOLD }}>
@@ -494,7 +494,7 @@ const Inflation: React.FC = () => {
         </Title>
       </Rise>
       <Rise delay={10} style={{ marginTop: 18 }}>
-        <Kicker style={{ fontSize: 30, letterSpacing: 5 }}>
+        <Kicker style={{ fontSize: 36, letterSpacing: 5 }}>
           Ціна та сама — {PRICE} ₴. Витрати — ні
         </Kicker>
       </Rise>
@@ -543,7 +543,7 @@ const Inflation: React.FC = () => {
       </Rise>
       <div style={{ marginTop: 50, display: "flex", alignItems: "flex-end", gap: 34 }}>
         <Rise delay={listEnd}>
-          <Kicker style={{ fontSize: 30 }}>Моя зарплата</Kicker>
+          <Kicker style={{ fontSize: 36 }}>Зарплата майстра</Kicker>
           <Num size={130} style={{ color: GOLD, marginTop: 10 }}>
             <Count from={SALARY_BEFORE} to={SALARY_AFTER} start={listEnd + 10} dur={40} /> ₴
           </Num>
@@ -576,7 +576,7 @@ const FairPrice: React.FC = () => (
   <Scene>
     <Rise delay={2}>
       <Body>
-        Щоб просто залишитись на своїх {fmt(SALARY_BEFORE)} ₴ —{" "}
+        Щоб майстру просто залишитись на тих самих {fmt(SALARY_BEFORE)} ₴ —{" "}
         <span style={{ fontStyle: "italic", color: GOLD }}>не розбагатіти!</span>
       </Body>
     </Rise>
@@ -632,11 +632,11 @@ const OBJECTIONS: Objection[] = [
     quote: "В нас зарплати не ростуть!",
     answer: (
       <>
-        А в мене, думаєте, росте? Вона <span style={{ color: GOLD }}>падає</span>. Ви щойно
+        А в майстрів, думаєте, росте? Вона <span style={{ color: GOLD }}>падає</span>. Ви щойно
         бачили.
       </>
     ),
-    more: "Оренда, матеріали і світло не питають, яка у вас зарплата. У мене теж не питають.",
+    more: "Оренда, матеріали і світло не питають, яка у вас зарплата. У майстрів теж не питають.",
   },
   {
     quote: "В країні війна, а ви ціни піднімаєте!",
@@ -645,7 +645,7 @@ const OBJECTIONS: Objection[] = [
         Саме тому. Війна — це <span style={{ color: GOLD }}>не знижка</span> на оренду.
       </>
     ),
-    more: "Блекаут — працюю від генератора. Тривога — переношу записи. Податки ніхто не скасовував.",
+    more: "Блекаут — робота від генератора. Тривога — перенесені записи. Податки ніхто не скасовував.",
   },
   {
     quote: "Ви вже зажралися!",
@@ -670,23 +670,18 @@ const OBJECTIONS: Objection[] = [
     quote: "Я знаю, ви все в Китаї купуєте, там дешево!",
     answer: (
       <>
-        Купую там, де <span style={{ color: GOLD }}>якісно</span>, а не там, де дешево.
+        Майстри купують там, де <span style={{ color: GOLD }}>якісно</span>, а не там, де дешево.
       </>
     ),
     more: "Нормальні матеріали коштують у валюті. Навіть українські бренди купують сировину за долари і євро.",
-    aside: "дешевий «Китай» — це алергія, опіки під лампою і переробка за мій рахунок",
+    aside: "дешевий «Китай» — це алергія, опіки під лампою і переробка за рахунок майстра",
   },
 ];
 
-const ObjectionScene: React.FC<{ o: Objection; n: number }> = ({ o, n }) => (
+const ObjectionScene: React.FC<{ o: Objection }> = ({ o }) => (
   <Scene>
-    <Rise delay={0}>
-      <Kicker>
-        {String(n).padStart(2, "0")} / {String(OBJECTIONS.length).padStart(2, "0")}
-      </Kicker>
-    </Rise>
-    {/* the objection, as an italic quote between gold hairlines */}
-    <Rise delay={6} style={{ marginTop: 40 }}>
+    {/* the objection, as an italic quote behind a gold hairline */}
+    <Rise delay={4}>
       <div
         style={{
           borderLeft: `3px solid ${GOLD}`,
@@ -711,7 +706,7 @@ const ObjectionScene: React.FC<{ o: Objection; n: number }> = ({ o, n }) => (
     </Rise>
     {o.aside ? (
       <Rise delay={130} style={{ marginTop: 40 }}>
-        <Aside style={{ fontSize: 54 }}>{o.aside}</Aside>
+        <Aside style={{ fontSize: 60 }}>{o.aside}</Aside>
       </Rise>
     ) : null}
   </Scene>
@@ -722,7 +717,7 @@ const EXTRAS: { ask: string; cost: string }[] = [
   { ask: "А що в тебе є новенького з кольорів?", cost: "нові колекції щосезону" },
   { ask: "А можна як на цьому фото?", cost: "втирки, фольга, слайдери, стрази" },
   { ask: "А в тебе є кава?", cost: "кава, чай, цукерки" },
-  { ask: "Відкололось, переробиш безкоштовно?", cost: "гарантія — за мій рахунок" },
+  { ask: "Відкололось, переробиш безкоштовно?", cost: "гарантія — за рахунок майстра" },
   { ask: "А можна в неділю о восьмій ранку?", cost: "вихідних немає" },
   { ask: "Перенесемо на завтра?", cost: "порожнє вікно — мінус гроші" },
 ];
@@ -751,7 +746,7 @@ const Extras: React.FC = () => (
               <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 52, lineHeight: 1.1 }}>
                 «{x.ask}»
               </div>
-              <Kicker style={{ fontSize: 28, letterSpacing: 5, marginTop: 6 }}>{x.cost}</Kicker>
+              <Kicker style={{ fontSize: 34, letterSpacing: 5, marginTop: 6 }}>{x.cost}</Kicker>
             </div>
           </div>
         </Rise>
@@ -779,15 +774,9 @@ const Outro: React.FC = () => (
         вашій безпеці.
       </Body>
     </Rise>
-    <div style={{ margin: "44px 0 30px" }}>
-      <GoldDivider width={520} delay={80} />
+    <div style={{ marginTop: 44 }}>
+      <GoldDivider width={520} delay={70} />
     </div>
-    <Rise delay={90}>
-      <Kicker>Дякую всім, хто розуміє</Kicker>
-    </Rise>
-    <Rise delay={110} style={{ marginTop: 26 }}>
-      <Aside>перешліть тій, хто каже «зажралися»</Aside>
-    </Rise>
   </Scene>
 );
 
@@ -828,7 +817,7 @@ const Marmot: React.FC = () => {
 const s = (sec: number) => Math.round(sec * FPS);
 
 const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
-  { id: "hook", dur: s(4.5), el: <Hook /> },
+  { id: "hook", dur: s(3), el: <Hook /> },
   { id: "not-equal", dur: s(5), el: <NotEqual /> },
   { id: "revenue", dur: s(5), el: <Revenue /> },
   { id: "receipt", dur: s(11), el: <Receipt /> },
@@ -836,14 +825,15 @@ const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
   { id: "inflation", dur: s(11), el: <Inflation /> },
   { id: "fair-price", dur: s(6), el: <FairPrice /> },
   { id: "where", dur: s(3.5), el: <WhereTitle /> },
-  ...OBJECTIONS.map((o, i) => ({
-    id: `objection-${i + 1}`,
-    dur: s(o.aside ? 8 : 7),
-    el: <ObjectionScene o={o} n={i + 1} />,
-  })),
+  ...OBJECTIONS.flatMap((o, i) => [
+    // the marmot screams first, then comes the calm answer to "Ви вже зажралися!"
+    ...(o.quote === "Ви вже зажралися!"
+      ? [{ id: "marmot", dur: MARMOT_LEAD + MARMOT_CLIP, el: <Marmot /> }]
+      : []),
+    { id: `objection-${i + 1}`, dur: s(o.aside ? 8 : 7), el: <ObjectionScene o={o} /> },
+  ]),
   { id: "extras", dur: s(9), el: <Extras /> },
-  { id: "outro", dur: s(7), el: <Outro /> },
-  { id: "marmot", dur: MARMOT_LEAD + MARMOT_CLIP, el: <Marmot /> },
+  { id: "outro", dur: s(5), el: <Outro /> },
 ];
 
 export const TOTAL = SCENES.reduce((t, sc) => t + sc.dur, 0);
