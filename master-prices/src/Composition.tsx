@@ -1,9 +1,11 @@
 import { loadFont } from "@remotion/fonts";
+import { Video } from "@remotion/media";
 import {
   AbsoluteFill,
   Composition,
   Easing,
   interpolate,
+  Sequence,
   Series,
   staticFile,
   useCurrentFrame,
@@ -789,6 +791,40 @@ const Outro: React.FC = () => (
   </Scene>
 );
 
+// Punchline: the caption sets it up on black, then the marmot screams under it
+const MARMOT_LEAD = 24; // frames of caption alone before the scream
+const MARMOT_CLIP = 48; // public/marmot.mp4, 1.6 s
+
+const Marmot: React.FC = () => {
+  const frame = useCurrentFrame();
+  const punch = interpolate(frame - MARMOT_LEAD, [0, 4, MARMOT_CLIP], [1.12, 1, 1.06], clamp);
+  return (
+    <AbsoluteFill style={{ fontFamily: SERIF, color: IVORY }}>
+      <Bg />
+      <Sequence from={MARMOT_LEAD} layout="none">
+        <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+          <div style={{ width: 1080, height: 1080, overflow: "hidden", marginTop: 230 }}>
+            <Video
+              src={staticFile("marmot.mp4")}
+              style={{ width: "100%", height: "100%", transform: `scale(${punch})` }}
+            />
+          </div>
+        </AbsoluteFill>
+      </Sequence>
+      <AbsoluteFill style={{ padding: "260px 90px 0", alignItems: "center", textAlign: "center" }}>
+        <Rise delay={0}>
+          <Title size={74} style={{ letterSpacing: 2 }}>
+            Коли майстри чують
+          </Title>
+          <Title size={74} style={{ letterSpacing: 2, color: GOLD, marginTop: 8 }}>
+            «ви зажралися»
+          </Title>
+        </Rise>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 const s = (sec: number) => Math.round(sec * FPS);
 
 const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
@@ -807,6 +843,7 @@ const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
   })),
   { id: "extras", dur: s(9), el: <Extras /> },
   { id: "outro", dur: s(7), el: <Outro /> },
+  { id: "marmot", dur: MARMOT_LEAD + MARMOT_CLIP, el: <Marmot /> },
 ];
 
 export const TOTAL = SCENES.reduce((t, sc) => t + sc.dur, 0);
