@@ -12,7 +12,7 @@ def wall_mask(f):
     tex = np.sqrt(np.maximum(var,0))
     low_sat = np.clip((0.16 - s)/0.06, 0, 1)
     smooth = np.clip((0.035 - tex)/0.02, 0, 1)
-    in_range = np.clip((v-0.12)/0.08,0,1)*np.clip((0.85-v)/0.1,0,1)
+    in_range = np.clip((v-0.05)/0.06,0,1)*np.clip((0.85-v)/0.1,0,1)
     w = low_sat*smooth*in_range
     w = cv2.morphologyEx(w, cv2.MORPH_OPEN, np.ones((5,5),np.uint8))
     w = cv2.morphologyEx(w, cv2.MORPH_CLOSE, np.ones((9,9),np.uint8))
@@ -54,7 +54,8 @@ ema = None; n = 0
 while cap.get(cv2.CAP_PROP_POS_MSEC) < t1*1000:
     ok, f = cap.read()
     if not ok: break
-    fg = 1 - wall_mask(f)
+    # firm up the key so the darkened wall doesn't sparkle with leftover specks
+    fg = np.clip((cv2.GaussianBlur(1 - wall_mask(f), (0,0), 3) - 0.15)/0.5, 0, 1)
     if bottom is not None:
         fg = fg*(1-bottom) + fg*bottom*np.clip(skin_mask(f.astype(np.float32)/255)*1.5, 0, 1)
     ema = fg if ema is None else 0.65*fg + 0.35*ema
