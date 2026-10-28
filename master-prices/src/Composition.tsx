@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import { loadFont } from "@remotion/fonts";
 import { Video } from "@remotion/media";
 import {
@@ -28,12 +29,6 @@ import {
 
 const SERIF = "Cormorant Garamond";
 loadFont({ family: SERIF, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
-loadFont({
-  family: SERIF,
-  url: staticFile("fonts/Cormorant-Italic.ttf"),
-  weight: "300 700",
-  style: "italic",
-});
 
 // Same palette as the page covers: black, ivory serif caps, gold accents
 const BLACK = "#0b0a09";
@@ -82,15 +77,99 @@ const GoldDivider: React.FC<{ width: number; delay: number }> = ({ width, delay 
   );
 };
 
-// Black with a faint warm glow, so plain slides don't look flat
-const Bg: React.FC = () => (
-  <AbsoluteFill
-    style={{
-      backgroundColor: BLACK,
-      background: `radial-gradient(ellipse 80% 55% at 50% 42%, #1d1915 0%, ${BLACK} 70%)`,
-    }}
-  />
-);
+// Which background each scene gets; set per scene in <Reel>
+const BgVariant = createContext(0);
+
+// Hairlines fanning in from the edges toward one point, plus two long arcs
+const Lines: React.FC<{ t: number }> = ({ t }) => {
+  const d = Math.sin(t * 0.6) * 30;
+  const px = 1160;
+  const py = 1560 + d;
+  const fan: [number, number, number][] = [
+    [-40, 760, 0.16],
+    [-40, 800, 0.1],
+    [180, -40, 0.14],
+    [230, -40, 0.09],
+    [-40, 1500, 0.12],
+  ];
+  return (
+    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+      {fan.map(([x, y, o], i) => (
+        <path
+          key={i}
+          d={`M${x},${y} Q${(x + px) / 2 + d},${(y + py) / 2 - 60} ${px},${py}`}
+          stroke={IVORY}
+          strokeOpacity={o}
+          strokeWidth={1.6}
+          fill="none"
+        />
+      ))}
+      <path
+        d={`M${930 + d},-40 C${720 + d},700 ${760},1300 ${1120},${1700 + d}`}
+        stroke={IVORY}
+        strokeOpacity={0.14}
+        strokeWidth={1.8}
+        fill="none"
+      />
+      <path
+        d={`M${1010 - d},-40 C${840},640 ${880 + d},1260 ${1120},${1560}`}
+        stroke={GOLD}
+        strokeOpacity={0.16}
+        strokeWidth={1.4}
+        fill="none"
+      />
+    </svg>
+  );
+};
+
+// Soft grey waves rising from the bottom-left corner
+const Waves: React.FC<{ t: number }> = ({ t }) => {
+  const layers = [
+    { top: 980, reach: 820, o: 0.05, ph: 0 },
+    { top: 1220, reach: 640, o: 0.07, ph: 1.3 },
+    { top: 1440, reach: 480, o: 0.09, ph: 2.4 },
+  ];
+  return (
+    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
+      {layers.map((l, i) => {
+        const w = Math.sin(t * 0.5 + l.ph) * 40;
+        return (
+          <path
+            key={i}
+            d={`M0,1920 L0,${l.top + w} C${l.reach * 0.35},${l.top + 160 - w} ${l.reach * 0.2},${l.top + 420 + w} ${l.reach * 0.6},${l.top + 560} C${l.reach * 0.9},${l.top + 680 - w} ${l.reach},${1800 + w} ${l.reach + 60},1920 Z`}
+            fill={IVORY}
+            fillOpacity={l.o}
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
+// Black with a faint warm glow and a quiet pattern that alternates and mirrors per scene
+const Bg: React.FC = () => {
+  const frame = useCurrentFrame();
+  const v = useContext(BgVariant);
+  const t = frame / FPS;
+  const flip = [
+    "none",
+    "scaleX(-1)",
+    "scale(-1, -1)",
+    "scaleY(-1)",
+  ][Math.floor(v / 2) % 4];
+  return (
+    <AbsoluteFill
+      style={{
+        backgroundColor: BLACK,
+        background: `radial-gradient(ellipse 80% 55% at 50% 42%, #1d1915 0%, ${BLACK} 70%)`,
+      }}
+    >
+      <AbsoluteFill style={{ transform: flip }}>
+        {v % 2 === 0 ? <Lines t={t} /> : <Waves t={t} />}
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
 
 // Every scene fades in and out so cuts stay soft
 const Scene: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -188,7 +267,7 @@ const Aside: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }
   children,
   style,
 }) => (
-  <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 66, lineHeight: 1.15, color: GOLD, ...style }}>
+  <div style={{ fontWeight: 500, fontSize: 64, lineHeight: 1.15, color: GOLD, ...style }}>
     {children}
   </div>
 );
@@ -275,7 +354,7 @@ const Count: React.FC<{ from: number; to: number; start: number; dur?: number }>
 // Small disclaimer under the money slides
 const Disclaimer: React.FC<{ delay: number }> = ({ delay }) => (
   <Rise delay={delay} style={{ marginTop: 28 }}>
-    <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 38, color: DIM }}>
+    <div style={{ fontWeight: 500, fontSize: 38, color: DIM }}>
       * цифри умовні
     </div>
   </Rise>
@@ -295,36 +374,6 @@ const Panel: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 // ——— Scenes ———
-
-const Hook: React.FC = () => {
-  const frame = useCurrentFrame();
-  const spacing = interpolate(frame, [2, 22], [26, 4], { ...clamp, easing: ease });
-  return (
-    <Scene>
-      <Rise delay={4}>
-        <Title size={112} style={{ letterSpacing: spacing }}>
-          Майстри
-        </Title>
-      </Rise>
-      <Rise delay={7}>
-        <Title size={112} style={{ letterSpacing: spacing, color: GOLD }}>
-          зажралися,
-        </Title>
-      </Rise>
-      <Rise delay={12}>
-        <Title size={112} style={{ letterSpacing: spacing }}>
-          або...?
-        </Title>
-      </Rise>
-      <div style={{ margin: "40px 0 28px" }}>
-        <GoldDivider width={520} delay={22} />
-      </div>
-      <Rise delay={28}>
-        <Kicker>Крик душі майстра</Kicker>
-      </Rise>
-    </Scene>
-  );
-};
 
 const NotEqual: React.FC = () => (
   <Scene>
@@ -388,7 +437,7 @@ const Revenue: React.FC = () => (
   </Scene>
 );
 
-const ROW_GAP = 26; // frames between receipt rows
+const ROW_GAP = 16; // frames between receipt rows
 
 // Each expense line appears, the balance on top melts down with it
 const Receipt: React.FC = () => {
@@ -493,7 +542,7 @@ const Salary: React.FC = () => (
 const Inflation: React.FC = () => {
   const frame = useCurrentFrame();
   const start = 40;
-  const gap = 14;
+  const gap = 10;
   const listEnd = start + EXPENSES.length * gap;
   return (
     <Scene>
@@ -587,7 +636,7 @@ const FairPrice: React.FC = () => (
     <Rise delay={2}>
       <Body>
         Щоб майстру просто залишитись на тих самих {fmt(SALARY_BEFORE)} ₴ —{" "}
-        <span style={{ fontStyle: "italic", color: GOLD }}>не розбагатіти!</span>
+        <span style={{ color: GOLD }}>не розбагатіти!</span>
       </Body>
     </Rise>
     <Rise delay={20} style={{ marginTop: 50 }}>
@@ -690,15 +739,14 @@ const OBJECTIONS: Objection[] = [
 
 const ObjectionScene: React.FC<{ o: Objection }> = ({ o }) => (
   <Scene>
-    {/* the objection, as an italic quote behind a gold hairline */}
+    {/* the objection, as a quote behind a gold hairline */}
     <Rise delay={4}>
       <div
         style={{
           borderLeft: `3px solid ${GOLD}`,
           paddingLeft: 34,
-          fontStyle: "italic",
           fontWeight: 500,
-          fontSize: 66,
+          fontSize: 62,
           lineHeight: 1.12,
           color: DIM,
         }}
@@ -706,16 +754,16 @@ const ObjectionScene: React.FC<{ o: Objection }> = ({ o }) => (
         «{o.quote}»
       </div>
     </Rise>
-    <Rise delay={36} style={{ marginTop: 60 }}>
+    <Rise delay={28} style={{ marginTop: 60 }}>
       <Title size={76} style={{ lineHeight: 1.1, letterSpacing: 1.5 }}>
         {o.answer}
       </Title>
     </Rise>
-    <Rise delay={70} style={{ marginTop: 44 }}>
+    <Rise delay={56} style={{ marginTop: 44 }}>
       <Body style={{ fontSize: 48 }}>{o.more}</Body>
     </Rise>
     {o.aside ? (
-      <Rise delay={130} style={{ marginTop: 40 }}>
+      <Rise delay={105} style={{ marginTop: 40 }}>
         <Aside style={{ fontSize: 60 }}>{o.aside}</Aside>
       </Rise>
     ) : null}
@@ -753,7 +801,7 @@ const Extras: React.FC = () => (
               }}
             />
             <div>
-              <div style={{ fontStyle: "italic", fontWeight: 500, fontSize: 52, lineHeight: 1.1 }}>
+              <div style={{ fontWeight: 500, fontSize: 50, lineHeight: 1.1 }}>
                 «{x.ask}»
               </div>
               <Kicker style={{ fontSize: 34, letterSpacing: 5, marginTop: 6 }}>{x.cost}</Kicker>
@@ -855,17 +903,16 @@ const Cta: React.FC = () => (
 const s = (sec: number) => Math.round(sec * FPS);
 
 const SCENES: { id: string; dur: number; el: React.ReactNode }[] = [
-  { id: "hook", dur: s(3), el: <Hook /> },
   { id: "not-equal", dur: s(5), el: <NotEqual /> },
   { id: "revenue", dur: s(5), el: <Revenue /> },
-  { id: "receipt", dur: s(11), el: <Receipt /> },
+  { id: "receipt", dur: s(8), el: <Receipt /> },
   { id: "salary", dur: s(8), el: <Salary /> },
-  { id: "inflation", dur: s(11), el: <Inflation /> },
+  { id: "inflation", dur: s(9), el: <Inflation /> },
   { id: "fair-price", dur: s(6), el: <FairPrice /> },
   { id: "where", dur: s(3.5), el: <WhereTitle /> },
   ...OBJECTIONS.map((o, i) => ({
     id: `objection-${i + 1}`,
-    dur: s(o.aside ? 8 : 7),
+    dur: s(o.aside ? 7 : 6),
     el: <ObjectionScene o={o} />,
   })),
   { id: "extras", dur: s(9), el: <Extras /> },
@@ -879,9 +926,9 @@ export const TOTAL = SCENES.reduce((t, sc) => t + sc.dur, 0);
 const Reel: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: BLACK }}>
     <Series>
-      {SCENES.map((sc) => (
+      {SCENES.map((sc, i) => (
         <Series.Sequence key={sc.id} durationInFrames={sc.dur} name={sc.id}>
-          {sc.el}
+          <BgVariant.Provider value={i}>{sc.el}</BgVariant.Provider>
         </Series.Sequence>
       ))}
     </Series>
