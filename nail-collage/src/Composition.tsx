@@ -48,10 +48,18 @@ type Framing = {
   fy: number;
   scale: number;
   from?: number; // seconds into the clip
+  rate?: number; // playback speed
 };
 
 // One clip framed inside a column, with a slow drift so it never looks static
-const Clip: React.FC<Framing> = ({ src, fx, fy, scale, from = 0 }) => {
+const Clip: React.FC<Framing> = ({
+  src,
+  fx,
+  fy,
+  scale,
+  from = 0,
+  rate = 1,
+}) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const s = scale * interpolate(frame, [0, durationInFrames], [1, 1.04]);
@@ -63,6 +71,7 @@ const Clip: React.FC<Framing> = ({ src, fx, fy, scale, from = 0 }) => {
       <Video
         src={staticFile(src)}
         trimBefore={Math.round(from * FPS)}
+        playbackRate={rate}
         muted
         style={{
           position: "absolute",
@@ -76,6 +85,7 @@ const Clip: React.FC<Framing> = ({ src, fx, fy, scale, from = 0 }) => {
       <Video
         src={staticFile(src)}
         trimBefore={Math.round(from * FPS)}
+        playbackRate={rate}
         muted
         style={{
           position: "absolute",
@@ -270,7 +280,19 @@ export const NailCollage: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: "black" }}>
       <Column left={0}>
         {/* Великий палець */}
-        <Clip src="thumb.mp4" fx={360} fy={600} scale={0.9} />
+        <Sequence
+          shots={[
+            { src: "thumb.mp4", frames: 161, fx: 340, fy: 560, scale: 0.88 },
+            {
+              src: "thumb-b.mp4",
+              frames: 244,
+              fx: 390,
+              fy: 570,
+              scale: 0.95,
+              rate: 0.8,
+            },
+          ]}
+        />
       </Column>
       <Band left={PANEL} delay={6} />
       <Column left={PANEL + BAND}>
