@@ -86,11 +86,11 @@ const Lines: React.FC<{ t: number }> = ({ t }) => {
   const px = 1160;
   const py = 1560 + d;
   const fan: [number, number, number][] = [
-    [-40, 760, 0.16],
-    [-40, 800, 0.1],
-    [180, -40, 0.14],
-    [230, -40, 0.09],
-    [-40, 1500, 0.12],
+    [-40, 760, 0.09],
+    [-40, 800, 0.06],
+    [180, -40, 0.08],
+    [230, -40, 0.05],
+    [-40, 1500, 0.07],
   ];
   return (
     <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
@@ -107,14 +107,14 @@ const Lines: React.FC<{ t: number }> = ({ t }) => {
       <path
         d={`M${930 + d},-40 C${720 + d},700 ${760},1300 ${1120},${1700 + d}`}
         stroke={IVORY}
-        strokeOpacity={0.14}
-        strokeWidth={1.8}
+        strokeOpacity={0.08}
+        strokeWidth={1.6}
         fill="none"
       />
       <path
         d={`M${1010 - d},-40 C${840},640 ${880 + d},1260 ${1120},${1560}`}
         stroke={GOLD}
-        strokeOpacity={0.16}
+        strokeOpacity={0.1}
         strokeWidth={1.4}
         fill="none"
       />
@@ -122,31 +122,7 @@ const Lines: React.FC<{ t: number }> = ({ t }) => {
   );
 };
 
-// Soft grey waves rising from the bottom-left corner
-const Waves: React.FC<{ t: number }> = ({ t }) => {
-  const layers = [
-    { top: 980, reach: 820, o: 0.05, ph: 0 },
-    { top: 1220, reach: 640, o: 0.07, ph: 1.3 },
-    { top: 1440, reach: 480, o: 0.09, ph: 2.4 },
-  ];
-  return (
-    <svg width={1080} height={1920} style={{ position: "absolute", inset: 0 }}>
-      {layers.map((l, i) => {
-        const w = Math.sin(t * 0.5 + l.ph) * 40;
-        return (
-          <path
-            key={i}
-            d={`M0,1920 L0,${l.top + w} C${l.reach * 0.35},${l.top + 160 - w} ${l.reach * 0.2},${l.top + 420 + w} ${l.reach * 0.6},${l.top + 560} C${l.reach * 0.9},${l.top + 680 - w} ${l.reach},${1800 + w} ${l.reach + 60},1920 Z`}
-            fill={IVORY}
-            fillOpacity={l.o}
-          />
-        );
-      })}
-    </svg>
-  );
-};
-
-// Black with a faint warm glow and a quiet pattern that alternates and mirrors per scene
+// Black with a faint warm glow and hairlines, mirrored differently from scene to scene
 const Bg: React.FC = () => {
   const frame = useCurrentFrame();
   const v = useContext(BgVariant);
@@ -156,7 +132,7 @@ const Bg: React.FC = () => {
     "scaleX(-1)",
     "scale(-1, -1)",
     "scaleY(-1)",
-  ][Math.floor(v / 2) % 4];
+  ][v % 4];
   return (
     <AbsoluteFill
       style={{
@@ -165,7 +141,7 @@ const Bg: React.FC = () => {
       }}
     >
       <AbsoluteFill style={{ transform: flip }}>
-        {v % 2 === 0 ? <Lines t={t} /> : <Waves t={t} />}
+        <Lines t={t} />
       </AbsoluteFill>
     </AbsoluteFill>
   );
@@ -530,7 +506,7 @@ const Salary: React.FC = () => (
       </Title>
     </Rise>
     <Rise delay={100} style={{ marginTop: 46 }}>
-      <Body style={{ color: DIM }}>Без лікарняних. Без відпусток. Без пенсії.</Body>
+      <Body style={{ color: DIM }}>Без оплачуваних відпусток і лікарняних.</Body>
     </Rise>
     <Rise delay={130} style={{ marginTop: 30 }}>
       <Aside>менше, ніж коштує шаурма</Aside>
@@ -713,7 +689,7 @@ const OBJECTIONS: Objection[] = [
         Зажратися на <span style={{ color: GOLD }}>{HOURLY_BEFORE}&nbsp;₴</span> на годину?
       </>
     ),
-    more: "Без лікарняних, відпусток і пенсії. Спина, шия і зір — в подарунок до професії.",
+    more: "Відпустки й лікарняні ніхто не оплачує. Спина, шия і зір — в подарунок до професії.",
   },
   {
     quote: "Це ж просто пиляння нігтів!",
