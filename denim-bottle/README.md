@@ -13,3 +13,10 @@ What the script does:
 
 Re-run: `pip install opencv-python-headless numpy "rembg[cpu]"`, then from `scripts/`:
 `python3 process.py <lv_0...mp4> <VID_...mp4> ../out/denim-bottle-black.mp4 ../out/denim-bottle-brush.mp4`
+
+## Vertical collage
+
+`out/denim-collage.mp4` — 1080×1920, 30 fps, 4.4 s, no audio. Three 1080×636 panels with 6 px dark dividers:
+top — bottle with brush (`lv_0_20261029084516.mp4`), middle — nails (`lv_0_20261029090017.mp4`),
+bottom — polish with brush (`lv_0_20261029090247.mp4`). Each source is cropped out of its letterbox and
+scaled to fill its panel; length follows the shortest clip.
