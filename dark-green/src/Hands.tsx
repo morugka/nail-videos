@@ -1,6 +1,14 @@
 import { fade } from "@remotion/transitions/fade";
 import { linearTiming, TransitionSeries } from "@remotion/transitions";
-import { AbsoluteFill, Composition, interpolate, useCurrentFrame } from "remotion";
+import {
+  AbsoluteFill,
+  Composition,
+  Img,
+  interpolate,
+  staticFile,
+  Still,
+  useCurrentFrame,
+} from "remotion";
 import {
   BG,
   cinzel,
@@ -18,8 +26,10 @@ import {
 // The headline sits inside the 3:4 band (y 240–1680) that the profile grid shows.
 const SHOTS = [78, 72, 72, 84];
 
-const Headline: React.FC = () => {
-  const frame = useCurrentFrame();
+// `still` shows the headline fully, without the intro animation (for the cover)
+const Headline: React.FC<{ still?: boolean }> = ({ still = false }) => {
+  const current = useCurrentFrame();
+  const frame = still ? 1000 : current;
   const p = interpolate(frame, [0, 14], [0, 1], {
     extrapolateRight: "clamp",
     easing: ease,
@@ -84,20 +94,47 @@ export const HandsReel: React.FC = () => {
     <AbsoluteFill style={{ backgroundColor: BG }}>
       <TransitionSeries>
         <TransitionSeries.Sequence name="Кільце" durationInFrames={SHOTS[0]}>
-          <Photo src="photos/graded/1-hook.jpg" to={1.07} x={62} y={50} offsetY={120} />
+          <Photo
+            src="photos/graded/1-hook.jpg"
+            to={1.07}
+            x={62}
+            y={50}
+            offsetY={120}
+          />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Кулак" durationInFrames={SHOTS[1]}>
-          <Photo src="photos/graded/2-fist.jpg" to={1.07} x={45} y={50} offsetY={60} />
+          <Photo
+            src="photos/graded/2-fist.jpg"
+            to={1.07}
+            x={45}
+            y={50}
+            offsetY={60}
+          />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
-        <TransitionSeries.Sequence name="Один ніготь" durationInFrames={SHOTS[2]}>
+        <TransitionSeries.Sequence
+          name="Один ніготь"
+          durationInFrames={SHOTS[2]}
+        >
           {/* pushed down so the sleeve doesn't sit under the headline */}
-          <Photo src="photos/graded/3-single.jpg" to={1.08} x={55} y={60} offsetY={300} />
+          <Photo
+            src="photos/graded/3-single.jpg"
+            to={1.08}
+            x={55}
+            y={60}
+            offsetY={300}
+          />
         </TransitionSeries.Sequence>
         <TransitionSeries.Transition presentation={fade()} timing={t} />
         <TransitionSeries.Sequence name="Збоку" durationInFrames={SHOTS[3]}>
-          <Photo src="photos/graded/5-edge.jpg" to={1.08} x={50} y={55} offsetY={220} />
+          <Photo
+            src="photos/graded/5-edge.jpg"
+            to={1.08}
+            x={50}
+            y={55}
+            offsetY={220}
+          />
         </TransitionSeries.Sequence>
       </TransitionSeries>
       <Headline />
@@ -106,15 +143,49 @@ export const HandsReel: React.FC = () => {
   );
 };
 
+// Cover: fist photo, headline on top, full logo at the bottom of the band the profile grid shows
+export const HandsCover: React.FC<{ logoX: number; logoY: number }> = ({
+  logoX,
+  logoY,
+}) => {
+  return (
+    <AbsoluteFill style={{ backgroundColor: BG }}>
+      <Photo src="photos/graded/2-fist.jpg" to={1} offsetY={60} />
+      <Headline still />
+      <Img
+        src={staticFile("logo-full.png")}
+        style={{
+          position: "absolute",
+          width: 230,
+          left: logoX,
+          top: logoY,
+          filter: "drop-shadow(0 0 12px rgba(0,0,0,0.9))",
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
 export const HandsComposition = () => {
   return (
-    <Composition
-      id="HandsReel"
-      component={HandsReel}
-      durationInFrames={SHOTS.reduce((a, b) => a + b, 0) - (SHOTS.length - 1) * FADE}
-      fps={FPS}
-      width={1080}
-      height={1920}
-    />
+    <>
+      <Still
+        id="HandsCover"
+        component={HandsCover}
+        defaultProps={{ logoX: 70, logoY: 1430 }}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="HandsReel"
+        component={HandsReel}
+        durationInFrames={
+          SHOTS.reduce((a, b) => a + b, 0) - (SHOTS.length - 1) * FADE
+        }
+        fps={FPS}
+        width={1080}
+        height={1920}
+      />
+    </>
   );
 };

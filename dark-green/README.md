@@ -16,5 +16,5 @@
 npm i
 npx remotion studio                                                   # попередній перегляд
 npx remotion render GreenReel out/dark-green-0056-reels.mp4 --crf=16 --concurrency=1  # рендер
-npx remotion still HandsReel out/covers/vidmovylasia-1-ring.jpg --frame=40 --jpeg-quality=95  # обкладинка (кадри 100, 175 — інші фото)
+npx remotion still HandsCover out/covers/vidmovylasia-cover.jpg --jpeg-quality=95  # обкладинка
 ```
