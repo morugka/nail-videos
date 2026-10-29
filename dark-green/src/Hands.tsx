@@ -27,7 +27,10 @@ import {
 const SHOTS = [78, 72, 72, 84];
 
 // `still` shows the headline fully, without the intro animation (for the cover)
-const Headline: React.FC<{ still?: boolean }> = ({ still = false }) => {
+const Headline: React.FC<{ still?: boolean; top?: number }> = ({
+  still = false,
+  top = 310,
+}) => {
   const current = useCurrentFrame();
   const frame = still ? 1000 : current;
   const p = interpolate(frame, [0, 14], [0, 1], {
@@ -48,7 +51,7 @@ const Headline: React.FC<{ still?: boolean }> = ({ still = false }) => {
     textAlign: "center",
   };
   return (
-    <AbsoluteFill style={{ alignItems: "center", paddingTop: 310 }}>
+    <AbsoluteFill style={{ alignItems: "center", paddingTop: top }}>
       <div
         style={{
           position: "absolute",
@@ -165,9 +168,60 @@ export const HandsCover: React.FC = () => {
   );
 };
 
+// Cover on the dried-flowers photo: the 9:16 photo fills the frame, headline in the dark top,
+// a small "details in the caption" line at the bottom of the band the profile grid shows
+export const BranchCover: React.FC = () => {
+  return (
+    <AbsoluteFill style={{ backgroundColor: BG }}>
+      <Img
+        src={staticFile("photos/7-branch.jpg")}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
+      <Headline still top={420} />
+      <AbsoluteFill
+        style={{ alignItems: "flex-start", paddingTop: 90, paddingLeft: 48 }}
+      >
+        <Img
+          src={staticFile("logo-full.png")}
+          style={{
+            width: 190,
+            filter: "drop-shadow(0 0 10px rgba(0,0,0,0.85))",
+          }}
+        />
+      </AbsoluteFill>
+      <AbsoluteFill
+        style={{
+          justifyContent: "flex-end",
+          alignItems: "center",
+          paddingBottom: 270,
+        }}
+      >
+        <div
+          style={{
+            fontFamily: cinzel,
+            fontSize: 30,
+            letterSpacing: 8,
+            color: IVORY,
+            opacity: 0.85,
+            textShadow: "0 0 12px rgba(0,0,0,0.9), 0 0 4px rgba(0,0,0,0.9)",
+          }}
+        >
+          ДЕТАЛІ В ОПИСІ
+        </div>
+      </AbsoluteFill>
+    </AbsoluteFill>
+  );
+};
+
 export const HandsComposition = () => {
   return (
     <>
+      <Still
+        id="BranchCover"
+        component={BranchCover}
+        width={1080}
+        height={1920}
+      />
       <Still
         id="HandsCover"
         component={HandsCover}
