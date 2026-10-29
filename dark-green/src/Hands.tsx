@@ -143,25 +143,26 @@ export const HandsReel: React.FC = () => {
   );
 };
 
-// Cover: fist photo, headline on top, full logo at the bottom of the band the profile grid shows
-export const HandsCover: React.FC<{ logoX: number; logoY: number }> = ({
-  logoX,
-  logoY,
-}) => {
+// Cover: fist photo, headline on top, KM mark in the top left corner
+export const HandsCover: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: BG }}>
       <Photo src="photos/graded/2-fist.jpg" to={1} offsetY={60} />
       <Headline still />
-      <Img
-        src={staticFile("logo-full.png")}
-        style={{
-          position: "absolute",
-          width: 230,
-          left: logoX,
-          top: logoY,
-          filter: "drop-shadow(0 0 12px rgba(0,0,0,0.9))",
-        }}
-      />
+      {/* same KM mark, size and corner as in the reels */}
+      <AbsoluteFill
+        style={{ alignItems: "flex-start", paddingTop: 110, paddingLeft: 48 }}
+      >
+        <Img
+          src={staticFile("logo-km.png")}
+          style={{
+            height: 92,
+            opacity: 0.75,
+            filter:
+              "drop-shadow(0 0 10px rgba(0,0,0,0.85)) drop-shadow(0 0 3px rgba(0,0,0,0.9))",
+          }}
+        />
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
@@ -172,7 +173,6 @@ export const HandsComposition = () => {
       <Still
         id="HandsCover"
         component={HandsCover}
-        defaultProps={{ logoX: 70, logoY: 1430 }}
         width={1080}
         height={1920}
       />
