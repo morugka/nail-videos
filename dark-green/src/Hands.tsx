@@ -177,7 +177,7 @@ export const BranchCover: React.FC = () => {
         src={staticFile("photos/7-branch.jpg")}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
-      <Headline still top={420} />
+      <Headline still top={500} />
       <AbsoluteFill
         style={{ alignItems: "flex-start", paddingTop: 90, paddingLeft: 48 }}
       >
@@ -192,8 +192,9 @@ export const BranchCover: React.FC = () => {
       <AbsoluteFill
         style={{
           justifyContent: "flex-end",
-          alignItems: "center",
+          alignItems: "flex-end",
           paddingBottom: 60,
+          paddingRight: 48,
         }}
       >
         <div
