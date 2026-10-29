@@ -1,5 +1,8 @@
 import cv2, numpy as np, subprocess, sys, json
 from seg import fg_mask, label_mask, SW, SH
+from rembg import new_session, remove
+
+SESSION = new_session('isnet-general-use')
 
 W, H = 1080, 1920
 T = np.array([15, 12, 12], np.float32)  # target background, BGR (RGB 12,12,15)
@@ -29,7 +32,13 @@ def up(m, sigma):
     m = cv2.resize(m, (W, H), interpolation=cv2.INTER_LINEAR)
     return cv2.GaussianBlur(m, (0, 0), sigma)[..., None]
 
-def run(src, dst, thr, recolor=None):
+def object_mask(f, gamma):
+    # the model only sees a brightened copy, so the black cap stays in the mask; shadows stay out
+    lut = np.clip(255 * (np.arange(256) / 255) ** (1 / gamma), 0, 255).astype(np.uint8)
+    m = remove(cv2.cvtColor(cv2.LUT(f, lut), cv2.COLOR_BGR2RGB), session=SESSION, only_mask=True)
+    return cv2.resize(m, (SW, SH), interpolation=cv2.INTER_AREA).astype(np.float32) / 255
+
+def run(src, dst, thr, gamma=1.0, recolor=None):
     fps = subprocess.check_output(['ffprobe', '-v', 'error', '-select_streams', 'v:0', '-show_entries',
                                    'stream=r_frame_rate', '-of', 'csv=p=0', src]).decode().strip()
     enc = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgr24',
@@ -40,10 +49,10 @@ def run(src, dst, thr, recolor=None):
     rng = np.random.default_rng(0)
     ema_o = ema_l = None
     for f in frames(src):
-        m, fit = fg_mask(f, thr)
-        m = cv2.dilate(m, np.ones((5, 5), np.uint8)).astype(np.float32) / 255
+        _, fit = fg_mask(f, thr)
+        m = object_mask(f, gamma)
         ema_o = m if ema_o is None else 0.5 * ema_o + 0.5 * m
-        Mo = up(ema_o, 4)
+        Mo = up(ema_o, 2)
         px = f.astype(np.float32)
         lum = px.mean(2, keepdims=True)
         bgL = cv2.resize(fit.mean(2), (W, H))[..., None]
@@ -71,5 +80,5 @@ if __name__ == '__main__':
     ref = label_stats(A, 25, 8)
     cur = label_stats(B, 75, 30)
     print('ref Lab', ref, 'cur Lab', cur)
-    run(A, outA, 6)
-    run(B, outB, 9, (ref, cur, 75, 30))
+    run(A, outA, 6, gamma=2.6)
+    run(B, outB, 9, recolor=(ref, cur, 75, 30))
