@@ -17,6 +17,7 @@ Re-run: `pip install opencv-python-headless numpy "rembg[cpu]"`, then from `scri
 ## Vertical collage
 
 `out/denim-collage.mp4` — 1080×1920, 30 fps, 4.4 s, no audio. Three 1080×636 panels with 6 px dark dividers:
+Backgrounds of the top and middle panels are flattened to one dark tone (bottle cut out with rembg isnet+u2net, hand/denim by colour + GrabCut); the bottom panel is sharpened. Built by `scripts/collage.py`.
 top — bottle with brush (`lv_0_20261029084516.mp4`), middle — nails (`lv_0_20261029090017.mp4`),
 bottom — polish with brush (`lv_0_20261029090247.mp4`). Each source is cropped out of its letterbox and
 scaled to fill its panel; length follows the shortest clip.
