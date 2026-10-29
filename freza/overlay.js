@@ -7,9 +7,9 @@ const { chromium } = require('playwright');
 const out = path.resolve(process.argv[2] || path.join(__dirname, 'overlay.png'));
 const fonts = path.join(__dirname, 'fonts');
 
-// низ затемнюється від SHADE_TOP, текст закінчується вище нижніх 340 px (інтерфейс Reels)
-const SHADE_TOP = 1120;
-const TEXT_BOTTOM = 1920 - 360;
+// низ затемнюється від SHADE_TOP, текст опущено на темну решітку внизу кадру
+const SHADE_TOP = 1360;
+const TEXT_BOTTOM = 1920 - 110;
 
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face { font-family: CG; src: url('${fonts}/cormorant-garamond-cyrillic-500-normal.woff2'); font-weight: 500; unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
