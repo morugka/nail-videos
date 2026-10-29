@@ -14,7 +14,8 @@ import {
   Photo,
 } from "./Composition";
 
-// Hands only, one headline over the whole reel; the answer goes in the post caption
+// Hands only, one headline over every shot. Used for reel covers: render a still of the shot you want.
+// The headline sits inside the 3:4 band (y 240–1680) that the profile grid shows.
 const SHOTS = [78, 72, 72, 84];
 
 const Headline: React.FC = () => {
@@ -37,7 +38,7 @@ const Headline: React.FC = () => {
     textAlign: "center",
   };
   return (
-    <AbsoluteFill style={{ alignItems: "center", paddingTop: 250 }}>
+    <AbsoluteFill style={{ alignItems: "center", paddingTop: 310 }}>
       <div
         style={{
           position: "absolute",
