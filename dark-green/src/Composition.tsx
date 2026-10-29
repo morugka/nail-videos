@@ -13,22 +13,22 @@ import {
   useVideoConfig,
 } from "remotion";
 
-const cinzel = "Cinzel";
+export const cinzel = "Cinzel";
 const cormorant = "Cormorant Garamond";
 loadFont({ family: cinzel, url: staticFile("fonts/Cinzel.ttf"), weight: "400 900" });
 loadFont({ family: cormorant, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
 
-const GOLD = "#c9a36a";
-const IVORY = "#f2ece2";
+export const GOLD = "#c9a36a";
+export const IVORY = "#f2ece2";
 // close to the studio backdrop in the photos, so the faded photo edges blend in
-const BG = "#0b0b0d";
-const FPS = 30;
-const FADE = 10;
+export const BG = "#0b0b0d";
+export const FPS = 30;
+export const FADE = 10;
 
-const ease = Easing.bezier(0.33, 0, 0.2, 1);
+export const ease = Easing.bezier(0.33, 0, 0.2, 1);
 
 // Gold hairline with a small diamond in the middle, same as in the CURSE OF THE DEEP reel
-const GoldDivider: React.FC<{ width: number; progress: number }> = ({
+export const GoldDivider: React.FC<{ width: number; progress: number }> = ({
   width,
   progress,
 }) => (
@@ -82,7 +82,7 @@ type PhotoProps = {
 };
 
 // The 4:5 photo spans the full width of the 9:16 frame; top and bottom fade into the backdrop
-const Photo: React.FC<PhotoProps> = ({ src, to = 1.06, x = 50, y = 50, offsetY = 0 }) => {
+export const Photo: React.FC<PhotoProps> = ({ src, to = 1.06, x = 50, y = 50, offsetY = 0 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const p = interpolate(frame, [0, durationInFrames], [0, 1], {
@@ -228,7 +228,7 @@ const Flash: React.FC = () => {
 };
 
 // Small KM monogram over the middle shots: top left, a bit below the edge so the "Reels" header does not cover it
-const Monogram: React.FC = () => {
+export const Monogram: React.FC = () => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const o = interpolate(

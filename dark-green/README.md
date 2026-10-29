@@ -4,6 +4,7 @@
 Сюжет: «Чорний?» → «Ні. Темно-зелений.» → на світлі → «Смарагд у тіні» → флакон #0056 і запис.
 
 - `out/dark-green-0056-reels.mp4` — готовий ролик (без звуку: трек додається в Instagram)
+- `out/vidmovylasia-reels.mp4` — другий ролик з тих самих фото (лише руки): «Я від цього відмовилася і тільки виграла», `src/Hands.tsx`
 - `public/photos/` — фото в порядку появи; `graded/` — ті самі фото з підсиленим зеленим
 - `public/logo-full.png`, `public/logo-km.png` — логотип для фіналу і маленький знак
 - `scripts/green.py` — підсилює темно-зелений на нігтях, не чіпаючи шкіру й фон
@@ -15,4 +16,5 @@
 npm i
 npx remotion studio                                                   # попередній перегляд
 npx remotion render GreenReel out/dark-green-0056-reels.mp4 --crf=16 --concurrency=1  # рендер
+npx remotion render HandsReel out/vidmovylasia-reels.mp4 --crf=16 --concurrency=1   # другий ролик
 ```
