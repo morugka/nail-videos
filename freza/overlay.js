@@ -28,7 +28,8 @@ h1 { font-family: CG, serif; font-size: 104px; font-weight: 500; line-height: 0.
 .rule::before { content: ''; position: absolute; left: 0; right: 0; top: 6.5px; height: 1px; background: #c9a45c; }
 .rule i { position: absolute; left: 50%; top: 0; width: 14px; height: 14px; margin-left: -7px; background: #c9a45c;
   transform: rotate(45deg) scale(.7); box-shadow: 0 0 0 6px #0d0d0d; }
-.sub { font-family: CG, serif; font-weight: 500; font-size: 58px; letter-spacing: 3px; text-transform: uppercase; color: #c9a45c; }
+.sub { font-family: CG, serif; font-weight: 500; font-size: 58px; letter-spacing: 3px; text-transform: uppercase; color: #e6c47c;
+  text-shadow: 0 0 18px rgba(230,196,124,.25); }
 </style></head><body>
 <div class="shade"></div>
 <div class="t"><h1>Я від цього<br>відмовилася</h1><div class="rule"><i></i></div><div class="sub">і тільки виграла</div></div>
