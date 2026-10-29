@@ -169,7 +169,7 @@ export const HandsCover: React.FC = () => {
 };
 
 // Cover on the dried-flowers photo: the 9:16 photo fills the frame, headline in the dark top,
-// a small "details in the caption" line at the bottom of the band the profile grid shows
+// a small "details in the caption" line at the very bottom
 export const BranchCover: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: BG }}>
@@ -193,7 +193,7 @@ export const BranchCover: React.FC = () => {
         style={{
           justifyContent: "flex-end",
           alignItems: "center",
-          paddingBottom: 270,
+          paddingBottom: 60,
         }}
       >
         <div
