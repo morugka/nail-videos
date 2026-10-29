@@ -174,7 +174,7 @@ export const BranchCover: React.FC = () => {
   return (
     <AbsoluteFill style={{ backgroundColor: BG }}>
       <Img
-        src={staticFile("photos/7-branch.jpg")}
+        src={staticFile("photos/graded/7-branch.jpg")}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
       <Headline still top={408} />

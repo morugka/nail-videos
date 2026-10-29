@@ -8,6 +8,7 @@
 - `public/photos/` — фото в порядку появи; `graded/` — ті самі фото з підсиленим зеленим
 - `public/logo-full.png`, `public/logo-km.png` — логотип для фіналу і маленький знак
 - `scripts/green.py` — підсилює темно-зелений на нігтях, не чіпаючи шкіру й фон
+- `scripts/flatten_bg.py` — вирівнює темний фон у чорний (обкладинка, `graded/7-branch.jpg`)
 - `src/Composition.tsx` — плани, наближення, титри
 
 ## Як працювати
