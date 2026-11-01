@@ -8,6 +8,7 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
   const title = useIn(10, 26);
   const div = useIn(34, 22);
   const bounce = Math.abs(Math.sin(frame / 8)) * 18;
+  const glow = (Math.sin(frame / 10) + 1) / 2;
   return (
     <AbsoluteFill>
       <Backdrop glowY={42} />
@@ -34,7 +35,7 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
             position: "relative",
             fontFamily: serif,
             fontWeight: 600,
-            fontSize: 122,
+            fontSize: 112,
             lineHeight: 0.98,
             letterSpacing: 4 + (1 - title) * 24,
             textTransform: "uppercase",
@@ -80,26 +81,55 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
             {t.services}
           </div>
         </Appear>
-        <Appear start={70} style={{ marginTop: 90, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Appear start={64} style={{ marginTop: 80, display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div
             style={{
               fontFamily: serif,
               fontWeight: 600,
-              fontSize: 46,
-              letterSpacing: 3,
+              fontSize: 44,
+              letterSpacing: 4,
               textTransform: "uppercase",
-              lineHeight: 1.25,
               color: IVORY,
-              textAlign: "center",
             }}
           >
-            <Lines text={t.replyCta} />
+            {t.replyCta}
+          </div>
+          <div
+            style={{
+              marginTop: 22,
+              padding: "14px 56px 18px",
+              borderRadius: 60,
+              border: `2px solid ${GOLD}`,
+              boxShadow: `0 0 ${16 + glow * 34}px rgba(212,173,110,${0.25 + glow * 0.35})`,
+              fontFamily: serif,
+              fontWeight: 700,
+              fontSize: 84,
+              letterSpacing: 12,
+              lineHeight: 1,
+              transform: `scale(${1 + glow * 0.03})`,
+              ...GOLD_TEXT,
+            }}
+          >
+            «{t.keyword}»
+          </div>
+          <div
+            style={{
+              marginTop: 24,
+              fontFamily: serif,
+              fontWeight: 600,
+              fontSize: 40,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+              color: IVORY,
+            }}
+          >
+            {t.replyCtaAfter}
           </div>
           <svg width={60} height={60} viewBox="0 0 60 60" style={{ transform: `translateY(${bounce}px)`, marginTop: 10 }}>
             <path d="M14 22 L30 38 L46 22" fill="none" stroke={GOLD} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Appear>
-        <Appear start={90} style={{ marginTop: 50 }}>
+        <Appear start={90} style={{ marginTop: 30 }}>
           <div
             style={{
               fontFamily: serif,

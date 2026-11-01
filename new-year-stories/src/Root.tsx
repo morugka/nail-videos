@@ -4,6 +4,7 @@ import { Calendar } from "./stories/Calendar";
 import { Checklist } from "./stories/Checklist";
 import { Countdown } from "./stories/Countdown";
 import { Cta } from "./stories/Cta";
+import { TwoVisits } from "./stories/TwoVisits";
 import { FPS, H, W } from "./theme";
 
 // Days from the posting date to 1 January (1 Nov 2026 -> 61)
@@ -16,8 +17,9 @@ type Props = { lang: Lang; daysLeft: number };
 const STORIES: { id: string; seconds: number; C: React.FC<Props> }[] = [
   { id: "1-Countdown", seconds: 7, C: ({ lang, daysLeft }) => <Countdown t={texts[lang]} daysLeft={daysLeft} /> },
   { id: "2-Calendar", seconds: 8, C: ({ lang }) => <Calendar t={texts[lang]} /> },
-  { id: "3-Checklist", seconds: 8, C: ({ lang }) => <Checklist t={texts[lang]} /> },
-  { id: "4-Booking", seconds: 8, C: ({ lang }) => <Cta t={texts[lang]} /> },
+  { id: "3-TwoVisits", seconds: 8, C: ({ lang }) => <TwoVisits t={texts[lang]} /> },
+  { id: "4-Checklist", seconds: 8, C: ({ lang }) => <Checklist t={texts[lang]} /> },
+  { id: "5-Booking", seconds: 8, C: ({ lang }) => <Cta t={texts[lang]} /> },
 ];
 
 const LANGS: Lang[] = ["uk", "ru"];
