@@ -6,14 +6,46 @@ import { GOLD, GOLD_DARK, GOLD_LIGHT, IVORY, serif } from "../theme";
 // December 2026 starts on a Tuesday (Monday-first grid)
 const OFFSET = 1;
 const DAYS = 31;
-// Illustrative order in which the pre-holiday dates fill up
-const TAKEN = [31, 30, 29, 27, 26, 28, 25, 24, 23, 20, 19, 18, 22, 17, 13, 12];
+// Days off: every Sunday plus 30 and 31 December
+const isDayOff = (d: number) => (d + OFFSET) % 7 === 0 || d >= 30;
+// The most wanted dates (from 15 December) fill up, latest first
+const TAKEN = [29, 28, 26, 24, 25, 23, 22, 19, 21, 18, 17, 16, 15];
 const CELL = 116;
 const GAP = 14;
 
 const Day: React.FC<{ d: number; takenAt: number | null }> = ({ d, takenAt }) => {
   const p = usePop(takenAt ?? 10_000);
   const filled = takenAt === null ? 0 : Math.min(1, p);
+  if (isDayOff(d)) {
+    return (
+      <div
+        style={{
+          position: "relative",
+          width: CELL,
+          height: CELL,
+          borderRadius: 22,
+          border: "2px dashed rgba(244,238,228,0.18)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: CELL * 1.2,
+            height: 2,
+            background: "rgba(244,238,228,0.22)",
+            transform: "rotate(-45deg)",
+          }}
+        />
+        <div style={{ fontFamily: serif, fontWeight: 500, fontSize: 52, color: "rgba(244,238,228,0.3)" }}>
+          {d}
+        </div>
+      </div>
+    );
+  }
   return (
     <div
       style={{
@@ -82,7 +114,7 @@ export const Calendar: React.FC<{ t: Texts }> = ({ t }) => {
           </div>
         </Appear>
         <Appear start={8}>
-          <div style={{ fontFamily: serif, fontStyle: "italic", fontSize: 70, color: GOLD, marginTop: 6 }}>
+          <div style={{ fontFamily: serif, fontWeight: 600, fontSize: 46, letterSpacing: 10, textTransform: "uppercase", color: GOLD, marginTop: 18, marginRight: -10 }}>
             {t.bookedEarly}
           </div>
         </Appear>
@@ -130,7 +162,7 @@ export const Calendar: React.FC<{ t: Texts }> = ({ t }) => {
             <Sparkle x={gridW * 0.45} y={3 * (CELL + GAP) + 90} size={44} phase={3} />
           </div>
         </div>
-        <Appear start={130} dur={22} style={{ marginTop: 60 }}>
+        <Appear start={130} dur={22} style={{ marginTop: 50 }}>
           <div
             style={{
               fontFamily: serif,
@@ -144,6 +176,32 @@ export const Calendar: React.FC<{ t: Texts }> = ({ t }) => {
             }}
           >
             <Lines text={t.popularDates} />
+          </div>
+        </Appear>
+        <Appear start={150} dur={20} style={{ marginTop: 34 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 20,
+              fontFamily: serif,
+              fontWeight: 600,
+              fontSize: 36,
+              letterSpacing: 5,
+              color: GOLD,
+              textTransform: "uppercase",
+            }}
+          >
+            <div
+              style={{
+                width: 34,
+                height: 34,
+                borderRadius: 8,
+                border: "2px dashed rgba(244,238,228,0.35)",
+                flexShrink: 0,
+              }}
+            />
+            {t.daysOff}
           </div>
         </Appear>
       </AbsoluteFill>

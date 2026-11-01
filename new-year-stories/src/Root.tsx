@@ -4,7 +4,6 @@ import { Calendar } from "./stories/Calendar";
 import { Checklist } from "./stories/Checklist";
 import { Countdown } from "./stories/Countdown";
 import { Cta } from "./stories/Cta";
-import { Designs } from "./stories/Designs";
 import { FPS, H, W } from "./theme";
 
 // Days from the posting date to 1 January (1 Nov 2026 -> 61)
@@ -18,11 +17,10 @@ const STORIES: { id: string; seconds: number; C: React.FC<Props> }[] = [
   { id: "1-Countdown", seconds: 7, C: ({ lang, daysLeft }) => <Countdown t={texts[lang]} daysLeft={daysLeft} /> },
   { id: "2-Calendar", seconds: 8, C: ({ lang }) => <Calendar t={texts[lang]} /> },
   { id: "3-Checklist", seconds: 8, C: ({ lang }) => <Checklist t={texts[lang]} /> },
-  { id: "4-Designs", seconds: 8, C: ({ lang }) => <Designs t={texts[lang]} /> },
-  { id: "5-Booking", seconds: 8, C: ({ lang }) => <Cta t={texts[lang]} /> },
+  { id: "4-Booking", seconds: 8, C: ({ lang }) => <Cta t={texts[lang]} /> },
 ];
 
-const LANGS: Lang[] = ["ru", "uk"];
+const LANGS: Lang[] = ["uk", "ru"];
 
 export const RemotionRoot: React.FC = () => (
   <>

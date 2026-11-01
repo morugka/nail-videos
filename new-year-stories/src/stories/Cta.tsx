@@ -34,7 +34,7 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
             position: "relative",
             fontFamily: serif,
             fontWeight: 600,
-            fontSize: 150,
+            fontSize: 122,
             lineHeight: 0.98,
             letterSpacing: 4 + (1 - title) * 24,
             textTransform: "uppercase",
@@ -51,9 +51,11 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
           <div
             style={{
               fontFamily: serif,
-              fontStyle: "italic",
-              fontSize: 70,
-              color: IVORY,
+              fontWeight: 600,
+              fontSize: 42,
+              letterSpacing: 8,
+              textTransform: "uppercase",
+              color: GOLD,
               marginTop: 26,
               textAlign: "center",
             }}
@@ -78,14 +80,15 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
             {t.services}
           </div>
         </Appear>
-        <Appear start={70} style={{ marginTop: 110, display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Appear start={70} style={{ marginTop: 90, display: "flex", flexDirection: "column", alignItems: "center" }}>
           <div
             style={{
               fontFamily: serif,
-              fontWeight: 500,
-              fontStyle: "italic",
-              fontSize: 58,
-              lineHeight: 1.15,
+              fontWeight: 600,
+              fontSize: 46,
+              letterSpacing: 3,
+              textTransform: "uppercase",
+              lineHeight: 1.25,
               color: IVORY,
               textAlign: "center",
             }}
@@ -95,6 +98,20 @@ export const Cta: React.FC<{ t: Texts }> = ({ t }) => {
           <svg width={60} height={60} viewBox="0 0 60 60" style={{ transform: `translateY(${bounce}px)`, marginTop: 10 }}>
             <path d="M14 22 L30 38 L46 22" fill="none" stroke={GOLD} strokeWidth={5} strokeLinecap="round" strokeLinejoin="round" />
           </svg>
+        </Appear>
+        <Appear start={90} style={{ marginTop: 50 }}>
+          <div
+            style={{
+              fontFamily: serif,
+              fontWeight: 600,
+              fontSize: 34,
+              letterSpacing: 12,
+              color: GOLD,
+              textTransform: "uppercase",
+            }}
+          >
+            {t.signature}
+          </div>
         </Appear>
         <div style={{ position: "relative", width: 1000, height: 0 }}>
           <Sparkle x={90} y={-780} size={60} phase={0} />

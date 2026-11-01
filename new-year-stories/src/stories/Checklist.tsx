@@ -90,9 +90,10 @@ const Row: React.FC<{
           style={{
             marginLeft: "auto",
             fontFamily: serif,
-            fontStyle: "italic",
-            fontWeight: 600,
-            fontSize: 44,
+            fontWeight: 700,
+            fontSize: 32,
+            letterSpacing: 3,
+            textTransform: "uppercase",
             color: IVORY,
             background: BERRY,
             padding: "6px 22px 10px",
@@ -133,7 +134,7 @@ export const Checklist: React.FC<{ t: Texts }> = ({ t }) => {
           </div>
         </Appear>
         <Appear start={6}>
-          <div style={{ fontFamily: serif, fontStyle: "italic", fontSize: 92, color: GOLD, lineHeight: 1.1 }}>
+          <div style={{ fontFamily: serif, fontWeight: 600, fontSize: 46, letterSpacing: 10, textTransform: "uppercase", color: GOLD, marginTop: 18, marginRight: -10 }}>
             {t.checklistAccent}
           </div>
         </Appear>

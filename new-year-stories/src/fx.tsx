@@ -132,7 +132,7 @@ export const Sparkle: React.FC<{
   );
 };
 
-const FLAKES = new Array(110).fill(0).map((_, i) => ({
+const FLAKES = new Array(80).fill(0).map((_, i) => ({
   x: random(`x${i}`) * W,
   y: random(`y${i}`) * (H + 200),
   r: 2 + random(`r${i}`) * 6,
@@ -192,7 +192,7 @@ export const Backdrop: React.FC<{ glowY?: number; snow?: number }> = ({
               height: f.r,
               borderRadius: "50%",
               background: "#fffaf0",
-              opacity: (0.25 + f.r / 12) * snow,
+              opacity: (0.18 + f.r / 16) * snow,
               filter: f.r > 6 ? "blur(2px)" : undefined,
             }}
           />

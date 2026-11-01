@@ -72,8 +72,10 @@ export const Countdown: React.FC<{ t: Texts; daysLeft: number }> = ({ t, daysLef
           <div
             style={{
               fontFamily: serif,
-              fontStyle: "italic",
-              fontSize: 86,
+              fontWeight: 600,
+              fontSize: 54,
+              letterSpacing: 10,
+              textTransform: "uppercase",
               color: IVORY,
               marginTop: 10,
               textAlign: "center",

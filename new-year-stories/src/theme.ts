@@ -6,12 +6,6 @@ export const serif = "Cormorant Garamond"; // has Cyrillic
 
 loadFont({ family: display, url: staticFile("fonts/Cinzel.ttf"), weight: "400 900" });
 loadFont({ family: serif, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
-loadFont({
-  family: serif,
-  url: staticFile("fonts/Cormorant-Italic.ttf"),
-  weight: "300 700",
-  style: "italic",
-});
 
 export const GOLD = "#d4ad6e";
 export const GOLD_LIGHT = "#f3dca8";
