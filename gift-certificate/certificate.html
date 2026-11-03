@@ -54,31 +54,21 @@
       radial-gradient(circle, rgba(201,163,106,.5) 0 0.15mm, transparent 0.2mm);
     background-size: 23mm 19mm, 17mm 13mm, 11mm 15mm;
     background-position: 3mm 4mm, 9mm 1mm, 1mm 7mm;
-    -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 60%, transparent 100%);
-            mask-image: linear-gradient(90deg, transparent 30%, #000 60%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 90% at 50% 50%, transparent 25%, #000 75%);
+            mask-image: radial-gradient(ellipse 70% 90% at 50% 50%, transparent 25%, #000 75%);
     opacity: .55;
   }
 
   /* ---------- FRONT ---------- */
-  .photo {
-    position: absolute; left: 0; top: 0; bottom: 0; width: 46%;
-    background: url(assets/nail.jpg) center 18% / cover no-repeat;
-    z-index: 0;
-  }
-  .photo::after { content: ""; position: absolute; inset: 0;
-    background:
-      linear-gradient(90deg, rgba(5,5,5,0) 45%, rgba(5,5,5,.85) 85%, var(--ink) 100%),
-      radial-gradient(ellipse 90% 80% at 40% 45%, transparent 60%, rgba(0,0,0,.45) 100%);
-  }
   .front .content {
-    position: absolute; right: 0; top: 0; bottom: 0; width: 60%;
+    position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; z-index: 2; padding-right: 4mm;
+    text-align: center; z-index: 2;
   }
   .year { font-family: "Cormorant"; font-weight: 600; font-size: 3.2mm; letter-spacing: 1.6mm; color: var(--gold); text-transform: uppercase; }
   .title { font-family: "Cormorant"; font-weight: 500; text-transform: uppercase; font-size: 11mm; line-height: 1.02; letter-spacing: 1.4mm; margin: 3mm 0 4mm; }
   .title small { display: block; font-size: 4.6mm; font-weight: 600; letter-spacing: 2.4mm; margin-bottom: 1mm; color: var(--ivory); opacity: .85; }
-  .front .divider { width: 62mm; }
+  .front .divider { width: 80mm; }
   .accent { font-family: "Cormorant"; font-style: italic; font-size: 6.2mm; color: var(--gold); margin-top: 3.4mm; }
   .services { font-family: "Cormorant"; font-weight: 600; font-size: 2.9mm; letter-spacing: 0.7mm; margin-top: 5mm; opacity: .9; }
 
@@ -102,7 +92,6 @@
 
   <!-- Лицевая сторона -->
   <section class="card front">
-    <div class="photo"></div>
     <div class="specks"></div>
     <div class="content">
       <div class="year">✦ Новий рік 2027 ✦</div>
