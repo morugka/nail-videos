@@ -82,19 +82,17 @@
   .services { font-family: "Cormorant"; font-weight: 600; font-size: 2.9mm; letter-spacing: 0.7mm; margin-top: 5mm; opacity: .9; }
 
   /* ---------- BACK ---------- */
-  .back .content { position: absolute; inset: 11mm 14mm; z-index: 2; display: grid; grid-template-columns: 1fr 52mm; gap: 10mm; }
-  .fields { display: flex; flex-direction: column; justify-content: center; gap: 4.4mm; }
-  .field { display: flex; align-items: baseline; gap: 3mm; }
-  .field span { font-family: "Cormorant"; font-weight: 600; font-size: 3mm; letter-spacing: 0.6mm; text-transform: uppercase; color: var(--gold); white-space: nowrap; width: 37mm; }
-  .field em { flex: 1; border-bottom: 0.25mm solid var(--gold-soft); height: 5mm; }
-  .side { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 3.2mm;
-    border-left: 0.25mm solid rgba(201,163,106,.25); padding-left: 8mm; }
-  .no { font-family: "Cormorant"; font-weight: 500; font-size: 5mm; letter-spacing: 1.2mm; }
-  .no b { color: var(--gold); font-weight: 400; }
-  .side .divider { width: 36mm; }
-  .rules { font-family: "Cormorant"; font-weight: 500; font-size: 3mm; line-height: 1.35; opacity: .85; }
-  .contact { font-family: "Cormorant"; font-weight: 600; font-size: 2.8mm; letter-spacing: 0.5mm; color: var(--gold); text-transform: uppercase; }
-  .back .specks { -webkit-mask-image: linear-gradient(90deg, transparent 55%, #000 100%); mask-image: linear-gradient(90deg, transparent 55%, #000 100%); }
+  .back .content { position: absolute; inset: 5mm; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .for { font-family: "Cormorant"; font-weight: 600; font-size: 3mm; letter-spacing: 1.6mm; text-transform: uppercase; color: var(--gold); }
+  .service { font-family: "Cormorant"; font-weight: 500; font-size: 9mm; line-height: 1.05; letter-spacing: 1.2mm; text-transform: uppercase; margin: 2.6mm 0 3.6mm; }
+  .service small { display: block; font-size: 4.2mm; letter-spacing: 1.4mm; margin-top: 1.4mm; opacity: .85; }
+  .back .divider { width: 70mm; }
+  .wish { font-family: "Cormorant"; font-weight: 500; font-size: 3.9mm; line-height: 1.45; max-width: 120mm; margin-top: 3.6mm; opacity: .92; }
+  .foot { position: absolute; left: 14mm; right: 14mm; bottom: 10.5mm; display: flex; justify-content: space-between; align-items: baseline;
+    font-family: "Cormorant"; font-weight: 600; font-size: 2.6mm; letter-spacing: 0.5mm; text-transform: uppercase; color: var(--gold); }
+  .foot .mid { color: var(--ivory); opacity: .65; font-weight: 500; letter-spacing: 0.3mm; text-transform: none; font-size: 2.8mm; }
+  .foot .no { display: inline-block; min-width: 18mm; border-bottom: 0.25mm solid var(--gold-soft); }
+  .back .specks { -webkit-mask-image: radial-gradient(ellipse 70% 90% at 50% 50%, transparent 30%, #000 80%); mask-image: radial-gradient(ellipse 70% 90% at 50% 50%, transparent 30%, #000 80%); }
 </style>
 </head>
 <body>
@@ -113,25 +111,36 @@
     <div class="frame"><i></i><i></i><i></i><i></i></div>
   </section>
 
-  <!-- Оборотная сторона -->
+  <!-- Оборотная сторона: процедура подставляется из списка ниже (?service=...) -->
   <section class="card back">
     <div class="specks"></div>
     <div class="content">
-      <div class="fields">
-        <div class="field"><span>Для кого</span><em></em></div>
-        <div class="field"><span>Від кого</span><em></em></div>
-        <div class="field"><span>Послуга / сума</span><em></em></div>
-        <div class="field"><span>Дійсний до</span><em></em></div>
-      </div>
-      <div class="side">
-        <div class="no"><b>№</b> 0001</div>
-        <div class="divider"><b></b></div>
-        <div class="rules">Сертифікат діє на одне відвідування.<br>Запис заздалегідь.<br>Обміну на гроші не підлягає.</div>
-        <div class="contact">Запис: @your_instagram</div>
-      </div>
+      <div class="for">Сертифікат на</div>
+      <h2 class="service" id="service"></h2>
+      <div class="divider"><b></b></div>
+      <p class="wish">Трохи часу лише для себе, ідеальна форма і колір,<br>що пасує саме вам. Нехай новий рік почнеться<br>з рук, на які хочеться дивитися.</p>
+    </div>
+    <div class="foot">
+      <span>Дійсний до 31.03.2027</span>
+      <span class="mid">Одне відвідування · Обміну на гроші не підлягає</span>
+      <span>№ <span class="no"></span></span>
     </div>
     <div class="frame"><i></i><i></i><i></i><i></i></div>
   </section>
+
+  <script>
+    // Список процедур: ключ -> [назва, пояснення]
+    const SERVICES = {
+      manicure:  ["Манікюр", "з покриттям гель-лаком"],
+      design:    ["Манікюр", "з новорічним дизайном"],
+      extension: ["Нарощування", "нігтів"],
+      pedicure:  ["Педикюр", "з покриттям гель-лаком"],
+      combo:     ["Манікюр + педикюр", "з покриттям гель-лаком"],
+    };
+    const key = new URLSearchParams(location.search).get("service") || "manicure";
+    const [name, note] = SERVICES[key] || SERVICES.manicure;
+    document.getElementById("service").innerHTML = name + (note ? "<small>" + note + "</small>" : "");
+  </script>
 
 </body>
 </html>
