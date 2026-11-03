@@ -1,5 +1,7 @@
 // One entry per day of the series, from 14 days before the birthday down to the day itself
-export type Day = { n: number; label: string; theme: string };
+// photo: optional background, a file in public/ (e.g. "photos/day-14.jpg");
+// without it the cover shows a dial of 14 nail tips instead
+export type Day = { n: number; label: string; theme: string; photo?: string };
 
 export const DAYS: Day[] = [
   { n: 14, label: "днів до 40", theme: "Старт" },

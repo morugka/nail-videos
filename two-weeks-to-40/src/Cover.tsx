@@ -2,15 +2,21 @@ import { loadFont } from "@remotion/fonts";
 import {
   AbsoluteFill,
   Easing,
+  Img,
   interpolate,
-  interpolateColors,
   staticFile,
   useCurrentFrame,
 } from "remotion";
 import { DAYS } from "./days";
 
+// Page style: black background, white serif capitals, gold hairline with a diamond,
+// gold letter-spaced subtitle, one copper accent (like «ПЕЧЕ» on the feed)
 const SERIF = "Cormorant Garamond";
-loadFont({ family: SERIF, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
+loadFont({
+  family: SERIF,
+  url: staticFile("fonts/Cormorant.ttf"),
+  weight: "300 700",
+});
 loadFont({
   family: SERIF,
   url: staticFile("fonts/Cormorant-Italic.ttf"),
@@ -18,32 +24,163 @@ loadFont({
   style: "italic",
 });
 
-const ease = Easing.bezier(0.33, 0, 0.2, 1);
+const BLACK = "#0a0909";
+const WHITE = "#f3eee8";
+const GOLD = "#c9a36a";
+const COPPER = "linear-gradient(180deg, #e0a070 0%, #b8693a 55%, #8a4524 100%)";
 const COUNTDOWN = DAYS.length - 1; // 14 days before the birthday
 
-// Dusk to dawn: the palette slowly warms as the birthday gets closer
-const BG_TOP = ["#1d0f1f", "#4a2a45", "#c98f6e"];
-const BG_BOTTOM = ["#3a1b33", "#a0566a", "#f1d3a8"];
-const SUN = ["#b0607a", "#e39a7c", "#fff1d6"];
-const INK = ["#f4e9e4", "#fbefe6", "#3b2129"];
-const ACCENT = ["#d9a7b8", "#f2c39c", "#5e2f2c"];
+const ease = Easing.bezier(0.33, 0, 0.2, 1);
+
+const GoldDivider: React.FC<{ width: number; progress: number }> = ({
+  width,
+  progress,
+}) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 16,
+      width,
+      opacity: progress,
+    }}
+  >
+    <div
+      style={{
+        height: 2,
+        flex: 1,
+        background: `linear-gradient(90deg, transparent, ${GOLD})`,
+        transform: `scaleX(${progress})`,
+        transformOrigin: "right",
+      }}
+    />
+    <div
+      style={{
+        width: 12,
+        height: 12,
+        background: GOLD,
+        transform: `rotate(45deg) scale(${progress})`,
+      }}
+    />
+    <div
+      style={{
+        height: 2,
+        flex: 1,
+        background: `linear-gradient(90deg, ${GOLD}, transparent)`,
+        transform: `scaleX(${progress})`,
+        transformOrigin: "left",
+      }}
+    />
+  </div>
+);
+
+const CopperNumber: React.FC<{
+  n: number;
+  size: number;
+  style?: React.CSSProperties;
+}> = ({ n, size, style }) => (
+  <div
+    style={{
+      fontSize: size,
+      fontWeight: 500,
+      lineHeight: 1,
+      background: COPPER,
+      WebkitBackgroundClip: "text",
+      backgroundClip: "text",
+      color: "transparent",
+      ...style,
+    }}
+  >
+    {n}
+  </div>
+);
+
+// A dial of 14 nail tips: one fills in copper for every day that has passed
+const NailDial: React.FC<{
+  filled: number;
+  progress: number;
+  glow: number;
+}> = ({ filled, progress, glow }) => {
+  const ticks = COUNTDOWN;
+  const r = 360;
+  return (
+    <div
+      style={{
+        position: "absolute",
+        left: 540,
+        top: 1150,
+        width: 0,
+        height: 0,
+      }}
+    >
+      <div
+        style={{
+          position: "absolute",
+          left: -520,
+          top: -520,
+          width: 1040,
+          height: 1040,
+          borderRadius: "50%",
+          background: `radial-gradient(circle, rgba(184,105,58,${0.18 + 0.1 * glow}) 0%, transparent 60%)`,
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          left: -300,
+          top: -300,
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          border: `1.5px solid ${GOLD}`,
+          opacity: 0.45 * progress,
+        }}
+      />
+      {Array.from({ length: ticks }).map((_, i) => {
+        const angle = (i / ticks) * 360;
+        const on = i < filled;
+        const appear = interpolate(
+          progress,
+          [i / (ticks + 6), i / (ticks + 6) + 0.3],
+          [0, 1],
+          {
+            extrapolateLeft: "clamp",
+            extrapolateRight: "clamp",
+          },
+        );
+        return (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              left: -15,
+              top: -r - 34,
+              width: 30,
+              height: 68,
+              transformOrigin: `15px ${r + 34}px`,
+              transform: `rotate(${angle}deg) scale(${appear})`,
+              borderRadius: "50% 50% 42% 42% / 62% 62% 38% 38%",
+              background: on ? COPPER : "transparent",
+              border: on ? "none" : `2px solid ${GOLD}`,
+              opacity: on ? 1 : 0.4,
+              boxShadow: on
+                ? `0 0 ${18 * glow}px rgba(224,160,112,0.5)`
+                : "none",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 export const Cover: React.FC<{ index: number; animated: boolean }> = ({
   index,
   animated,
 }) => {
   const day = DAYS[index];
-  const isBirthday = index === COUNTDOWN;
-  const t = index / COUNTDOWN;
   const current = useCurrentFrame();
   const frame = animated ? current : 1000;
-
-  const stops = [0, 0.55, 1];
-  const c = (palette: string[]) => interpolateColors(t, stops, palette);
-  // Text flips from light to dark once the background is bright enough
-  const light = t < 0.66;
-  const ink = light ? INK[0] : INK[2];
-  const accent = light ? ACCENT[1] : ACCENT[2];
 
   const appear = (start: number, len = 24) =>
     interpolate(frame, [start, start + len], [0, 1], {
@@ -52,139 +189,124 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
       easing: ease,
     });
 
-  const num = appear(4, 30);
-  const label = appear(22);
-  const theme = appear(38);
-  const dots = appear(54, 30);
-  // The sun sits low on day 14 and rises a little each day
-  const sunY = interpolate(t, [0, 1], [1560, 900]) - (animated ? frame * 0.35 : 0);
+  const label = appear(4);
+  const divider = appear(18, 30);
+  const theme = appear(30);
+  const dial = appear(36, 60);
+  const num = appear(60, 30);
+  const glow = animated ? 0.5 + 0.5 * Math.sin(frame / 18) : 0.6;
+  const zoom = animated ? 1 + frame * 0.0004 : 1;
+
+  const capsTitle: React.CSSProperties = {
+    fontSize: 92,
+    fontWeight: 500,
+    letterSpacing: 6,
+    textTransform: "uppercase",
+    color: WHITE,
+    lineHeight: 1.05,
+  };
 
   return (
     <AbsoluteFill
       style={{
-        background: `linear-gradient(180deg, ${c(BG_TOP)} 0%, ${c(BG_BOTTOM)} 100%)`,
-        overflow: "hidden",
+        background: BLACK,
         fontFamily: SERIF,
         fontVariantNumeric: "lining-nums",
-        color: ink,
+        overflow: "hidden",
       }}
     >
+      {day.photo ? (
+        <>
+          <Img
+            src={staticFile(day.photo)}
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: `scale(${zoom})`,
+            }}
+          />
+          <AbsoluteFill
+            style={{
+              background: `linear-gradient(180deg, ${BLACK} 0%, ${BLACK} 22%, rgba(10,9,9,0.6) 42%, transparent 60%)`,
+            }}
+          />
+        </>
+      ) : (
+        <NailDial filled={index + 1} progress={dial} glow={glow} />
+      )}
+
+      {/* Title block, inside the story safe zone (UI covers ~250px at the top) */}
       <div
         style={{
           position: "absolute",
-          left: 540 - 650,
-          top: sunY - 650,
-          width: 1300,
-          height: 1300,
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${c(SUN)} 0%, transparent 62%)`,
-          opacity: 0.55 + 0.25 * t,
-        }}
-      />
-
-      {/* Content stays inside the story safe zone (UI covers ~250px top, ~300px bottom) */}
-      <AbsoluteFill
-        style={{
+          top: day.photo ? 250 : 290,
+          left: 60,
+          right: 60,
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          padding: "300px 90px 340px",
           textAlign: "center",
+          textShadow: day.photo ? "0 2px 18px rgba(0,0,0,0.85)" : "none",
         }}
       >
+        {day.photo ? (
+          <CopperNumber
+            n={day.n}
+            size={240}
+            style={{ opacity: label, marginBottom: -10 }}
+          />
+        ) : null}
         <div
           style={{
-            fontSize: 38,
-            fontWeight: 600,
-            letterSpacing: 14,
-            textTransform: "uppercase",
-            color: accent,
+            ...capsTitle,
             opacity: label,
-            marginBottom: 10,
-          }}
-        >
-          {isBirthday ? "день 15 із 15" : `день ${index + 1} із 15`}
-        </div>
-
-        <div
-          style={{
-            fontSize: 560,
-            fontWeight: 300,
-            lineHeight: 0.95,
-            opacity: num,
-            transform: `translateY(${(1 - num) * 60}px) scale(${0.94 + 0.06 * num})`,
-          }}
-        >
-          {day.n}
-        </div>
-
-        <div
-          style={{
-            fontSize: 64,
-            letterSpacing: 10,
-            textTransform: "uppercase",
-            fontWeight: 500,
-            opacity: label,
-            transform: `translateY(${(1 - label) * 20}px)`,
+            transform: `translateY(${(1 - label) * 24}px)`,
           }}
         >
           {day.label}
         </div>
-
+        <div style={{ margin: "34px 0 30px" }}>
+          <GoldDivider width={300} progress={divider} />
+        </div>
         <div
           style={{
-            width: 320 * theme,
-            height: 2,
-            background: accent,
-            margin: "56px 0 50px",
-            opacity: 0.8,
-          }}
-        />
-
-        <div
-          style={{
-            fontSize: 96,
-            fontStyle: "italic",
-            fontWeight: 400,
-            lineHeight: 1.08,
+            fontSize: 44,
+            fontWeight: 600,
+            letterSpacing: 9,
+            textTransform: "uppercase",
+            color: GOLD,
             opacity: theme,
-            transform: `translateY(${(1 - theme) * 24}px)`,
+            transform: `translateY(${(1 - theme) * 16}px)`,
           }}
         >
           {day.theme}
         </div>
-      </AbsoluteFill>
+      </div>
 
-      {/* Progress: one dot per day of the series */}
-      <div
-        style={{
-          position: "absolute",
-          bottom: 360,
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "center",
-          gap: 22,
-          opacity: dots,
-        }}
-      >
-        {DAYS.map((_, i) => (
-          <div
-            key={i}
+      {day.photo ? null : (
+        <AbsoluteFill
+          style={{
+            alignItems: "center",
+            top: 1150 - 180,
+            height: 360,
+            bottom: "auto",
+          }}
+        >
+          <CopperNumber
+            n={day.n}
+            size={day.n >= 10 ? 330 : 360}
             style={{
-              width: 16,
-              height: 16,
-              borderRadius: "50%",
-              border: `2px solid ${ink}`,
-              background: i <= index ? ink : "transparent",
-              opacity: i <= index ? 0.95 : 0.4,
-              transform: `scale(${interpolate(dots, [i / 20, i / 20 + 0.3], [0, 1], {
-                extrapolateLeft: "clamp",
-                extrapolateRight: "clamp",
-              })})`,
+              opacity: num,
+              transform: `scale(${0.92 + 0.08 * num})`,
+              height: 360,
+              display: "flex",
+              alignItems: "center",
             }}
           />
-        ))}
-      </div>
+        </AbsoluteFill>
+      )}
     </AbsoluteFill>
   );
 };
