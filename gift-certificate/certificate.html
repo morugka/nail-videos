@@ -59,10 +59,15 @@
   }
 
   /* ---------- FRONT ---------- */
-  .photo { position: absolute; left: 0; top: 0; bottom: 0; width: 44%; z-index: 0;
-    background: url(assets/photo.jpg) 40% 50% / cover no-repeat; }
-  .photo::after { content: ""; position: absolute; inset: 0;
-    background: linear-gradient(90deg, rgba(5,5,5,0) 50%, rgba(5,5,5,.8) 85%, var(--ink) 100%); }
+  .photo { position: absolute; left: 0; top: 0; bottom: 0; width: 46%; z-index: 0; }
+  .photo::before { content: ""; position: absolute; inset: 0;
+    background: url(assets/photo.jpg) 40% 50% / cover no-repeat;
+    filter: brightness(.72) saturate(.7) contrast(1.05) sepia(.12); }
+  .photo::after { content: ""; position: absolute; inset: -1px;
+    background:
+      linear-gradient(90deg, rgba(5,5,5,0) 25%, rgba(5,5,5,.75) 65%, var(--ink) 97%),
+      linear-gradient(0deg, rgba(5,5,5,.7) 0%, rgba(5,5,5,0) 30%, rgba(5,5,5,0) 75%, rgba(5,5,5,.6) 100%),
+      radial-gradient(ellipse 80% 70% at 35% 50%, transparent 40%, rgba(5,5,5,.6) 100%); }
   .front .content {
     position: absolute; right: 0; top: 0; bottom: 0; width: 60%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -72,7 +77,8 @@
   .title { font-family: "Cormorant"; font-weight: 500; text-transform: uppercase; font-size: 11mm; line-height: 1.02; letter-spacing: 1.4mm; margin: 3mm 0 4mm; }
   .title small { display: block; font-size: 4.6mm; font-weight: 600; letter-spacing: 2.4mm; margin-bottom: 1mm; color: var(--ivory); opacity: .85; }
   .front .divider { width: 62mm; }
-  .accent { font-family: "Cormorant"; font-weight: 500; font-size: 5mm; letter-spacing: 0.4mm; color: var(--gold); margin-top: 3.4mm; }
+  .accent .heart { font-size: 0.8em; margin-left: 0.6mm; }
+  .accent { font-family: "Cormorant"; font-weight: 500; font-size: 5.4mm; letter-spacing: 0.5mm; color: var(--gold); margin-top: 3.4mm; }
   .services { font-family: "Cormorant"; font-weight: 600; font-size: 2.9mm; letter-spacing: 0.7mm; margin-top: 5mm; opacity: .9; }
 
   /* ---------- BACK ---------- */
@@ -101,7 +107,7 @@
       <div class="year">✦ Новий рік 2027 ✦</div>
       <h1 class="title"><small>Подарунковий</small>Сертифікат</h1>
       <div class="divider"><b></b></div>
-      <div class="accent">Ручна робота у кожній деталі</div>
+      <div class="accent">Nails with character <span class="heart">♥</span></div>
       <div class="services">МАНІКЮР ✦ НАРОЩУВАННЯ ✦ ПЕДИКЮР</div>
     </div>
     <div class="frame"><i></i><i></i><i></i><i></i></div>
