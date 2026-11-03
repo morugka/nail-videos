@@ -106,7 +106,7 @@
       <h1 class="title"><small>Подарунковий</small>Сертифікат</h1>
       <div class="divider"><b></b></div>
       <div class="accent">Nails with character <span class="heart">♥</span></div>
-      <div class="services">МАНІКЮР ✦ НАРОЩУВАННЯ ✦ ПЕДИКЮР</div>
+      <div class="services">МАНІКЮР ✦ ПЕДИКЮР</div>
     </div>
     <div class="frame"><i></i><i></i><i></i><i></i></div>
   </section>
@@ -118,7 +118,7 @@
       <div class="for">Сертифікат на</div>
       <h2 class="service" id="service"></h2>
       <div class="divider"><b></b></div>
-      <p class="wish">Трохи часу лише для себе, ідеальна форма і колір,<br>що пасує саме вам. Нехай новий рік почнеться<br>з рук, на які хочеться дивитися.</p>
+      <p class="wish" id="wish"></p>
     </div>
     <div class="foot">
       <span>Дійсний до 31.03.2027</span>
@@ -131,14 +131,20 @@
   <script>
     // Список процедур: ключ -> [назва, пояснення]
     const SERVICES = {
-      manicure:  ["Манікюр", "з покриттям гель-лаком"],
-      design:    ["Манікюр", "з новорічним дизайном"],
-      extension: ["Нарощування", "нігтів"],
-      pedicure:  ["Педикюр", "з покриттям гель-лаком"],
-      combo:     ["Манікюр + педикюр", "з покриттям гель-лаком"],
+      "manicure":          ["Манікюр", "без покриття"],
+      "manicure-gel":      ["Манікюр", "з покриттям"],
+      "manicure-design":   ["Манікюр", "з дизайном"],
+      "pedicure-toes":     ["Педикюр", "без покриття · пальчики"],
+      "pedicure-full":     ["Педикюр комплекс", "без покриття"],
+      "pedicure-full-gel": ["Педикюр комплекс", "з покриттям"],
     };
     const key = new URLSearchParams(location.search).get("service") || "manicure";
     const [name, note] = SERVICES[key] || SERVICES.manicure;
+    const WISH = {
+      hands: "Трохи часу лише для себе, ідеальна форма і колір,<br>що пасує саме вам. Нехай новий рік почнеться<br>з рук, на які хочеться дивитися.",
+      feet:  "Трохи часу лише для себе, доглянуті ніжки<br>і відчуття легкості. Нехай новий рік почнеться<br>з красивого кроку.",
+    };
+    document.getElementById("wish").innerHTML = key.startsWith("pedicure") ? WISH.feet : WISH.hands;
     document.getElementById("service").innerHTML = name + (note ? "<small>" + note + "</small>" : "");
   </script>
 

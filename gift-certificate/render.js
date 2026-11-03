@@ -4,7 +4,7 @@ const { chromium } = require("playwright");
 const path = require("path");
 const fs = require("fs");
 
-const SERVICES = ["manicure", "design", "extension", "pedicure", "combo"];
+const SERVICES = ["manicure", "manicure-gel", "manicure-design", "pedicure-toes", "pedicure-full", "pedicure-full-gel"];
 
 (async () => {
   const dir = __dirname;
