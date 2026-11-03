@@ -217,21 +217,33 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
     >
       {day.photo ? (
         <>
-          <Img
-            src={staticFile(day.photo)}
+          {/* Photo sits full-width under the title, like the feed posts (4:5 fits exactly) */}
+          <div
             style={{
               position: "absolute",
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              transform: `scale(${zoom})`,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 1350,
+              overflow: "hidden",
             }}
-          />
-          <AbsoluteFill
-            style={{
-              background: `linear-gradient(180deg, ${BLACK} 0%, ${BLACK} 22%, rgba(10,9,9,0.6) 42%, transparent 60%)`,
-            }}
-          />
+          >
+            <Img
+              src={staticFile(day.photo)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transform: `scale(${zoom})`,
+                transformOrigin: "50% 60%",
+              }}
+            />
+            <AbsoluteFill
+              style={{
+                background: `linear-gradient(180deg, ${BLACK} 0%, rgba(10,9,9,0.75) 12%, transparent 30%, transparent 82%, rgba(10,9,9,0.7) 100%)`,
+              }}
+            />
+          </div>
         </>
       ) : (
         <NailDial filled={index + 1} progress={dial} glow={glow} />
@@ -241,7 +253,7 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
       <div
         style={{
           position: "absolute",
-          top: day.photo ? 250 : 290,
+          top: day.photo ? 240 : 290,
           left: 60,
           right: 60,
           display: "flex",
@@ -254,7 +266,7 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
         {day.photo ? (
           <CopperNumber
             n={day.n}
-            size={240}
+            size={200}
             style={{ opacity: label, marginBottom: -10 }}
           />
         ) : null}
@@ -284,6 +296,18 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
           {day.theme}
         </div>
       </div>
+
+      <Img
+        src={staticFile("logo-km.png")}
+        style={{
+          position: "absolute",
+          left: 540 - 70,
+          top: 1585,
+          width: 140,
+          opacity: appear(70, 30) * 0.95,
+          filter: "drop-shadow(0 2px 10px rgba(0,0,0,0.8))",
+        }}
+      />
 
       {day.photo ? null : (
         <AbsoluteFill
