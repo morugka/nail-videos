@@ -6,7 +6,6 @@
 <style>
   @font-face { font-family: "Cinzel"; src: url(assets/Cinzel.ttf); font-weight: 400 900; }
   @font-face { font-family: "Cormorant"; src: url(assets/Cormorant.ttf); font-weight: 300 700; }
-  @font-face { font-family: "Cormorant"; src: url(assets/Cormorant-Italic.ttf); font-weight: 300 700; font-style: italic; }
 
   :root {
     --gold: #c9a36a;
@@ -60,16 +59,20 @@
   }
 
   /* ---------- FRONT ---------- */
+  .photo { position: absolute; left: 0; top: 0; bottom: 0; width: 44%; z-index: 0;
+    background: url(assets/photo.jpg) 40% 50% / cover no-repeat; }
+  .photo::after { content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(5,5,5,0) 50%, rgba(5,5,5,.8) 85%, var(--ink) 100%); }
   .front .content {
-    position: absolute; inset: 0;
+    position: absolute; right: 0; top: 0; bottom: 0; width: 60%;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; z-index: 2;
+    text-align: center; z-index: 2; padding-right: 4mm;
   }
   .year { font-family: "Cormorant"; font-weight: 600; font-size: 3.2mm; letter-spacing: 1.6mm; color: var(--gold); text-transform: uppercase; }
   .title { font-family: "Cormorant"; font-weight: 500; text-transform: uppercase; font-size: 11mm; line-height: 1.02; letter-spacing: 1.4mm; margin: 3mm 0 4mm; }
   .title small { display: block; font-size: 4.6mm; font-weight: 600; letter-spacing: 2.4mm; margin-bottom: 1mm; color: var(--ivory); opacity: .85; }
-  .front .divider { width: 80mm; }
-  .accent { font-family: "Cormorant"; font-style: italic; font-size: 6.2mm; color: var(--gold); margin-top: 3.4mm; }
+  .front .divider { width: 62mm; }
+  .accent { font-family: "Cormorant"; font-weight: 500; font-size: 5mm; letter-spacing: 0.4mm; color: var(--gold); margin-top: 3.4mm; }
   .services { font-family: "Cormorant"; font-weight: 600; font-size: 2.9mm; letter-spacing: 0.7mm; margin-top: 5mm; opacity: .9; }
 
   /* ---------- BACK ---------- */
@@ -83,7 +86,7 @@
   .no { font-family: "Cormorant"; font-weight: 500; font-size: 5mm; letter-spacing: 1.2mm; }
   .no b { color: var(--gold); font-weight: 400; }
   .side .divider { width: 36mm; }
-  .rules { font-family: "Cormorant"; font-style: italic; font-size: 3.1mm; line-height: 1.35; opacity: .85; }
+  .rules { font-family: "Cormorant"; font-weight: 500; font-size: 3mm; line-height: 1.35; opacity: .85; }
   .contact { font-family: "Cormorant"; font-weight: 600; font-size: 2.8mm; letter-spacing: 0.5mm; color: var(--gold); text-transform: uppercase; }
   .back .specks { -webkit-mask-image: linear-gradient(90deg, transparent 55%, #000 100%); mask-image: linear-gradient(90deg, transparent 55%, #000 100%); }
 </style>
@@ -92,6 +95,7 @@
 
   <!-- Лицевая сторона -->
   <section class="card front">
+    <div class="photo"></div>
     <div class="specks"></div>
     <div class="content">
       <div class="year">✦ Новий рік 2027 ✦</div>
