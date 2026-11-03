@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Новорічний сертифікат</title>
+<style>
+  @font-face { font-family: "Cinzel"; src: url(assets/Cinzel.ttf); font-weight: 400 900; }
+  @font-face { font-family: "Cormorant"; src: url(assets/Cormorant.ttf); font-weight: 300 700; }
+  @font-face { font-family: "Cormorant"; src: url(assets/Cormorant-Italic.ttf); font-weight: 300 700; font-style: italic; }
+
+  :root {
+    --gold: #c9a36a;
+    --gold-soft: rgba(201, 163, 106, 0.55);
+    --ivory: #f2ece2;
+    --ink: #050505;
+  }
+  @page { size: 210mm 99mm; margin: 0; }
+  body { font-variant-numeric: lining-nums; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #1a1a1a; }
+  body { display: flex; flex-direction: column; align-items: center; gap: 12mm; padding: 12mm 0; }
+  @media print { body { padding: 0; gap: 0; background: var(--ink); } }
+
+  .card {
+    position: relative;
+    width: 210mm; height: 99mm;
+    background: var(--ink);
+    color: var(--ivory);
+    overflow: hidden;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* gold hairline frame with diamonds in the corners */
+  .frame { position: absolute; inset: 5mm; border: 0.25mm solid var(--gold-soft); pointer-events: none; z-index: 3; }
+  .frame i { position: absolute; width: 2.2mm; height: 2.2mm; background: var(--gold); transform: rotate(45deg); }
+  .frame i:nth-child(1) { top: -1.1mm; left: -1.1mm; }
+  .frame i:nth-child(2) { top: -1.1mm; right: -1.1mm; }
+  .frame i:nth-child(3) { bottom: -1.1mm; left: -1.1mm; }
+  .frame i:nth-child(4) { bottom: -1.1mm; right: -1.1mm; }
+
+  /* the same gold divider as in the reel */
+  .divider { display: flex; align-items: center; gap: 2.4mm; }
+  .divider::before, .divider::after { content: ""; height: 0.3mm; flex: 1; }
+  .divider::before { background: linear-gradient(90deg, transparent, var(--gold)); }
+  .divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
+  .divider b { width: 1.9mm; height: 1.9mm; background: var(--gold); transform: rotate(45deg); }
+
+  /* tiny gold specks — a quiet nod to snow / stars */
+  .specks { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background-image:
+      radial-gradient(circle, rgba(201,163,106,.9) 0 0.25mm, transparent 0.3mm),
+      radial-gradient(circle, rgba(242,236,226,.55) 0 0.18mm, transparent 0.22mm),
+      radial-gradient(circle, rgba(201,163,106,.5) 0 0.15mm, transparent 0.2mm);
+    background-size: 23mm 19mm, 17mm 13mm, 11mm 15mm;
+    background-position: 3mm 4mm, 9mm 1mm, 1mm 7mm;
+    -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 60%, transparent 100%);
+            mask-image: linear-gradient(90deg, transparent 30%, #000 60%, transparent 100%);
+    opacity: .55;
+  }
+
+  /* ---------- FRONT ---------- */
+  .photo {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 46%;
+    background: url(assets/nail.jpg) center 18% / cover no-repeat;
+    z-index: 0;
+  }
+  .photo::after { content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, rgba(5,5,5,0) 45%, rgba(5,5,5,.85) 85%, var(--ink) 100%),
+      radial-gradient(ellipse 90% 80% at 40% 45%, transparent 60%, rgba(0,0,0,.45) 100%);
+  }
+  .front .content {
+    position: absolute; right: 0; top: 0; bottom: 0; width: 60%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; z-index: 2; padding-right: 4mm;
+  }
+  .year { font-family: "Cormorant"; font-weight: 600; font-size: 3.2mm; letter-spacing: 1.6mm; color: var(--gold); text-transform: uppercase; }
+  .title { font-family: "Cormorant"; font-weight: 500; text-transform: uppercase; font-size: 11mm; line-height: 1.02; letter-spacing: 1.4mm; margin: 3mm 0 4mm; }
+  .title small { display: block; font-size: 4.6mm; font-weight: 600; letter-spacing: 2.4mm; margin-bottom: 1mm; color: var(--ivory); opacity: .85; }
+  .front .divider { width: 62mm; }
+  .accent { font-family: "Cormorant"; font-style: italic; font-size: 6.2mm; color: var(--gold); margin-top: 3.4mm; }
+  .services { font-family: "Cormorant"; font-weight: 600; font-size: 2.9mm; letter-spacing: 0.7mm; margin-top: 5mm; opacity: .9; }
+
+  /* ---------- BACK ---------- */
+  .back .content { position: absolute; inset: 11mm 14mm; z-index: 2; display: grid; grid-template-columns: 1fr 52mm; gap: 10mm; }
+  .fields { display: flex; flex-direction: column; justify-content: center; gap: 4.4mm; }
+  .field { display: flex; align-items: baseline; gap: 3mm; }
+  .field span { font-family: "Cormorant"; font-weight: 600; font-size: 3mm; letter-spacing: 0.6mm; text-transform: uppercase; color: var(--gold); white-space: nowrap; width: 37mm; }
+  .field em { flex: 1; border-bottom: 0.25mm solid var(--gold-soft); height: 5mm; }
+  .side { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 3.2mm;
+    border-left: 0.25mm solid rgba(201,163,106,.25); padding-left: 8mm; }
+  .no { font-family: "Cormorant"; font-weight: 500; font-size: 5mm; letter-spacing: 1.2mm; }
+  .no b { color: var(--gold); font-weight: 400; }
+  .side .divider { width: 36mm; }
+  .rules { font-family: "Cormorant"; font-style: italic; font-size: 3.1mm; line-height: 1.35; opacity: .85; }
+  .contact { font-family: "Cormorant"; font-weight: 600; font-size: 2.8mm; letter-spacing: 0.5mm; color: var(--gold); text-transform: uppercase; }
+  .back .specks { -webkit-mask-image: linear-gradient(90deg, transparent 55%, #000 100%); mask-image: linear-gradient(90deg, transparent 55%, #000 100%); }
+</style>
+</head>
+<body>
+
+  <!-- Лицевая сторона -->
+  <section class="card front">
+    <div class="photo"></div>
+    <div class="specks"></div>
+    <div class="content">
+      <div class="year">✦ Новий рік 2027 ✦</div>
+      <h1 class="title"><small>Подарунковий</small>Сертифікат</h1>
+      <div class="divider"><b></b></div>
+      <div class="accent">Ручна робота у кожній деталі</div>
+      <div class="services">МАНІКЮР ✦ НАРОЩУВАННЯ ✦ ПЕДИКЮР</div>
+    </div>
+    <div class="frame"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+  <!-- Оборотная сторона -->
+  <section class="card back">
+    <div class="specks"></div>
+    <div class="content">
+      <div class="fields">
+        <div class="field"><span>Для кого</span><em></em></div>
+        <div class="field"><span>Від кого</span><em></em></div>
+        <div class="field"><span>Послуга / сума</span><em></em></div>
+        <div class="field"><span>Дійсний до</span><em></em></div>
+      </div>
+      <div class="side">
+        <div class="no"><b>№</b> 0001</div>
+        <div class="divider"><b></b></div>
+        <div class="rules">Сертифікат діє на одне відвідування.<br>Запис заздалегідь.<br>Обміну на гроші не підлягає.</div>
+        <div class="contact">Запис: @your_instagram</div>
+      </div>
+    </div>
+    <div class="frame"><i></i><i></i><i></i><i></i></div>
+  </section>
+
+</body>
+</html>
