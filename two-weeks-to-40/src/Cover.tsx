@@ -11,7 +11,7 @@ import { DAYS } from "./days";
 
 // Page style: black background, white serif capitals, gold hairline with a diamond,
 // gold letter-spaced subtitle, one copper accent (like «ПЕЧЕ» on the feed)
-const SERIF = "Cormorant Garamond";
+export const SERIF = "Cormorant Garamond";
 loadFont({
   family: SERIF,
   url: staticFile("fonts/Cormorant.ttf"),
@@ -24,15 +24,16 @@ loadFont({
   style: "italic",
 });
 
-const BLACK = "#0a0909";
-const WHITE = "#f3eee8";
-const GOLD = "#c9a36a";
-const COPPER = "linear-gradient(180deg, #e0a070 0%, #b8693a 55%, #8a4524 100%)";
+export const BLACK = "#0a0909";
+export const WHITE = "#f3eee8";
+export const GOLD = "#c9a36a";
+export const COPPER =
+  "linear-gradient(180deg, #e0a070 0%, #b8693a 55%, #8a4524 100%)";
 const COUNTDOWN = DAYS.length - 1; // 14 days before the birthday
 
-const ease = Easing.bezier(0.33, 0, 0.2, 1);
+export const ease = Easing.bezier(0.33, 0, 0.2, 1);
 
-const GoldDivider: React.FC<{ width: number; progress: number }> = ({
+export const GoldDivider: React.FC<{ width: number; progress: number }> = ({
   width,
   progress,
 }) => (
