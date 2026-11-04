@@ -8,7 +8,7 @@ export const DAYS: Day[] = [
   {
     n: 13,
     label: "днів до 40",
-    theme: "Лист собі у 20",
+    theme: "Що я знаю в 40",
     photo: "photos/day-13.jpg",
   },
   {

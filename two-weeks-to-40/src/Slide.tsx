@@ -100,7 +100,13 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
             <div
               key={i}
               style={{
-                fontSize: slide.poll ? 150 : short ? 96 : 68,
+                fontSize: slide.poll
+                  ? p.length < 14
+                    ? 150
+                    : 92
+                  : short
+                    ? 96
+                    : 68,
                 fontWeight: copper ? 500 : 400,
                 fontStyle: copper ? "italic" : "normal",
                 lineHeight: 1.18,
