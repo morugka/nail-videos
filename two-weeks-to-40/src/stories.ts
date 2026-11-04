@@ -84,7 +84,7 @@ export const STORIES: Slide[] = [
   {
     id: "D13-7",
     title: "Питання дня",
-    paragraphs: ["А що знаєте ви\nі не знали у 20?"],
+    paragraphs: ["А що ви знаєте зараз,\nчого не знали\nкілька років тому?"],
     poll: true,
   },
 
