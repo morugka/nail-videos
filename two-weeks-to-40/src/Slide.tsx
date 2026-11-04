@@ -25,6 +25,9 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
       easing: ease,
     });
   const textOnly = !slide.photo && !slide.poll;
+  // Full-screen photo (landscapes) with the text centred over it
+  const full = Boolean(slide.photo && slide.full);
+  const centred = textOnly || full;
   const dayNumber = slide.id.slice(1).split("-")[0];
   const zoom = animated ? 1 + frame * 0.0003 : 1;
 
@@ -43,8 +46,8 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
             position: "absolute",
             left: 0,
             right: 0,
-            top: 760,
-            height: 1350,
+            top: full ? 0 : 760,
+            height: full ? 1920 : 1350,
             overflow: "hidden",
             opacity: appear(0, 30),
           }}
@@ -62,7 +65,9 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
           />
           <AbsoluteFill
             style={{
-              background: `linear-gradient(180deg, ${BLACK} 0%, rgba(10,9,9,0.7) 12%, transparent 28%, transparent 70%, ${BLACK} 86%)`,
+              background: full
+                ? "radial-gradient(ellipse at 50% 40%, rgba(10,9,9,0.62) 0%, rgba(10,9,9,0.55) 55%, rgba(10,9,9,0.8) 100%)"
+                : `linear-gradient(180deg, ${BLACK} 0%, rgba(10,9,9,0.7) 12%, transparent 28%, transparent 70%, ${BLACK} 86%)`,
             }}
           />
         </div>
@@ -101,15 +106,16 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
       <div
         style={{
           position: "absolute",
-          top: slide.poll ? 420 : textOnly ? 300 : 280,
-          bottom: textOnly ? 380 : undefined,
+          top: slide.poll ? 420 : centred ? 300 : 280,
+          bottom: centred ? 380 : undefined,
           left: 80,
           right: 80,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: textOnly ? "center" : "flex-start",
+          justifyContent: centred ? "center" : "flex-start",
           textAlign: "center",
+          textShadow: full ? "0 2px 24px rgba(0,0,0,0.9)" : "none",
         }}
       >
         {slide.title ? (
@@ -140,10 +146,10 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                     ? 150
                     : 92
                   : short
-                    ? textOnly
+                    ? centred
                       ? 120
                       : 96
-                    : textOnly
+                    : centred
                       ? 80
                       : 68,
                 fontWeight: copper ? 500 : 400,
@@ -156,15 +162,19 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                 transform: `translateY(${(1 - a) * 18}px)`,
                 ...(copper
                   ? {
-                      background: COPPER,
+                      background: full ? "#f3c79a" : COPPER,
+                      textShadow: "none",
+                      filter: full
+                        ? "drop-shadow(0 2px 12px rgba(0,0,0,0.9))"
+                        : undefined,
                       WebkitBackgroundClip: "text",
                       backgroundClip: "text",
                       color: "transparent",
                       fontSize: short
-                        ? textOnly
+                        ? centred
                           ? 128
                           : 104
-                        : textOnly
+                        : centred
                           ? 88
                           : 74,
                     }

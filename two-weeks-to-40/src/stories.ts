@@ -4,6 +4,7 @@ export type Slide = {
   id: string;
   photo?: string; // file in public/; without it the slide is text on black
   focus?: string; // which part of the photo to keep when cropping, CSS object-position
+  full?: boolean; // photo fills the whole screen and the text sits over it (landscapes)
   title?: string; // gold capitals above the text
   paragraphs: string[];
   poll?: boolean; // leaves the middle of the screen free for an Instagram poll sticker
@@ -116,6 +117,44 @@ export const STORIES: Slide[] = [
     id: "D12-6",
     title: "Питання дня",
     paragraphs: ["А ви пишаєтесь\nсобою?"],
+    poll: true,
+  },
+
+  // Day 11 — Що не вийшло
+  {
+    id: "D11-2",
+    paragraphs: [
+      "11 днів до 40.\nВчора — перемоги.",
+      "*Сьогодні чесно:\nщо в мене не виходило.*",
+    ],
+  },
+  {
+    id: "D11-3",
+    photo: "photos/land-road.jpg",
+    full: true,
+    focus: "50% 0%",
+    paragraphs: ["Я довго відкладала", "*себе «на потім».*"],
+  },
+  {
+    id: "D11-4",
+    photo: "photos/me-river-sitting.jpg",
+    focus: "45% 40%",
+    paragraphs: ["Довго боялася змін.", "*Не завжди вміла\nсказати «ні».*"],
+  },
+  {
+    id: "D11-5",
+    photo: "photos/land-sunrise-tree.jpg",
+    full: true,
+    focus: "50% 0%",
+    paragraphs: [
+      "Але без цього не було б\nучорашнього списку.",
+      "*Кожна помилка — це крок.\nПросто не туди,\nкуди планувала.*",
+    ],
+  },
+  {
+    id: "D11-6",
+    title: "Питання дня",
+    paragraphs: ["Помилки — це…"],
     poll: true,
   },
 ];
