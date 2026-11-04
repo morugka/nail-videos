@@ -2,7 +2,8 @@
 // \n breaks the line.
 export type Slide = {
   id: string;
-  photo?: string; // file in public/; without it the slide is plain black (for a poll sticker)
+  photo?: string; // file in public/; without it the slide is text on black
+  focus?: string; // which part of the photo to keep when cropping, CSS object-position
   title?: string; // gold capitals above the text
   paragraphs: string[];
   poll?: boolean; // leaves the middle of the screen free for an Instagram poll sticker
@@ -42,7 +43,6 @@ export const STORIES: Slide[] = [
   // Day 13 — Що я знаю в 40
   {
     id: "D13-2",
-    photo: "photos/day-10.jpg",
     paragraphs: [
       "13 днів до 40.",
       "Сьогодні — про те,\nщо я знаю зараз",
@@ -51,7 +51,6 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D13-3",
-    photo: "photos/day-05.jpg",
     paragraphs: [
       "Починати ніколи не пізно.",
       "*Свою справу я знайшла\nне в 20, а в 35.*",
@@ -59,17 +58,14 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D13-4",
-    photo: "photos/day-03.jpg",
     paragraphs: ["Відпочинок —\nце не лінь.", "*Досі вчуся.*"],
   },
   {
     id: "D13-5",
-    photo: "photos/day-02.jpg",
     paragraphs: ["Не всі люди мають\nзалишатися поруч.", "*І це нормально.*"],
   },
   {
     id: "D13-6",
-    photo: "photos/day-14.jpg",
     paragraphs: [
       "Найкраще, що можна\nдля себе зробити, —",
       "*вкладати в себе: знання,\nздоров'я, спокій.*",
@@ -85,7 +81,8 @@ export const STORIES: Slide[] = [
   // Day 12 — Чим я пишаюсь
   {
     id: "D12-2",
-    photo: "photos/day-13.jpg",
+    photo: "photos/me-portrait.jpg",
+    focus: "50% 40%",
     paragraphs: [
       "12 днів до 40.\nСьогодні — без скромності.",
       "*Чим я пишаюсь у житті:*",
@@ -93,12 +90,14 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D12-3",
-    photo: "photos/day-09.jpg",
+    photo: "photos/me-embankment-dress.jpg",
+    focus: "50% 45%",
     paragraphs: ["Що наважилась у 35", "*почати нову професію\nз нуля.*"],
   },
   {
     id: "D12-4",
-    photo: "photos/day-07.jpg",
+    photo: "photos/me-river-halfface.jpg",
+    focus: "60% 30%",
     paragraphs: [
       "Що не здалася\nв найважчі роки —",
       "*і будувала своє,\nколи навколо була війна.*",
@@ -106,7 +105,8 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D12-5",
-    photo: "photos/day-14.jpg",
+    photo: "photos/me-graduation.jpg",
+    focus: "50% 30%",
     paragraphs: [
       "Що досі вмію дивуватися,",
       "*вчитися й горіти тим,\nщо роблю.*",

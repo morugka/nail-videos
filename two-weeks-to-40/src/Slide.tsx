@@ -24,6 +24,8 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
       extrapolateRight: "clamp",
       easing: ease,
     });
+  const textOnly = !slide.photo && !slide.poll;
+  const dayNumber = slide.id.slice(1).split("-")[0];
   const zoom = animated ? 1 + frame * 0.0003 : 1;
 
   return (
@@ -53,6 +55,7 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
               width: "100%",
               height: "100%",
               objectFit: "cover",
+              objectPosition: slide.focus ?? "50% 50%",
               transform: `scale(${zoom})`,
               transformOrigin: "50% 40%",
             }}
@@ -65,15 +68,47 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
         </div>
       ) : null}
 
+      {textOnly ? (
+        <AbsoluteFill
+          style={{ alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              width: 1000,
+              height: 1000,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle, rgba(184,105,58,0.16) 0%, transparent 62%)",
+            }}
+          />
+          <div
+            style={{
+              fontSize: dayNumber.length > 1 ? 820 : 1100,
+              fontWeight: 300,
+              lineHeight: 1,
+              color: "transparent",
+              WebkitTextStroke: "2px rgba(201,163,106,0.16)",
+              transform: `translateY(-40px) scale(${1 + frame * 0.0002})`,
+              opacity: appear(0, 40),
+            }}
+          >
+            {dayNumber}
+          </div>
+        </AbsoluteFill>
+      ) : null}
+
       <div
         style={{
           position: "absolute",
-          top: slide.poll ? 420 : 280,
+          top: slide.poll ? 420 : textOnly ? 300 : 280,
+          bottom: textOnly ? 380 : undefined,
           left: 80,
           right: 80,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: textOnly ? "center" : "flex-start",
           textAlign: "center",
         }}
       >
@@ -105,8 +140,12 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                     ? 150
                     : 92
                   : short
-                    ? 96
-                    : 68,
+                    ? textOnly
+                      ? 120
+                      : 96
+                    : textOnly
+                      ? 80
+                      : 68,
                 fontWeight: copper ? 500 : 400,
                 fontStyle: copper ? "italic" : "normal",
                 lineHeight: 1.18,
@@ -121,7 +160,13 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                       WebkitBackgroundClip: "text",
                       backgroundClip: "text",
                       color: "transparent",
-                      fontSize: short ? 104 : 74,
+                      fontSize: short
+                        ? textOnly
+                          ? 128
+                          : 104
+                        : textOnly
+                          ? 88
+                          : 74,
                     }
                   : {}),
               }}

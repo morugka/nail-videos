@@ -3,3 +3,8 @@ dist
 .DS_Store
 .env
 
+
+# Personal photos and stories that show them: the repository is public
+public/photos/me-*
+public/photos/old-*
+out/day-12/
