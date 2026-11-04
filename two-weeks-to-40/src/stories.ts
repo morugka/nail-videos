@@ -44,6 +44,8 @@ export const STORIES: Slide[] = [
   // Day 13 — Що я знаю в 40
   {
     id: "D13-2",
+    photo: "photos/old-1985.jpg",
+    focus: "50% 30%",
     paragraphs: [
       "13 днів до 40.",
       "Сьогодні — про те,\nщо я знаю зараз",
@@ -52,6 +54,8 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D13-3",
+    photo: "photos/work-red-stiletto.jpg",
+    focus: "50% 40%",
     paragraphs: [
       "Починати ніколи не пізно.",
       "*Свою справу я знайшла\nне в 20, а в 35.*",
@@ -59,6 +63,9 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D13-4",
+    photo: "photos/land-clouds-fishing.jpg",
+    full: true,
+    focus: "45% 50%",
     paragraphs: ["Відпочинок —\nце не лінь.", "*Досі вчуся.*"],
   },
   {
@@ -67,6 +74,8 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D13-6",
+    photo: "photos/me-magnolia.jpg",
+    focus: "50% 35%",
     paragraphs: [
       "Найкраще, що можна\nдля себе зробити, —",
       "*вкладати в себе: знання,\nздоров'я, спокій.*",
