@@ -19,16 +19,25 @@ def nail_mask(x):
     h, s, v = hsv[...,0], hsv[...,1], hsv[...,2]
     hue_ok = np.clip(1 - np.abs(h - 215) / 35, 0, 1)
     m = hue_ok * np.clip((s - 0.18) / 0.1, 0, 1) * np.clip((0.42 - v) / 0.08, 0, 1)
+    # nails are big blobs: opening drops the single noisy specks on the dark wall,
+    # which otherwise blink on and off from frame to frame
+    m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((15, 15), np.uint8))
     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
     return cv2.GaussianBlur(m, (0, 0), 3)
 
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 vig = (1 - 0.32 * np.clip(((xx - W/2) / (W*0.62))**2 + ((yy - H*0.5) / (H*0.6))**2, 0, 1))[..., None]
 
+prev = None
+
 def grade(f):
+    global prev
     x = f.astype(np.float32) / 255
-    skin = skin_mask(x)[..., None]
-    nails = nail_mask(x)[..., None]
+    skin, nails = skin_mask(x), nail_mask(x)
+    if prev is not None:  # smooth the masks over time so their edges don't shimmer
+        skin, nails = 0.55*skin + 0.45*prev[0], 0.55*nails + 0.45*prev[1]
+    prev = (skin, nails)
+    skin, nails = skin[..., None], nails[..., None]
     # surroundings (wall, glove, denim): quieter colour, deeper shadows
     hsv = cv2.cvtColor(x, cv2.COLOR_BGR2HSV)
     hsv[..., 1] *= 0.8
