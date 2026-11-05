@@ -6,6 +6,7 @@ import {
   Easing,
   Img,
   interpolate,
+  Sequence,
   staticFile,
   useCurrentFrame,
 } from "remotion";
@@ -21,7 +22,10 @@ const GOLD = "#c9a36a";
 const IVORY = "#f2ece2";
 const FPS = 30;
 // edit.mp4: the clip in the client's own grade (near-black wall), sound removed
-const DURATION = 146;
+const CLIP = 146; // frames in edit.mp4
+const OUTRO = 50; // full logo on black after the clip
+const FADE = 16; // clip fades to black over its last frames
+const DURATION = CLIP + OUTRO - FADE;
 
 const ease = Easing.bezier(0.33, 0, 0.2, 1);
 
@@ -124,9 +128,9 @@ const Hook: React.FC = () => {
           style={{
             fontFamily: cormorant,
             fontWeight: 600,
-            fontSize: 80,
+            fontSize: 58,
             lineHeight: 1.04,
-            letterSpacing: 4 + (1 - p) * 14,
+            letterSpacing: 3 + (1 - p) * 12,
             color: IVORY,
             textTransform: "uppercase",
             textAlign: "center",
@@ -138,23 +142,58 @@ const Hook: React.FC = () => {
           Манікюр
           <br />з ароматом кави
         </div>
-        <GoldDivider width={420} progress={acc} />
+        <GoldDivider width={320} progress={acc} />
       </div>
     </AbsoluteFill>
   );
 };
 
-export const FoamReel: React.FC = () => (
-  <AbsoluteFill style={{ backgroundColor: "black" }}>
-    <Video
-      src={staticFile("edit.mp4")}
-      muted
-      style={{ width: "100%", height: "100%" }}
-    />
-    <Monogram />
-    <Hook />
-  </AbsoluteFill>
-);
+// Full logo (logo-full.png, cut from the client's own transparent PNG) on black at the end
+const Outro: React.FC = () => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+    easing: ease,
+  });
+  return (
+    <AbsoluteFill style={{ justifyContent: "center", alignItems: "center" }}>
+      <Img
+        src={staticFile("logo-full.png")}
+        style={{
+          width: 440,
+          opacity: p,
+          transform: `scale(${0.96 + 0.04 * p})`,
+        }}
+      />
+    </AbsoluteFill>
+  );
+};
+
+export const FoamReel: React.FC = () => {
+  const frame = useCurrentFrame();
+  // the clip, the hook and the corner mark fade out together before the outro
+  const clipOut = interpolate(frame, [CLIP - FADE, CLIP], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  return (
+    <AbsoluteFill style={{ backgroundColor: "black" }}>
+      <AbsoluteFill style={{ opacity: clipOut }}>
+        <Video
+          src={staticFile("edit.mp4")}
+          muted
+          style={{ width: "100%", height: "100%" }}
+        />
+        <Monogram />
+        <Hook />
+      </AbsoluteFill>
+      <Sequence from={CLIP - FADE / 2}>
+        <Outro />
+      </Sequence>
+    </AbsoluteFill>
+  );
+};
 
 export const MyComposition = () => (
   <Composition
