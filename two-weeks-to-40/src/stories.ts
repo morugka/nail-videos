@@ -188,7 +188,7 @@ export const STORIES: Slide[] = [
     photo: "photos/land-pink-river.jpg",
     pos: "top",
     title: "Питання дня",
-    paragraphs: ["А ви пишаєтесь\nсобою?"],
+    paragraphs: ["А чим\nпишаєтесь ви?"],
     poll: true,
   },
 
