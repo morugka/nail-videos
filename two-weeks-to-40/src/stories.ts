@@ -121,10 +121,10 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D12-4",
-    photo: "photos/family-graduation-crop.jpg",
+    photo: "photos/family-graduation-clean.jpg",
     fit: true,
-    ratio: 1361 / 1080,
-    top: 270,
+    ratio: 1620 / 1080,
+    top: 220,
     pos: "bottom",
     paragraphs: [
       "Чоловік, який поруч\nу будь-яку погоду.",
