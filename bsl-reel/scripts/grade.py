@@ -23,7 +23,9 @@ def nail_mask(x):
     # which otherwise blink on and off from frame to frame
     m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((15, 15), np.uint8))
     m = cv2.morphologyEx(m, cv2.MORPH_CLOSE, np.ones((9, 9), np.uint8))
-    return cv2.GaussianBlur(m, (0, 0), 3)
+    # tight edge: a wide or lagging mask leaves a light rim of untouched wall around the
+    # nail, which reads as a glow / blur
+    return cv2.GaussianBlur(m, (0, 0), 1.0)
 
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 vig = (1 - 0.32 * np.clip(((xx - W/2) / (W*0.62))**2 + ((yy - H*0.5) / (H*0.6))**2, 0, 1))[..., None]
@@ -34,9 +36,9 @@ def grade(f):
     global prev
     x = f.astype(np.float32) / 255
     skin, nails = skin_mask(x), nail_mask(x)
-    if prev is not None:  # smooth the masks over time so their edges don't shimmer
-        skin, nails = 0.55*skin + 0.45*prev[0], 0.55*nails + 0.45*prev[1]
-    prev = (skin, nails)
+    if prev is not None:  # smooth the skin mask over time so its soft edge doesn't shimmer
+        skin = 0.55*skin + 0.45*prev
+    prev = skin
     skin, nails = skin[..., None], nails[..., None]
     # surroundings (wall, glove, denim): quieter colour, deeper shadows
     hsv = cv2.cvtColor(x, cv2.COLOR_BGR2HSV)
@@ -50,7 +52,11 @@ def grade(f):
     out = rest * (1 - skin) + sk * skin
     out = np.clip(out * vig, 0, 1)
     out = out * (1 - nails) + x * nails  # lacquer keeps its original colour
-    return out
+    # crisper detail (the phone focused on the foam; the thumb is a little soft):
+    # unsharp mask on brightness only, so no colour shifts
+    lum = out.mean(axis=2, keepdims=True)
+    detail = lum - cv2.GaussianBlur(lum, (0, 0), 1.6)[..., None]
+    return np.clip(out + 0.7 * detail, 0, 1)
 
 # KM mark, as in the other reels: 92 px high, 48 px from the left, 110 px from the top, soft shadow
 logo = cv2.imread(logo_path, cv2.IMREAD_UNCHANGED)
@@ -70,7 +76,7 @@ def stamp(x):
     return x
 
 dec = subprocess.Popen(["ffmpeg", "-v", "error", "-i", src, "-an",
-    "-vf", f"fps={FPS},scale={W}:{H}:flags=lanczos", "-f", "rawvideo", "-pix_fmt", "bgr24", "-"],
+    "-vf", f"fps={FPS},scale={W}:{H}:flags=lanczos+accurate_rnd", "-f", "rawvideo", "-pix_fmt", "bgr24", "-"],
     stdout=subprocess.PIPE)
 enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24",
     "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-an", "-c:v", "libx264", "-profile:v", "high",
