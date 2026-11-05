@@ -26,11 +26,15 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
     });
   const textOnly = !slide.photo && !slide.poll;
   // Full-screen photo with the text over it; pos says where the text sits
-  const full = Boolean(slide.photo && (slide.full || slide.pos));
-  const pos = full ? (slide.pos ?? "center") : undefined;
+  // fit: the whole photo near the top, text below it on a blurred copy of the photo
+  const fit = Boolean(slide.photo && slide.fit);
+  const fitTop = slide.top ?? 200;
+  const fitBottom = fitTop + 1080 * (slide.ratio ?? 1);
+  const full = Boolean(slide.photo && (slide.full || slide.pos) && !fit);
+  const pos = full ? (slide.pos ?? "center") : fit ? slide.pos : undefined;
   const vert = pos ? pos.split("-")[0] : undefined; // top | center | bottom
   const side = pos?.split("-")[1] as "left" | "right" | undefined;
-  const centred = textOnly || full;
+  const centred = textOnly || full || fit;
   const shade = "rgba(10,9,9,0.9)";
   const overlay = [
     vert === "top" &&
@@ -58,7 +62,44 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
         overflow: "hidden",
       }}
     >
-      {slide.photo ? (
+      {fit && slide.photo ? (
+        <>
+          <Img
+            src={staticFile(slide.photo)}
+            style={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              filter: "blur(40px) brightness(0.45)",
+              transform: "scale(1.2)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: fitTop,
+              height: fitBottom - fitTop,
+              overflow: "hidden",
+              opacity: appear(0, 30),
+              boxShadow: "0 20px 60px rgba(0,0,0,0.6)",
+            }}
+          >
+            <Img
+              src={staticFile(slide.photo)}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                transform: `scale(${zoom})`,
+              }}
+            />
+          </div>
+          {pos ? <AbsoluteFill style={{ background: overlay }} /> : null}
+        </>
+      ) : slide.photo ? (
         <div
           style={{
             position: "absolute",
@@ -125,23 +166,27 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
         style={{
           position: "absolute",
           top:
-            vert === "bottom"
-              ? undefined
-              : vert === "top"
-                ? 290
-                : slide.poll
-                  ? 420
-                  : centred
-                    ? 300
-                    : 280,
-          bottom:
-            vert === "bottom"
-              ? 340
-              : vert === "top"
+            fit && !vert
+              ? fitBottom + 40
+              : vert === "bottom"
                 ? undefined
-                : centred
-                  ? 380
-                  : undefined,
+                : vert === "top"
+                  ? 290
+                  : slide.poll
+                    ? 420
+                    : centred
+                      ? 300
+                      : 280,
+          bottom:
+            fit && !vert
+              ? 300
+              : vert === "bottom"
+                ? 340
+                : vert === "top"
+                  ? undefined
+                  : centred
+                    ? 380
+                    : undefined,
           left: side === "right" ? 200 : 80,
           right: side === "left" ? 200 : 80,
           display: "flex",
@@ -153,9 +198,11 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                 ? "flex-end"
                 : "center",
           justifyContent:
-            vert === "center" || (centred && !vert) ? "center" : "flex-start",
+            (fit && !vert) || vert === "center" || (centred && !vert)
+              ? "center"
+              : "flex-start",
           textAlign: side ?? "center",
-          textShadow: full ? "0 2px 24px rgba(0,0,0,0.9)" : "none",
+          textShadow: full || vert ? "0 2px 24px rgba(0,0,0,0.9)" : "none",
         }}
       >
         {slide.title ? (
@@ -206,7 +253,7 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                 transform: `translateY(${(1 - a) * 18}px)`,
                 ...(copper
                   ? {
-                      background: full ? "#f3c79a" : COPPER,
+                      background: full || fit ? "#f3c79a" : COPPER,
                       textShadow: "none",
                       filter: full
                         ? "drop-shadow(0 2px 12px rgba(0,0,0,0.9))"

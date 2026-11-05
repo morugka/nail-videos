@@ -5,6 +5,9 @@ export type Slide = {
   photo?: string; // file in public/; without it the slide is text on black
   focus?: string; // which part of the photo to keep when cropping, CSS object-position
   full?: boolean; // photo fills the whole screen and the text sits over it (landscapes)
+  fit?: boolean; // whole photo at the top, text below it (when text would cover a face)
+  ratio?: number; // photo height / width, for fit
+  top?: number; // where the fitted photo starts (px from the top)
   // where the text sits over a full-screen photo; the photo darkens under it
   pos?:
     | "top"
@@ -103,8 +106,8 @@ export const STORIES: Slide[] = [
   {
     id: "D12-2",
     photo: "photos/me-portrait.jpg",
-    pos: "bottom",
-    focus: "45% 40%",
+    fit: true,
+    ratio: 1,
     paragraphs: [
       "12 днів до 40.\nСьогодні — без скромності.",
       "*Чим я пишаюсь у житті:*",
@@ -113,15 +116,16 @@ export const STORIES: Slide[] = [
   {
     id: "D12-3",
     photo: "photos/family-park.jpg",
-    pos: "top",
-    focus: "50% 60%",
+    pos: "bottom",
     paragraphs: ["Перше і головне —", "*моя родина.*"],
   },
   {
     id: "D12-4",
-    photo: "photos/family-graduation.jpg",
+    photo: "photos/family-graduation-crop.jpg",
+    fit: true,
+    ratio: 1361 / 1080,
+    top: 270,
     pos: "bottom",
-    focus: "50% 30%",
     paragraphs: [
       "Чоловік, який поруч\nу будь-яку погоду.",
       "*І донька, якою\nя пишаюсь щодня.*",
@@ -129,14 +133,12 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D12-5",
-    photo: "photos/me-graduation.jpg",
+    photo: "photos/me-graduation-crop.jpg",
+    fit: true,
+    ratio: 1410 / 1080,
+    top: 250,
     pos: "bottom-left",
-    focus: "60% 40%",
-    paragraphs: [
-      "Випуск 2024 —\nнайзворушливіший день,",
-      "*коли бачиш, якою\nвиросла твоя дитина.*",
-      "І подяка мені як мамі.",
-    ],
+    paragraphs: ["Подяка мені як мамі —", "*мабуть, найцінніша\nнагорода.*"],
   },
   {
     id: "D12-6",
@@ -151,7 +153,7 @@ export const STORIES: Slide[] = [
   {
     id: "D12-7",
     photo: "photos/me-embankment-dress.jpg",
-    pos: "top-right",
+    pos: "bottom-right",
     focus: "40% 50%",
     paragraphs: ["Що наважилась у 35", "*почати нову професію\nз нуля.*"],
   },
@@ -159,10 +161,7 @@ export const STORIES: Slide[] = [
     id: "D12-8",
     photo: "photos/me-selfie-sun.jpg",
     pos: "top",
-    paragraphs: [
-      "Що навіть у важкі дні\nвмію сказати собі:",
-      "*«It's fine». І йти далі.*",
-    ],
+    paragraphs: ["Що в найважчі дні кажу собі", "*«It's fine» — і йду далі.*"],
   },
   {
     id: "D12-9",
