@@ -128,11 +128,10 @@ const Hook: React.FC = () => {
           style={{
             fontFamily: cormorant,
             fontWeight: 600,
-            fontSize: 58,
+            fontSize: 70,
             lineHeight: 1.04,
-            letterSpacing: 3 + (1 - p) * 12,
+            letterSpacing: 1 + (1 - p) * 10,
             color: IVORY,
-            textTransform: "uppercase",
             textAlign: "center",
             opacity: p,
             filter: `blur(${(1 - p) * 8}px)`,
