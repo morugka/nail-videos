@@ -14,15 +14,15 @@ ${face(500)}
 * { margin: 0; box-sizing: border-box; }
 html, body { width: 1080px; height: 1920px; background: transparent; }
 .logo { position: absolute; left: 80px; top: 110px; width: 160px; }
-.t { position: absolute; left: 80px; right: 120px; top: 300px; color: #fff; font-family: CG, serif;
+.t { position: absolute; left: 80px; right: 120px; top: 300px; text-align: right; color: #fff; font-family: CG, serif;
      text-shadow: 0 0 3px rgba(0,0,0,.6), 0 2px 22px rgba(0,0,0,.85); }
-.t::before { content: ''; position: absolute; left: -140px; right: -40px; top: -80px; bottom: -70px; z-index: -1;
+.t::before { content: ''; position: absolute; left: -40px; right: -140px; top: -80px; bottom: -70px; z-index: -1;
      background: radial-gradient(closest-side, rgba(0,0,0,.55), rgba(0,0,0,.3) 55%, rgba(0,0,0,0)); }
 h1 { font-weight: 500; font-size: 80px; line-height: .98; white-space: nowrap; letter-spacing: 3px; text-transform: uppercase; }
 .sub { font-weight: 500; font-size: 44px; letter-spacing: 3px; text-transform: uppercase; color: #e2c07e; margin-top: 16px; }
-.orn { display: flex; align-items: center; gap: 16px; margin-top: 22px; width: 380px; }
+.orn { display: flex; flex-direction: row-reverse; align-items: center; gap: 16px; margin: 22px 0 0 auto; width: 380px; }
 .orn i { width: 14px; height: 14px; background: #c9a45c; transform: rotate(45deg) scale(.75); flex: none; }
-.orn span { flex: 1; height: 1.5px; background: linear-gradient(90deg, #c9a45c, rgba(201,164,92,0)); }
+.orn span { flex: 1; height: 1.5px; background: linear-gradient(270deg, #c9a45c, rgba(201,164,92,0)); }
 </style></head><body>
 <img class="logo" src="file://${path.join(__dirname, '../cat-eye-reel/overlays/km-logo.png')}">
 <div class="t"><h1>Манікюр<br>з ароматом кави</h1><div class="sub">${SUB}</div><div class="orn"><i></i><span></span></div></div>
