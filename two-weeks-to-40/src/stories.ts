@@ -5,6 +5,17 @@ export type Slide = {
   photo?: string; // file in public/; without it the slide is text on black
   focus?: string; // which part of the photo to keep when cropping, CSS object-position
   full?: boolean; // photo fills the whole screen and the text sits over it (landscapes)
+  // where the text sits over a full-screen photo; the photo darkens under it
+  pos?:
+    | "top"
+    | "center"
+    | "bottom"
+    | "top-left"
+    | "top-right"
+    | "center-left"
+    | "center-right"
+    | "bottom-left"
+    | "bottom-right";
   title?: string; // gold capitals above the text
   paragraphs: string[];
   poll?: boolean; // leaves the middle of the screen free for an Instagram poll sticker
@@ -92,7 +103,8 @@ export const STORIES: Slide[] = [
   {
     id: "D12-2",
     photo: "photos/me-portrait.jpg",
-    focus: "50% 40%",
+    pos: "bottom",
+    focus: "45% 40%",
     paragraphs: [
       "12 днів до 40.\nСьогодні — без скромності.",
       "*Чим я пишаюсь у житті:*",
@@ -100,30 +112,82 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D12-3",
-    photo: "photos/me-embankment-dress.jpg",
-    focus: "50% 45%",
-    paragraphs: ["Що наважилась у 35", "*почати нову професію\nз нуля.*"],
+    photo: "photos/family-park.jpg",
+    pos: "top",
+    focus: "50% 60%",
+    paragraphs: ["Перше і головне —", "*моя родина.*"],
   },
   {
     id: "D12-4",
-    photo: "photos/me-river-halfface.jpg",
-    focus: "60% 30%",
+    photo: "photos/family-graduation.jpg",
+    pos: "bottom",
+    focus: "50% 30%",
     paragraphs: [
-      "Що не здалася\nв найважчі роки —",
-      "*і будувала своє,\nколи навколо була війна.*",
+      "Чоловік, який поруч\nу будь-яку погоду.",
+      "*І донька, якою\nя пишаюсь щодня.*",
     ],
   },
   {
     id: "D12-5",
     photo: "photos/me-graduation.jpg",
-    focus: "50% 30%",
+    pos: "bottom-left",
+    focus: "60% 40%",
     paragraphs: [
-      "Що досі вмію дивуватися,",
-      "*вчитися й горіти тим,\nщо роблю.*",
+      "Випуск 2024 —\nнайзворушливіший день,",
+      "*коли бачиш, якою\nвиросла твоя дитина.*",
+      "І подяка мені як мамі.",
     ],
   },
   {
     id: "D12-6",
+    photo: "photos/land-city-sunset.jpg",
+    pos: "top",
+    focus: "45% 50%",
+    paragraphs: [
+      "Я пишаюсь тим, що\nв найнеспокійніші часи",
+      "*вдома залишалось тепло.*",
+    ],
+  },
+  {
+    id: "D12-7",
+    photo: "photos/me-embankment-dress.jpg",
+    pos: "top-right",
+    focus: "40% 50%",
+    paragraphs: ["Що наважилась у 35", "*почати нову професію\nз нуля.*"],
+  },
+  {
+    id: "D12-8",
+    photo: "photos/me-selfie-sun.jpg",
+    pos: "top",
+    paragraphs: [
+      "Що навіть у важкі дні\nвмію сказати собі:",
+      "*«It's fine». І йти далі.*",
+    ],
+  },
+  {
+    id: "D12-9",
+    photo: "photos/me-river-halfface.jpg",
+    pos: "center-left",
+    focus: "70% 40%",
+    paragraphs: [
+      "Що не здалася\nв найважчі роки —",
+      "*і будувала своє,\nколи навколо\nбула війна.*",
+    ],
+  },
+  {
+    id: "D12-10",
+    photo: "photos/work-red-stiletto.jpg",
+    pos: "bottom",
+    focus: "50% 30%",
+    paragraphs: [
+      "Що досі вмію дивуватися,\nвчитися й горіти\nтим, що роблю.",
+      "*І так — я пишаюсь\nсвоїми роботами.*",
+    ],
+  },
+  {
+    id: "D12-11",
+    photo: "photos/land-pink-river.jpg",
+    pos: "top",
     title: "Питання дня",
     paragraphs: ["А ви пишаєтесь\nсобою?"],
     poll: true,

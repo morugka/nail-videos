@@ -25,9 +25,27 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
       easing: ease,
     });
   const textOnly = !slide.photo && !slide.poll;
-  // Full-screen photo (landscapes) with the text centred over it
-  const full = Boolean(slide.photo && slide.full);
+  // Full-screen photo with the text over it; pos says where the text sits
+  const full = Boolean(slide.photo && (slide.full || slide.pos));
+  const pos = full ? (slide.pos ?? "center") : undefined;
+  const vert = pos ? pos.split("-")[0] : undefined; // top | center | bottom
+  const side = pos?.split("-")[1] as "left" | "right" | undefined;
   const centred = textOnly || full;
+  const shade = "rgba(10,9,9,0.9)";
+  const overlay = [
+    vert === "top" &&
+      `linear-gradient(180deg, ${shade} 0%, rgba(10,9,9,0.72) 32%, transparent 62%)`,
+    vert === "bottom" &&
+      `linear-gradient(0deg, ${shade} 0%, rgba(10,9,9,0.72) 32%, transparent 62%)`,
+    vert === "center" &&
+      "radial-gradient(ellipse at 50% 45%, rgba(10,9,9,0.62) 0%, rgba(10,9,9,0.55) 55%, rgba(10,9,9,0.8) 100%)",
+    side === "left" &&
+      "linear-gradient(90deg, rgba(10,9,9,0.6) 0%, transparent 70%)",
+    side === "right" &&
+      "linear-gradient(270deg, rgba(10,9,9,0.6) 0%, transparent 70%)",
+  ]
+    .filter(Boolean)
+    .join(", ");
   const dayNumber = slide.id.slice(1).split("-")[0];
   const zoom = animated ? 1 + frame * 0.0003 : 1;
 
@@ -66,7 +84,7 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
           <AbsoluteFill
             style={{
               background: full
-                ? "radial-gradient(ellipse at 50% 40%, rgba(10,9,9,0.62) 0%, rgba(10,9,9,0.55) 55%, rgba(10,9,9,0.8) 100%)"
+                ? overlay
                 : `linear-gradient(180deg, ${BLACK} 0%, rgba(10,9,9,0.7) 12%, transparent 28%, transparent 70%, ${BLACK} 86%)`,
             }}
           />
@@ -106,15 +124,37 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
       <div
         style={{
           position: "absolute",
-          top: slide.poll ? 420 : centred ? 300 : 280,
-          bottom: centred ? 380 : undefined,
-          left: 80,
-          right: 80,
+          top:
+            vert === "bottom"
+              ? undefined
+              : vert === "top"
+                ? 290
+                : slide.poll
+                  ? 420
+                  : centred
+                    ? 300
+                    : 280,
+          bottom:
+            vert === "bottom"
+              ? 340
+              : vert === "top"
+                ? undefined
+                : centred
+                  ? 380
+                  : undefined,
+          left: side === "right" ? 200 : 80,
+          right: side === "left" ? 200 : 80,
           display: "flex",
           flexDirection: "column",
-          alignItems: "center",
-          justifyContent: centred ? "center" : "flex-start",
-          textAlign: "center",
+          alignItems:
+            side === "left"
+              ? "flex-start"
+              : side === "right"
+                ? "flex-end"
+                : "center",
+          justifyContent:
+            vert === "center" || (centred && !vert) ? "center" : "flex-start",
+          textAlign: side ?? "center",
           textShadow: full ? "0 2px 24px rgba(0,0,0,0.9)" : "none",
         }}
       >
@@ -146,12 +186,16 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                     ? 150
                     : 92
                   : short
-                    ? centred
-                      ? 120
-                      : 96
-                    : centred
-                      ? 80
-                      : 68,
+                    ? full
+                      ? 104
+                      : centred
+                        ? 120
+                        : 96
+                    : full
+                      ? 72
+                      : centred
+                        ? 80
+                        : 68,
                 fontWeight: copper ? 500 : 400,
                 fontStyle: copper ? "italic" : "normal",
                 lineHeight: 1.18,
@@ -171,12 +215,16 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                       backgroundClip: "text",
                       color: "transparent",
                       fontSize: short
-                        ? centred
-                          ? 128
-                          : 104
-                        : centred
-                          ? 88
-                          : 74,
+                        ? full
+                          ? 112
+                          : centred
+                            ? 128
+                            : 104
+                        : full
+                          ? 80
+                          : centred
+                            ? 88
+                            : 74,
                     }
                   : {}),
               }}

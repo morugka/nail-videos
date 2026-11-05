@@ -218,14 +218,14 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
     >
       {day.photo ? (
         <>
-          {/* Photo sits full-width under the title, like the feed posts (4:5 fits exactly) */}
+          {/* Photo fills the screen; it darkens under the title at the top */}
           <div
             style={{
               position: "absolute",
               left: 0,
               right: 0,
               bottom: 0,
-              height: 1350,
+              height: 1920,
               overflow: "hidden",
             }}
           >
@@ -241,7 +241,7 @@ export const Cover: React.FC<{ index: number; animated: boolean }> = ({
             />
             <AbsoluteFill
               style={{
-                background: `linear-gradient(180deg, ${BLACK} 0%, rgba(10,9,9,0.75) 12%, transparent 30%, transparent 82%, rgba(10,9,9,0.7) 100%)`,
+                background: `linear-gradient(180deg, rgba(10,9,9,0.92) 0%, rgba(10,9,9,0.8) 28%, transparent 52%, transparent 78%, rgba(10,9,9,0.75) 100%)`,
               }}
             />
           </div>
