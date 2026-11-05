@@ -14,7 +14,7 @@ ${face(500)}
 * { margin: 0; box-sizing: border-box; }
 html, body { width: 1080px; height: 1920px; background: transparent; }
 .logo { position: absolute; left: 80px; top: 90px; width: 170px; }
-.t { position: absolute; left: 80px; right: 120px; top: 300px; text-align: right; color: #fff; font-family: CG, serif;
+.t { position: absolute; left: 80px; right: 120px; top: 490px; text-align: right; color: #fff; font-family: CG, serif;
      text-shadow: 0 0 3px rgba(0,0,0,.6), 0 2px 22px rgba(0,0,0,.85); }
 .t::before { content: ''; position: absolute; left: -40px; right: -140px; top: -80px; bottom: -70px; z-index: -1;
      background: radial-gradient(closest-side, rgba(0,0,0,.55), rgba(0,0,0,.3) 55%, rgba(0,0,0,0)); }
