@@ -221,7 +221,7 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
           </div>
         ) : null}
         {slide.paragraphs.map((p, i) => {
-          const short = slide.paragraphs.join("").length < 40;
+          const short = !fit && slide.paragraphs.join("").length < 40;
           const copper = p.startsWith("*") && p.endsWith("*");
           const a = appear(8 + i * 22);
           return (

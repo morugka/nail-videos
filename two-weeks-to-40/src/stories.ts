@@ -195,6 +195,9 @@ export const STORIES: Slide[] = [
   // Day 11 — Що не вийшло
   {
     id: "D11-2",
+    photo: "photos/land-road.jpg",
+    pos: "top",
+    focus: "50% 30%",
     paragraphs: [
       "11 днів до 40.\nВчора — перемоги.",
       "*Сьогодні чесно:\nщо в мене не виходило.*",
@@ -202,19 +205,34 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D11-3",
-    photo: "photos/land-road.jpg",
-    full: true,
-    focus: "50% 0%",
+    photo: "photos/me-studio-hand.jpg",
+    fit: true,
+    ratio: 1,
     paragraphs: ["Я довго відкладала", "*себе «на потім».*"],
   },
   {
     id: "D11-4",
     photo: "photos/me-river-sitting.jpg",
-    focus: "45% 40%",
+    pos: "bottom",
+    focus: "48% 50%",
     paragraphs: ["Довго боялася змін.", "*Не завжди вміла\nсказати «ні».*"],
   },
   {
     id: "D11-5",
+    photo: "photos/day-05.jpg",
+    pos: "bottom",
+    focus: "50% 30%",
+    paragraphs: [
+      "Не все, що задумала,\nвдалося втілити.",
+      "*Бракувало сил, часу\nчи ресурсу.*",
+    ],
+  },
+  {
+    id: "D11-6",
+    paragraphs: ["Я часто була\nзанадто суворою", "*до себе.*"],
+  },
+  {
+    id: "D11-7",
     photo: "photos/land-sunrise-tree.jpg",
     full: true,
     focus: "50% 0%",
@@ -224,7 +242,16 @@ export const STORIES: Slide[] = [
     ],
   },
   {
-    id: "D11-6",
+    id: "D11-8",
+    photo: "photos/me-garden-orange.jpg",
+    fit: true,
+    ratio: 1,
+    paragraphs: ["Тепер я вчуся", "*бути до себе м'якшою.*"],
+  },
+  {
+    id: "D11-9",
+    photo: "photos/land-moon.jpg",
+    pos: "top",
     title: "Питання дня",
     paragraphs: ["Помилки — це…"],
     poll: true,
