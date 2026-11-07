@@ -256,4 +256,76 @@ export const STORIES: Slide[] = [
     paragraphs: ["Помилки — це…"],
     poll: true,
   },
+
+  // Day 10 — Моя справа
+  {
+    id: "D10-2",
+    photo: "photos/work-candle.jpg",
+    pos: "bottom",
+    paragraphs: ["Я працюю майстром манікюру", "*з 2021 року.*"],
+  },
+  {
+    id: "D10-3",
+    photo: "photos/day-14.jpg",
+    pos: "bottom",
+    focus: "45% 50%",
+    paragraphs: [
+      "І так склалося, що більшість\nмоїх клієнток прийшли до мене",
+      "*вже після початку\nповномасштабної війни.*",
+    ],
+  },
+  {
+    id: "D10-4",
+    photo: "photos/day-02.jpg",
+    pos: "top",
+    paragraphs: [
+      "З кимось ми досі разом.",
+      "*З кимось наші шляхи\nрозійшлися — і я вважаю\nце нормальним.*",
+    ],
+  },
+  {
+    id: "D10-5",
+    photo: "photos/day-13.jpg",
+    pos: "bottom",
+    focus: "50% 40%",
+    paragraphs: [
+      "Я вдячна кожній дівчині,\nяка свого часу обрала мене.",
+      "*І навіть якщо вона вже\nне моя клієнтка —\nвона все одно залишається\nдля мене улюбленою.*",
+    ],
+  },
+  {
+    id: "D10-6",
+    photo: "photos/work-curse.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "Дуже люблю навчатися:\nщороку — кілька курсів.",
+      "*Вдосконалюю техніку,\nосвоюю нові напрямки.*",
+    ],
+  },
+  {
+    id: "D10-7",
+    photo: "photos/work-gothic.jpg",
+    pos: "bottom-left",
+    paragraphs: [
+      "Експериментую\nз матеріалами —",
+      "*іноді виходить\nось таке.*",
+    ],
+  },
+  {
+    id: "D10-8",
+    photo: "photos/day-03.jpg",
+    pos: "top",
+    paragraphs: [
+      "Хочу розвиватися",
+      "*і радувати вас\nрезультатами своєї роботи.*",
+    ],
+  },
+  {
+    id: "D10-9",
+    photo: "photos/work-pink.jpg",
+    pos: "top",
+    title: "Питання дня",
+    paragraphs: ["Які нігті\nвам ближчі?"],
+    poll: true,
+  },
 ];
