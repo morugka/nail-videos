@@ -322,10 +322,10 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D10-9",
-    photo: "photos/work-pink.jpg",
-    pos: "top",
+    photo: "photos/day-12.jpg",
+    pos: "bottom",
     title: "Питання дня",
-    paragraphs: ["Які нігті\nвам ближчі?"],
+    paragraphs: ["А ви б наважились\nна такі?"],
     poll: true,
   },
 ];
