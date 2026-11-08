@@ -232,17 +232,19 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                   ? p.length < 14
                     ? 150
                     : 92
-                  : short
-                    ? full
-                      ? 104
-                      : centred
-                        ? 120
-                        : 96
-                    : full
-                      ? 72
-                      : centred
-                        ? 80
-                        : 68,
+                  : fit
+                    ? 60
+                    : short
+                      ? full
+                        ? 104
+                        : centred
+                          ? 120
+                          : 96
+                      : full
+                        ? 72
+                        : centred
+                          ? 80
+                          : 68,
                 fontWeight: copper ? 500 : 400,
                 fontStyle: copper ? "italic" : "normal",
                 lineHeight: 1.18,
@@ -261,17 +263,19 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
                       WebkitBackgroundClip: "text",
                       backgroundClip: "text",
                       color: "transparent",
-                      fontSize: short
-                        ? full
-                          ? 112
-                          : centred
-                            ? 128
-                            : 104
-                        : full
-                          ? 80
-                          : centred
-                            ? 88
-                            : 74,
+                      fontSize: fit
+                        ? 68
+                        : short
+                          ? full
+                            ? 112
+                            : centred
+                              ? 128
+                              : 104
+                          : full
+                            ? 80
+                            : centred
+                              ? 88
+                              : 74,
                     }
                   : {}),
               }}
