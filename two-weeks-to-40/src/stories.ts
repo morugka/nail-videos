@@ -328,4 +328,56 @@ export const STORIES: Slide[] = [
     paragraphs: ["А ви б наважились\nна такі?"],
     poll: true,
   },
+
+  // Day 9 — Перемоги у справі
+  {
+    id: "D9-2",
+    paragraphs: [
+      "9 днів до 40.\nОбіцяла окремо про роботу.",
+      "*Мої професійні перемоги:*",
+    ],
+  },
+  {
+    id: "D9-3",
+    photo: "photos/day-07.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "Я зібрала власну\nклієнтську базу —\nзначною мірою\nвже під час війни,",
+      "*коли, здавалося б,\nусім не до манікюру.*",
+    ],
+  },
+  {
+    id: "D9-4",
+    photo: "photos/work-pink.jpg",
+    pos: "bottom",
+    focus: "50% 40%",
+    paragraphs: [
+      "Перейшла до самостійної\nроботи —",
+      "*і створила свій кабінет.*",
+    ],
+  },
+  {
+    id: "D9-5",
+    photo: "photos/work-curse-collage.jpg",
+    pos: "bottom-left",
+    paragraphs: ["Освоїла складне\nмоделювання", "*і художній\nдизайн.*"],
+  },
+  {
+    id: "D9-6",
+    photo: "photos/land-clouds-fishing.jpg",
+    full: true,
+    focus: "60% 50%",
+    paragraphs: [
+      "І головне — не зупиняюсь\nна досягнутому.",
+      "*Постійно шукаю\nнові можливості.*",
+    ],
+  },
+  {
+    id: "D9-7",
+    photo: "photos/work-curse-frame.jpg",
+    pos: "top",
+    title: "Питання дня",
+    paragraphs: ["Що для вас головне\nв майстрі?"],
+    poll: true,
+  },
 ];
