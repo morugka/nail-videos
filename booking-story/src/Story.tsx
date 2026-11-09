@@ -7,7 +7,7 @@ import {
   useCurrentFrame,
 } from "remotion";
 
-const cormorant = "Cormorant Garamond";
+export const cormorant = "Cormorant Garamond";
 loadFont({
   family: cormorant,
   url: staticFile("fonts/Cormorant.ttf"),
@@ -15,8 +15,8 @@ loadFont({
 });
 
 export const GOLD = "#c9a36a";
-const GOLD_DEEP = "#d9b97f";
-const INK = "#f4f0ea";
+export const GOLD_DEEP = "#d9b97f";
+export const INK = "#f4f0ea";
 
 export const FPS = 30;
 export const DURATION = 390;
@@ -24,14 +24,14 @@ export const DURATION = 390;
 const ease = Easing.bezier(0.33, 0, 0.2, 1);
 
 // 0..1 between two frames, eased
-const prog = (frame: number, from: number, to: number) =>
+export const prog = (frame: number, from: number, to: number) =>
   interpolate(frame, [from, to], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
     easing: ease,
   });
 
-const GoldDivider: React.FC<{ width: number; progress: number }> = ({
+export const GoldDivider: React.FC<{ width: number; progress: number }> = ({
   width,
   progress,
 }) => (
@@ -74,7 +74,7 @@ const GoldDivider: React.FC<{ width: number; progress: number }> = ({
 );
 
 // Black backdrop with a faint drifting light, like the studio shots on the page
-const Backdrop: React.FC = () => {
+export const Backdrop: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / DURATION;
   const x = 30 + 25 * Math.sin(t * Math.PI * 1.2);
@@ -111,7 +111,7 @@ const Backdrop: React.FC = () => {
   );
 };
 
-const Logo: React.FC = () => {
+export const Logo: React.FC = () => {
   const frame = useCurrentFrame();
   const p = prog(frame, 0, 30);
   return (
