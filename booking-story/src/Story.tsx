@@ -7,22 +7,16 @@ import {
   useCurrentFrame,
 } from "remotion";
 
-const cinzel = "Cinzel";
 const cormorant = "Cormorant Garamond";
-loadFont({
-  family: cinzel,
-  url: staticFile("fonts/Cinzel.ttf"),
-  weight: "400 900",
-});
 loadFont({
   family: cormorant,
   url: staticFile("fonts/Cormorant.ttf"),
   weight: "300 700",
 });
 
-export const GOLD = "#a8834f";
-const GOLD_DEEP = "#8c6a3f";
-const INK = "#3d2b23";
+export const GOLD = "#c9a36a";
+const GOLD_DEEP = "#d9b97f";
+const INK = "#f4f0ea";
 
 export const FPS = 30;
 export const DURATION = 390;
@@ -79,21 +73,21 @@ const GoldDivider: React.FC<{ width: number; progress: number }> = ({
   </div>
 );
 
-// Dark velvet backdrop with a slowly drifting wine-coloured glow
+// Black backdrop with a faint drifting light, like the studio shots on the page
 const Backdrop: React.FC = () => {
   const frame = useCurrentFrame();
   const t = frame / DURATION;
   const x = 30 + 25 * Math.sin(t * Math.PI * 1.2);
   const y = 28 + 10 * Math.cos(t * Math.PI);
   return (
-    <AbsoluteFill style={{ backgroundColor: "#f4ede4" }}>
+    <AbsoluteFill style={{ backgroundColor: "#000" }}>
       <AbsoluteFill
         style={{
-          background: `radial-gradient(ellipse 85% 55% at ${x}% ${y}%, rgba(255,252,247,0.9), transparent 70%),
-            radial-gradient(ellipse 80% 50% at ${100 - x}% 85%, rgba(225,203,181,0.6), transparent 70%)`,
+          background: `radial-gradient(ellipse 85% 55% at ${x}% ${y}%, rgba(255,255,255,0.07), transparent 70%),
+            radial-gradient(ellipse 80% 50% at ${100 - x}% 85%, rgba(201,163,106,0.06), transparent 70%)`,
         }}
       />
-      <AbsoluteFill style={{ opacity: 0.12, mixBlendMode: "overlay" }}>
+      <AbsoluteFill style={{ opacity: 0.08, mixBlendMode: "screen" }}>
         <svg width="100%" height="100%">
           <filter id="grain">
             <feTurbulence
@@ -110,25 +104,10 @@ const Backdrop: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, rgba(150,115,90,0.22) 100%)",
+            "radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, rgba(0,0,0,0.5) 100%)",
         }}
       />
     </AbsoluteFill>
-  );
-};
-
-const Frame: React.FC = () => {
-  const frame = useCurrentFrame();
-  const p = prog(frame, 0, 40);
-  return (
-    <AbsoluteFill
-      style={{
-        margin: 44,
-        border: `1.5px solid rgba(168,131,79,${0.6 * p})`,
-        width: 1080 - 88,
-        height: 1920 - 88,
-      }}
-    />
   );
 };
 
@@ -212,7 +191,7 @@ const Clock: React.FC = () => {
         />
         <circle
           r={R}
-          fill="rgba(255,255,255,0.4)"
+          fill="none"
           stroke={GOLD}
           strokeWidth={2}
           strokeDasharray={C}
@@ -254,70 +233,59 @@ const Clock: React.FC = () => {
 
 const Title: React.FC = () => {
   const frame = useCurrentFrame();
-  const small = prog(frame, 30, 56);
-  const big = prog(frame, 40, 72);
-  const line = prog(frame, 60, 88);
+  const big = prog(frame, 30, 62);
+  const line = prog(frame, 56, 84);
+  const sub = prog(frame, 66, 92);
   return (
     <div
       style={{
         position: "absolute",
-        top: 700,
+        top: 690,
         left: 0,
         right: 0,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 14,
+        gap: 26,
       }}
     >
       <div
         style={{
           fontFamily: cormorant,
-          fontWeight: 600,
-          fontSize: 36,
-          letterSpacing: 14,
+          fontWeight: 500,
+          fontSize: 104,
+          lineHeight: 1.02,
+          letterSpacing: 4 + (1 - big) * 16,
+          textAlign: "center",
           color: INK,
-          opacity: small,
-          transform: `translateY(${(1 - small) * 16}px)`,
-        }}
-      >
-        НАГАДУВАННЯ ПРО
-      </div>
-      <div
-        style={{
-          fontFamily: cinzel,
-          fontSize: 140,
-          lineHeight: 1,
-          color: GOLD_DEEP,
-          letterSpacing: 14 + (1 - big) * 30,
           opacity: big,
-          filter: `blur(${(1 - big) * 10}px)`,
+          filter: `blur(${(1 - big) * 8}px)`,
         }}
       >
-        ЗАПИС
+        ЗАПИСУЙТЕСЬ
+        <br />
+        ЗАЗДАЛЕГІДЬ
       </div>
+      <GoldDivider width={360} progress={line} />
       <div
         style={{
           fontFamily: cormorant,
-          fontSize: 44,
-          fontWeight: 500,
-          letterSpacing: 2,
-          color: INK,
-          opacity: line,
-          marginTop: 6,
+          fontWeight: 600,
+          fontSize: 36,
+          letterSpacing: 10,
+          color: GOLD,
+          opacity: sub,
+          transform: `translateY(${(1 - sub) * 12}px)`,
         }}
       >
-        плануйте свій візит заздалегідь
-      </div>
-      <div style={{ marginTop: 10 }}>
-        <GoldDivider width={420} progress={line} />
+        ЩОБ ОБРАТИ ЗРУЧНИЙ ЧАС
       </div>
     </div>
   );
 };
 
 const POINTS = [
-  "Зручний час — тим, хто записався наперед",
+  "Ви обираєте день, а не те, що лишилось",
   "Наступний візит — одразу після процедури",
   "Вечори та вихідні розбирають першими",
 ];
@@ -328,7 +296,7 @@ const Points: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        top: 1080,
+        top: 1110,
         left: 120,
         right: 120,
         display: "flex",
@@ -387,7 +355,7 @@ const Cta: React.FC = () => {
     <div
       style={{
         position: "absolute",
-        top: 1430,
+        top: 1450,
         left: 0,
         right: 0,
         display: "flex",
@@ -404,7 +372,7 @@ const Cta: React.FC = () => {
           overflow: "hidden",
           padding: "26px 54px",
           border: `1.5px solid ${GOLD}`,
-          background: "rgba(255,255,255,0.45)",
+          background: "transparent",
           fontFamily: cormorant,
           fontWeight: 600,
           fontSize: 36,
@@ -422,7 +390,7 @@ const Cta: React.FC = () => {
               width: 140,
               left: `${-20 + sweep * 140}%`,
               background:
-                "linear-gradient(100deg, transparent, rgba(255,255,255,0.7), transparent)",
+                "linear-gradient(100deg, transparent, rgba(232,207,159,0.25), transparent)",
             }}
           />
         ) : null}
@@ -435,7 +403,6 @@ export const BookingStory: React.FC = () => {
   return (
     <AbsoluteFill>
       <Backdrop />
-      <Frame />
       <Logo />
       <Clock />
       <Title />
