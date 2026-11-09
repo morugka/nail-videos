@@ -37,7 +37,25 @@ export const covers: Record<string, CoverProps> = {
 export const RemotionRoot: React.FC = () => (
   <>
     {Object.entries(covers).map(([id, props]) => (
-      <Still key={id} id={id} component={Cover} width={W} height={H} defaultProps={props} />
+      <Still
+        key={id}
+        id={id}
+        component={Cover}
+        width={W}
+        height={H}
+        defaultProps={props}
+      />
+    ))}
+    {/* 9:16 versions for Reels: the grid crops them to the middle 3:4 */}
+    {Object.entries(covers).map(([id, props]) => (
+      <Still
+        key={`${id}-reels`}
+        id={`${id}-reels`}
+        component={Cover}
+        width={W}
+        height={1920}
+        defaultProps={props}
+      />
     ))}
   </>
 );
