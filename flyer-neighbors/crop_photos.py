@@ -4,7 +4,7 @@ from PIL import Image
 R, FILL = 1.2, 0.78
 PHOTOS = {
     "3-nude":     (1.27, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/0f132a87-image.jpg", (0.42, 0.74, 0.25, 0.58)),
-    "1-blue":     (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/ed2b2aaf-image.jpg", (0.22, 0.84, 0.27, 0.64)),
+    "1-green":    (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/f0161b9e-image.jpg", (0.10, 0.78, 0.34, 0.58)),
     "2-lavender": (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/2d3c188a-image.png", (0.21, 0.80, 0.43, 0.79)),
     "4-orange":   (0.68, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/2f270f65-image.jpg", (0.47, 0.87, 0.51, 0.71)),
     "6-black":    (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/4329541a-image.jpg", (0.29, 0.85, 0.26, 0.63)),
