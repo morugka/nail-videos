@@ -19,16 +19,10 @@ loadFont({
   url: staticFile("fonts/Cormorant.ttf"),
   weight: "300 700",
 });
-loadFont({
-  family: cormorant,
-  url: staticFile("fonts/Cormorant-Italic.ttf"),
-  weight: "300 700",
-  style: "italic",
-});
 
-export const GOLD = "#c9a36a";
-const GOLD_LIGHT = "#e8cf9f";
-const IVORY = "#f2ece2";
+export const GOLD = "#a8834f";
+const GOLD_DEEP = "#8c6a3f";
+const INK = "#3d2b23";
 
 export const FPS = 30;
 export const DURATION = 390;
@@ -92,14 +86,14 @@ const Backdrop: React.FC = () => {
   const x = 30 + 25 * Math.sin(t * Math.PI * 1.2);
   const y = 28 + 10 * Math.cos(t * Math.PI);
   return (
-    <AbsoluteFill style={{ backgroundColor: "#0b0507" }}>
+    <AbsoluteFill style={{ backgroundColor: "#f4ede4" }}>
       <AbsoluteFill
         style={{
-          background: `radial-gradient(ellipse 85% 55% at ${x}% ${y}%, rgba(110,20,38,0.75), transparent 70%),
-            radial-gradient(ellipse 80% 50% at ${100 - x}% 85%, rgba(80,12,26,0.65), transparent 70%)`,
+          background: `radial-gradient(ellipse 85% 55% at ${x}% ${y}%, rgba(255,252,247,0.9), transparent 70%),
+            radial-gradient(ellipse 80% 50% at ${100 - x}% 85%, rgba(225,203,181,0.6), transparent 70%)`,
         }}
       />
-      <AbsoluteFill style={{ opacity: 0.22, mixBlendMode: "overlay" }}>
+      <AbsoluteFill style={{ opacity: 0.12, mixBlendMode: "overlay" }}>
         <svg width="100%" height="100%">
           <filter id="grain">
             <feTurbulence
@@ -116,7 +110,7 @@ const Backdrop: React.FC = () => {
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(ellipse 100% 80% at 50% 50%, transparent 60%, rgba(150,115,90,0.22) 100%)",
         }}
       />
     </AbsoluteFill>
@@ -130,7 +124,7 @@ const Frame: React.FC = () => {
     <AbsoluteFill
       style={{
         margin: 44,
-        border: `1.5px solid rgba(201,163,106,${0.45 * p})`,
+        border: `1.5px solid rgba(168,131,79,${0.6 * p})`,
         width: 1080 - 88,
         height: 1920 - 88,
       }}
@@ -174,7 +168,7 @@ const Logo: React.FC = () => {
           fontWeight: 600,
           fontSize: 22,
           letterSpacing: 8,
-          color: IVORY,
+          color: INK,
           opacity: 0.85,
         }}
       >
@@ -218,7 +212,7 @@ const Clock: React.FC = () => {
         />
         <circle
           r={R}
-          fill="rgba(10,4,6,0.35)"
+          fill="rgba(255,255,255,0.4)"
           stroke={GOLD}
           strokeWidth={2}
           strokeDasharray={C}
@@ -239,19 +233,19 @@ const Clock: React.FC = () => {
         <g opacity={prog(frame, 36, 56)}>
           <line
             y2={-55}
-            stroke={GOLD_LIGHT}
+            stroke={GOLD_DEEP}
             strokeWidth={4}
             strokeLinecap="round"
             transform={`rotate(${hour})`}
           />
           <line
             y2={-82}
-            stroke={GOLD_LIGHT}
+            stroke={GOLD_DEEP}
             strokeWidth={2.5}
             strokeLinecap="round"
             transform={`rotate(${minute})`}
           />
-          <circle r={6} fill={GOLD_LIGHT} />
+          <circle r={6} fill={GOLD_DEEP} />
         </g>
       </svg>
     </div>
@@ -282,7 +276,7 @@ const Title: React.FC = () => {
           fontWeight: 600,
           fontSize: 36,
           letterSpacing: 14,
-          color: IVORY,
+          color: INK,
           opacity: small,
           transform: `translateY(${(1 - small) * 16}px)`,
         }}
@@ -294,11 +288,10 @@ const Title: React.FC = () => {
           fontFamily: cinzel,
           fontSize: 140,
           lineHeight: 1,
-          color: GOLD_LIGHT,
+          color: GOLD_DEEP,
           letterSpacing: 14 + (1 - big) * 30,
           opacity: big,
           filter: `blur(${(1 - big) * 10}px)`,
-          textShadow: "0 0 40px rgba(201,163,106,0.25)",
         }}
       >
         ЗАПИС
@@ -306,9 +299,10 @@ const Title: React.FC = () => {
       <div
         style={{
           fontFamily: cormorant,
-          fontStyle: "italic",
-          fontSize: 48,
-          color: IVORY,
+          fontSize: 44,
+          fontWeight: 500,
+          letterSpacing: 2,
+          color: INK,
           opacity: line,
           marginTop: 6,
         }}
@@ -370,7 +364,7 @@ const Points: React.FC = () => {
                 fontWeight: 500,
                 fontSize: 40,
                 lineHeight: 1.2,
-                color: IVORY,
+                color: INK,
               }}
             >
               {text}
@@ -410,12 +404,12 @@ const Cta: React.FC = () => {
           overflow: "hidden",
           padding: "26px 54px",
           border: `1.5px solid ${GOLD}`,
-          background: "rgba(10,4,6,0.6)",
+          background: "rgba(255,255,255,0.45)",
           fontFamily: cormorant,
           fontWeight: 600,
           fontSize: 36,
           letterSpacing: 6,
-          color: GOLD_LIGHT,
+          color: GOLD_DEEP,
         }}
       >
         НАПИШІТЬ «ЗАПИС» У DIRECT
@@ -428,7 +422,7 @@ const Cta: React.FC = () => {
               width: 140,
               left: `${-20 + sweep * 140}%`,
               background:
-                "linear-gradient(100deg, transparent, rgba(232,207,159,0.28), transparent)",
+                "linear-gradient(100deg, transparent, rgba(255,255,255,0.7), transparent)",
             }}
           />
         ) : null}
