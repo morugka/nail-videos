@@ -5,7 +5,7 @@
 <title>Манікюр та педикюр — листівка для під'їзду</title>
 <style>
   @font-face { font-family: "Cormorant"; src: url("fonts/Cormorant.ttf"); font-weight: 300 700; }
-  @page { size: A4 landscape; margin: 0; }
+  @page { size: A4 portrait; margin: 0; }
   :root {
     --bg: #0b0a0a;
     --ivory: #f4eee4;
@@ -14,7 +14,7 @@
     --gold: #c9a36a;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 297mm; height: 210mm; background: var(--bg); }
+  html, body { width: 210mm; height: 297mm; background: var(--bg); }
   body {
     font-family: "Cormorant", serif;
     color: var(--ivory);
@@ -24,224 +24,151 @@
   }
   .sheet {
     position: relative;
-    width: 297mm;
-    height: 210mm;
-    padding: 14mm 16mm 13mm;
-    display: grid;
-    grid-template-columns: 1fr 100mm;
-    grid-template-rows: 1fr 50mm;
-    column-gap: 14mm;
-    row-gap: 8mm;
-    background: radial-gradient(ellipse 70% 80% at 30% 40%, #1a1817 0%, #0b0a0a 70%);
+    width: 210mm;
+    height: 297mm;
+    padding: 17mm 16mm 15mm;
+    display: flex;
+    flex-direction: column;
+    background: radial-gradient(ellipse 90% 60% at 40% 25%, #1a1817 0%, #0b0a0a 70%);
   }
-  .frame {
-    position: absolute;
-    inset: 7mm;
-    border: 0.3mm solid var(--line);
-    pointer-events: none;
-  }
-  .caps { text-transform: uppercase; }
+  .frame { position: absolute; inset: 7mm; border: 0.3mm solid var(--line); pointer-events: none; }
+
   .kicker {
-    text-transform: uppercase;
     font-weight: 600;
     font-size: 13pt;
     letter-spacing: 0.42em;
     color: var(--gold);
+    text-transform: uppercase;
   }
   h1 {
-    margin-top: 3mm;
+    margin-top: 4mm;
     font-weight: 500;
-    font-size: 46pt;
+    font-size: 54pt;
     line-height: 1;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
   }
   .where {
-    margin-top: 4mm;
+    margin-top: 5mm;
     font-weight: 600;
-    font-size: 15pt;
+    font-size: 16pt;
     letter-spacing: 0.22em;
     text-transform: uppercase;
   }
   .where span { color: var(--gold); padding: 0 0.35em; }
-  .rule {
-    width: 70mm;
-    height: 0.3mm;
-    margin: 6mm 0 6mm;
-    background: linear-gradient(90deg, var(--gold), transparent);
-  }
+  .rule { width: 70mm; height: 0.3mm; margin: 8mm 0 8mm; background: linear-gradient(90deg, var(--gold), transparent); }
+
   .perks { display: flex; flex-direction: column; gap: 6mm; }
   .perk { display: flex; gap: 5mm; align-items: flex-start; }
-  .perk svg { flex: 0 0 10mm; width: 10mm; height: 10mm; margin-top: 0.5mm; }
+  .perk svg { flex: 0 0 11mm; width: 11mm; height: 11mm; margin-top: 0.5mm; }
   .perk b {
     display: block;
     font-weight: 700;
-    font-size: 15.5pt;
+    font-size: 16.5pt;
     line-height: 1.1;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
-  .perk p {
-    margin-top: 0.8mm;
-    font-weight: 500;
-    font-size: 13pt;
-    line-height: 1.2;
-    color: var(--muted);
+  .perk p { margin-top: 1mm; font-weight: 500; font-size: 14pt; line-height: 1.2; color: var(--muted); }
+
+  .strip {
+    margin-top: 10mm;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 2.5mm;
   }
-  .welcome {
-    position: absolute;
-    left: 18mm;
-    bottom: 14mm;
-    font-weight: 600;
-    font-size: 15pt;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
+  .strip img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 2mm; display: block; }
 
   .book {
-    align-self: stretch;
+    margin-top: auto;
     border: 0.4mm solid rgba(201, 163, 106, 0.55);
     border-radius: 5mm;
-    padding: 7mm 8mm 6mm;
-    display: flex;
-    flex-direction: column;
+    padding: 7mm 8mm;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8mm;
     align-items: center;
-    text-align: center;
     background: rgba(255, 255, 255, 0.025);
   }
-  .book .label {
-    font-weight: 600;
-    font-size: 14pt;
-    letter-spacing: 0.45em;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-right: -0.45em;
-  }
-  .phone {
-    margin-top: 3mm;
-    font-weight: 700;
-    font-size: 24pt;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-  }
-  .apps {
-    margin-top: 1.5mm;
-    font-weight: 600;
-    font-size: 13pt;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .qrs {
-    margin: auto 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6mm;
-    width: 88%;
-  }
+  .book .label { font-weight: 600; font-size: 14pt; letter-spacing: 0.45em; color: var(--gold); text-transform: uppercase; }
+  .phone { margin-top: 3mm; font-weight: 700; font-size: 24pt; letter-spacing: 0.02em; white-space: nowrap; }
+  .apps { margin-top: 1mm; font-weight: 600; font-size: 13pt; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .hint { margin-top: 5mm; font-weight: 500; font-size: 13pt; line-height: 1.25; color: var(--muted); }
+
+  .qrs { display: grid; grid-template-columns: repeat(2, 36mm); gap: 5mm; text-align: center; }
   /* Both codes sit on identical white cards, matching Instagram's own QR card */
-  .qr {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 6%;
-    background: #fff;
-    overflow: hidden;
-  }
+  .qr { position: relative; width: 100%; aspect-ratio: 1; border-radius: 6%; background: #fff; overflow: hidden; }
   .qr > img.full { display: block; width: 100%; height: 100%; }
   .qr .code { position: absolute; left: 20%; top: 11%; width: 60%; height: 60%; }
   .qr .name {
-    position: absolute;
-    left: 0; right: 0; bottom: 7%;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    font-size: 12.5pt;
-    letter-spacing: 0.08em;
-    color: #262727;
-    text-transform: uppercase;
+    position: absolute; left: 0; right: 0; bottom: 7%;
+    font-family: Arial, Helvetica, sans-serif; font-weight: 500; font-size: 9.5pt;
+    letter-spacing: 0.08em; color: #262727; text-transform: uppercase;
   }
-  .qrs .cap {
-    margin-top: 2.5mm;
-    font-weight: 600;
-    font-size: 11pt;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .strip {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 3mm;
-  }
-  .strip img {
-    width: 100%;
-    height: 50mm;
-    object-fit: cover;
-    border-radius: 2.5mm;
-    display: block;
-  }
-  .hint {
-    font-weight: 500;
-    font-size: 13pt;
-    line-height: 1.25;
-    color: var(--muted);
-  }
+  .cap { margin-top: 2mm; font-weight: 600; font-size: 10.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 </style>
 </head>
 <body>
   <div class="sheet">
     <div class="frame"></div>
 
-    <main>
-      <div class="kicker">Сусіди, запрошую · Катя</div>
-      <h1>Манікюр<br>та&nbsp;педикюр</h1>
-      <div class="where">1 під'їзд<span>·</span>кв. 85<span>·</span>11 поверх</div>
-      <div class="rule"></div>
+    <div class="kicker">Сусіди, запрошую · Катя</div>
+    <h1>Манікюр<br>та&nbsp;педикюр</h1>
+    <div class="where">1 під'їзд<span>·</span>кв. 85<span>·</span>11 поверх</div>
+    <div class="rule"></div>
 
-      <div class="perks">
-        <div class="perk">
-          <!-- lamp -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 6a12 12 0 0 0-7 21.8c1.3 1 2 2.4 2 4V34h10v-2.2c0-1.6.7-3 2-4A12 12 0 0 0 24 6z"/>
-            <path d="M19 39h10M21 43h6"/>
-          </svg>
-          <div>
-            <b>Працюю навіть без світла</b>
-            <p>Є автономне освітлення — записуйтеся, не орієнтуючись на графіки.</p>
-          </div>
-        </div>
-        <div class="perk">
-          <!-- battery charging -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="6" y="14" width="32" height="20" rx="3"/>
-            <path d="M42 21v6"/>
-            <path d="M23 18l-5 7h7l-4 6"/>
-          </svg>
-          <div>
-            <b>Підзарядка для сусідів</b>
-            <p>Поки ви в мене, можна зарядити телефон чи павербанк.</p>
-          </div>
-        </div>
-        <div class="perk">
-          <!-- palette -->
-          <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M24 6C13 6 6 14 6 23c0 9 7 17 16 17 3 0 4-2 3-4-1-2 0-4 3-4h5c6 0 9-4 9-9C42 13 34 6 24 6z"/>
-            <circle cx="15" cy="21" r="2.2"/><circle cx="21" cy="13.5" r="2.2"/><circle cx="30" cy="13.5" r="2.2"/><circle cx="35" cy="21" r="2.2"/>
-          </svg>
-          <div>
-            <b>Великий вибір кольорів і дизайнів</b>
-            <p>Від спокійної класики до яскравого арту.</p>
-          </div>
+    <div class="perks">
+      <div class="perk">
+        <!-- lamp -->
+        <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 6a12 12 0 0 0-7 21.8c1.3 1 2 2.4 2 4V34h10v-2.2c0-1.6.7-3 2-4A12 12 0 0 0 24 6z"/>
+          <path d="M19 39h10M21 43h6"/>
+        </svg>
+        <div>
+          <b>Працюю навіть без світла</b>
+          <p>Є автономне освітлення — записуйтеся,<br>не орієнтуючись на графіки відключень.</p>
         </div>
       </div>
-    </main>
+      <div class="perk">
+        <!-- battery charging -->
+        <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="14" width="32" height="20" rx="3"/>
+          <path d="M42 21v6"/>
+          <path d="M23 18l-5 7h7l-4 6"/>
+        </svg>
+        <div>
+          <b>Підзарядка для сусідів</b>
+          <p>Поки ви в мене, можна зарядити телефон чи павербанк.</p>
+        </div>
+      </div>
+      <div class="perk">
+        <!-- palette -->
+        <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 6C13 6 6 14 6 23c0 9 7 17 16 17 3 0 4-2 3-4-1-2 0-4 3-4h5c6 0 9-4 9-9C42 13 34 6 24 6z"/>
+          <circle cx="15" cy="21" r="2.2"/><circle cx="21" cy="13.5" r="2.2"/><circle cx="30" cy="13.5" r="2.2"/><circle cx="35" cy="21" r="2.2"/>
+        </svg>
+        <div>
+          <b>Великий вибір кольорів і дизайнів</b>
+          <p>Від спокійної класики до яскравого арту.</p>
+        </div>
+      </div>
+    </div>
 
-    <aside class="book">
-      <div class="label">Запис</div>
-      <div class="phone">+380 50 686 98 43</div>
-      <div class="apps">Viber · Telegram</div>
+    <div class="strip">
+      <img src="photos/1-orange.jpg" style="object-position: 50% 62%" alt="">
+      <img src="photos/2-green.jpg" style="object-position: 40% 55%" alt="">
+      <img src="photos/3-navy.jpg" style="object-position: 50% 45%" alt="">
+      <img src="photos/4-violet.jpg" style="object-position: 42% 50%" alt="">
+      <img src="photos/5-blue.jpg" style="object-position: 50% 55%" alt="">
+    </div>
+
+    <div class="book">
+      <div>
+        <div class="label">Запис</div>
+        <div class="phone">+380 50 686 98 43</div>
+        <div class="apps">Viber · Telegram</div>
+        <div class="hint">Або наведіть камеру телефону<br>на QR-код</div>
+      </div>
       <div class="qrs">
         <div>
           <div class="qr"><img class="code" src="qr-telegram.svg" alt="QR: Telegram"><div class="name">Telegram</div></div>
@@ -252,15 +179,6 @@
           <div class="cap">Мої роботи</div>
         </div>
       </div>
-      <div class="hint">Наведіть камеру телефону<br>на QR-код</div>
-    </aside>
-
-    <div class="strip">
-      <img src="photos/1-orange.jpg" style="object-position: 50% 62%" alt="">
-      <img src="photos/2-green.jpg" style="object-position: 40% 55%" alt="">
-      <img src="photos/3-navy.jpg" style="object-position: 50% 45%" alt="">
-      <img src="photos/4-violet.jpg" style="object-position: 50% 100%" alt="">
-      <img src="photos/5-blue.jpg" style="object-position: 50% 55%" alt="">
     </div>
   </div>
 </body>
