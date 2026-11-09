@@ -7,7 +7,7 @@ A4 вертикальна, українською, для кольорового
 - `flyer.html` — сам макет: текст і кольори правляться тут
 - `instagram-card.png` — QR-картка Instagram (@moruga_nailart), вирізана з оригіналу
 - `telegram-card.png` — QR-картка Telegram (@gremuchka), вирізана з оригіналу
-- `photos/` — фото робіт для смуги внизу (кадрування — `object-position` у `flyer.html`)
+- `photos/` — 6 фото робіт (вже обрізані під плитки 6:5)
 
 Перезібрати PDF і PNG після правок:
 
