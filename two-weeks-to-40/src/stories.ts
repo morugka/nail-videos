@@ -5,6 +5,11 @@ export type Slide = {
   photo?: string; // file in public/; without it the slide is text on black
   focus?: string; // which part of the photo to keep when cropping, CSS object-position
   full?: boolean; // photo fills the whole screen and the text sits over it (landscapes)
+  // before/after pair: old work on top, new work below, title between them
+  before?: string;
+  after?: string;
+  beforeFocus?: string;
+  afterFocus?: string;
   fit?: boolean; // whole photo at the top, text below it (when text would cover a face)
   ratio?: number; // photo height / width, for fit
   top?: number; // where the fitted photo starts (px from the top)
@@ -448,6 +453,76 @@ export const STORIES: Slide[] = [
     pos: "top",
     title: "Питання дня",
     paragraphs: ["Який факт вас\nздивував найбільше?"],
+    poll: true,
+  },
+
+  // Day 8 — Тоді і зараз
+  {
+    id: "D8-2",
+    paragraphs: [
+      "8 днів до 40.\nСьогодні —",
+      "*тоді і зараз.*",
+      "Мої перші роботи —\nі те, що я роблю сьогодні.",
+    ],
+  },
+  {
+    id: "D8-3",
+    before: "photos/old-nude.jpg",
+    after: "photos/new-nude.jpg",
+    afterFocus: "50% 40%",
+    title: "Манікюр",
+    paragraphs: ["Форма, довжина\nі ідеальне покриття."],
+  },
+  {
+    id: "D8-4",
+    before: "photos/old-purple.jpg",
+    after: "photos/new-green.jpg",
+    beforeFocus: "50% 30%",
+    afterFocus: "50% 50%",
+    title: "Геометрія",
+    paragraphs: ["Від смужок на лаку —\nдо моделювання."],
+  },
+  {
+    id: "D8-5",
+    before: "photos/old-blue.jpg",
+    after: "photos/new-blue.jpg",
+    afterFocus: "50% 55%",
+    title: "Колір",
+    paragraphs: ["Від крапочок —\nдо глибини «котячого ока»."],
+  },
+  {
+    id: "D8-6",
+    before: "photos/old-roses.jpg",
+    after: "photos/new-red.jpg",
+    beforeFocus: "50% 40%",
+    afterFocus: "50% 55%",
+    title: "Креатив",
+    paragraphs: ["Від малюнка на нігті —\nдо об'єму і характеру."],
+  },
+  {
+    id: "D8-7",
+    before: "photos/old-yellow.jpg",
+    after: "photos/new-black.jpg",
+    beforeFocus: "50% 40%",
+    afterFocus: "50% 45%",
+    title: "Фото",
+    paragraphs: ["Від столу з клейонкою —\nдо студії і світла."],
+  },
+  {
+    id: "D8-8",
+    photo: "photos/work-curse.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "А це вже —\nCURSE OF THE DEEP.",
+      "*Шлях, який почався\nз крапочок.*",
+    ],
+  },
+  {
+    id: "D8-9",
+    photo: "photos/new-moon.jpg",
+    pos: "top",
+    title: "Питання дня",
+    paragraphs: ["Що змінилося\nнайбільше?"],
     poll: true,
   },
 ];

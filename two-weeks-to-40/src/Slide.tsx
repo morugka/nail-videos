@@ -53,6 +53,125 @@ export const Slide: React.FC<{ index: number; animated: boolean }> = ({
   const dayNumber = slide.id.slice(1).split("-")[0];
   const zoom = animated ? 1 + frame * 0.0003 : 1;
 
+  if (slide.before && slide.after) {
+    const top = appear(0, 26);
+    const bottom = appear(24, 26);
+    const mid = appear(46, 26);
+    const chip = (
+      label: string,
+      a: number,
+      atTop: boolean,
+    ): React.ReactNode => (
+      <div
+        style={{
+          position: "absolute",
+          left: 40,
+          ...(atTop ? { top: 36 } : { bottom: 36 }),
+          padding: "10px 26px",
+          background: "rgba(10,9,9,0.72)",
+          border: `1.5px solid ${GOLD}`,
+          color: GOLD,
+          fontSize: 34,
+          fontWeight: 600,
+          letterSpacing: 8,
+          textTransform: "uppercase",
+          opacity: a,
+        }}
+      >
+        {label}
+      </div>
+    );
+    const box = (
+      src: string,
+      focus: string | undefined,
+      y: number,
+      h: number,
+      a: number,
+      label: string,
+      chipTop: boolean,
+    ): React.ReactNode => (
+      <div
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: y,
+          height: h,
+          overflow: "hidden",
+          opacity: a,
+          transform: `translateY(${(1 - a) * 30}px)`,
+        }}
+      >
+        <Img
+          src={staticFile(src)}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: focus ?? "50% 50%",
+            transform: `scale(${zoom})`,
+          }}
+        />
+        {chip(label, a, chipTop)}
+      </div>
+    );
+    return (
+      <AbsoluteFill
+        style={{
+          background: BLACK,
+          fontFamily: SERIF,
+          fontVariantNumeric: "lining-nums",
+          overflow: "hidden",
+        }}
+      >
+        {box(slide.before, slide.beforeFocus, 0, 860, top, "Тоді", false)}
+        {box(slide.after, slide.afterFocus, 1060, 860, bottom, "Зараз", true)}
+        <div
+          style={{
+            position: "absolute",
+            top: 860,
+            height: 200,
+            left: 60,
+            right: 60,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            opacity: mid,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 42,
+              fontWeight: 600,
+              letterSpacing: 12,
+              textTransform: "uppercase",
+              color: GOLD,
+            }}
+          >
+            {slide.title}
+          </div>
+          <div
+            style={{
+              fontSize: 50,
+              fontStyle: "italic",
+              lineHeight: 1.15,
+              whiteSpace: "pre-line",
+              marginTop: 10,
+              background: "#f3c79a",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
+          >
+            {slide.paragraphs.join("\n")}
+          </div>
+        </div>
+      </AbsoluteFill>
+    );
+  }
+
   return (
     <AbsoluteFill
       style={{
