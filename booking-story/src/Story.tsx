@@ -3,15 +3,22 @@ import {
   AbsoluteFill,
   Easing,
   interpolate,
-  random,
   staticFile,
   useCurrentFrame,
 } from "remotion";
 
 const cinzel = "Cinzel";
 const cormorant = "Cormorant Garamond";
-loadFont({ family: cinzel, url: staticFile("fonts/Cinzel.ttf"), weight: "400 900" });
-loadFont({ family: cormorant, url: staticFile("fonts/Cormorant.ttf"), weight: "300 700" });
+loadFont({
+  family: cinzel,
+  url: staticFile("fonts/Cinzel.ttf"),
+  weight: "400 900",
+});
+loadFont({
+  family: cormorant,
+  url: staticFile("fonts/Cormorant.ttf"),
+  weight: "300 700",
+});
 loadFont({
   family: cormorant,
   url: staticFile("fonts/Cormorant-Italic.ttf"),
@@ -22,10 +29,9 @@ loadFont({
 export const GOLD = "#c9a36a";
 const GOLD_LIGHT = "#e8cf9f";
 const IVORY = "#f2ece2";
-const WINE = "#5c1322";
 
 export const FPS = 30;
-export const DURATION = 420;
+export const DURATION = 390;
 
 const ease = Easing.bezier(0.33, 0, 0.2, 1);
 
@@ -36,32 +42,6 @@ const prog = (frame: number, from: number, to: number) =>
     extrapolateRight: "clamp",
     easing: ease,
   });
-
-// December 2026 starts on a Tuesday
-const MONTH = "ГРУДЕНЬ";
-const FIRST_WEEKDAY = 1; // 0 = Monday
-const DAYS = 31;
-const WEEKDAYS = ["ПН", "ВТ", "СР", "ЧТ", "ПТ", "СБ", "НД"];
-// Days left open at the end of the animation
-const FREE_DAYS = [2, 8, 15, 21];
-
-const FILL_FROM = 120;
-const FILL_TO = 250;
-
-// Holidays and weekends book out first, the rest in a shuffled order
-const fillOrder = (() => {
-  const busy = Array.from({ length: DAYS }, (_, i) => i + 1).filter(
-    (d) => !FREE_DAYS.includes(d),
-  );
-  const weight = (d: number) => {
-    const weekday = (FIRST_WEEKDAY + d - 1) % 7;
-    let w = random(`day-${d}`);
-    if (d >= 19) w -= 1.2;
-    if (weekday >= 4) w -= 0.6;
-    return w;
-  };
-  return busy.sort((a, b) => weight(a) - weight(b));
-})();
 
 const GoldDivider: React.FC<{ width: number; progress: number }> = ({
   width,
@@ -204,16 +184,90 @@ const Logo: React.FC = () => {
   );
 };
 
-const Title: React.FC = () => {
+// Thin gold clock face whose hands keep running
+const Clock: React.FC = () => {
   const frame = useCurrentFrame();
-  const small = prog(frame, 14, 40);
-  const big = prog(frame, 24, 56);
-  const line = prog(frame, 44, 72);
+  const draw = prog(frame, 8, 50);
+  const R = 105;
+  const C = 2 * Math.PI * R;
+  const minute = frame * 3.2;
+  const hour = 300 + frame * 0.27;
   return (
     <div
       style={{
         position: "absolute",
-        top: 370,
+        top: 380,
+        left: 0,
+        right: 0,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <svg
+        width={260}
+        height={260}
+        viewBox="-130 -130 260 260"
+        style={{ overflow: "visible" }}
+      >
+        <circle
+          r={R + 14}
+          fill="none"
+          stroke={GOLD}
+          strokeOpacity={0.25 * draw}
+          strokeWidth={1}
+        />
+        <circle
+          r={R}
+          fill="rgba(10,4,6,0.35)"
+          stroke={GOLD}
+          strokeWidth={2}
+          strokeDasharray={C}
+          strokeDashoffset={C * (1 - draw)}
+          transform="rotate(-90)"
+        />
+        {Array.from({ length: 12 }, (_, i) => (
+          <line
+            key={i}
+            y1={-R + 10}
+            y2={-R + (i % 3 === 0 ? 26 : 18)}
+            stroke={GOLD}
+            strokeWidth={i % 3 === 0 ? 3 : 1.5}
+            opacity={prog(frame, 20 + i * 2, 30 + i * 2)}
+            transform={`rotate(${i * 30})`}
+          />
+        ))}
+        <g opacity={prog(frame, 36, 56)}>
+          <line
+            y2={-55}
+            stroke={GOLD_LIGHT}
+            strokeWidth={4}
+            strokeLinecap="round"
+            transform={`rotate(${hour})`}
+          />
+          <line
+            y2={-82}
+            stroke={GOLD_LIGHT}
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            transform={`rotate(${minute})`}
+          />
+          <circle r={6} fill={GOLD_LIGHT} />
+        </g>
+      </svg>
+    </div>
+  );
+};
+
+const Title: React.FC = () => {
+  const frame = useCurrentFrame();
+  const small = prog(frame, 30, 56);
+  const big = prog(frame, 40, 72);
+  const line = prog(frame, 60, 88);
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: 700,
         left: 0,
         right: 0,
         display: "flex",
@@ -227,39 +281,39 @@ const Title: React.FC = () => {
           fontFamily: cormorant,
           fontWeight: 600,
           fontSize: 36,
-          letterSpacing: 16,
+          letterSpacing: 14,
           color: IVORY,
           opacity: small,
           transform: `translateY(${(1 - small) * 16}px)`,
         }}
       >
-        ЗАПИС НА
+        НАГАДУВАННЯ ПРО
       </div>
       <div
         style={{
           fontFamily: cinzel,
-          fontSize: 132,
+          fontSize: 140,
           lineHeight: 1,
           color: GOLD_LIGHT,
-          letterSpacing: 10 + (1 - big) * 30,
+          letterSpacing: 14 + (1 - big) * 30,
           opacity: big,
           filter: `blur(${(1 - big) * 10}px)`,
           textShadow: "0 0 40px rgba(201,163,106,0.25)",
         }}
       >
-        {MONTH}
+        ЗАПИС
       </div>
       <div
         style={{
           fontFamily: cormorant,
           fontStyle: "italic",
-          fontSize: 46,
+          fontSize: 48,
           color: IVORY,
           opacity: line,
           marginTop: 6,
         }}
       >
-        відкрито
+        плануйте свій візит заздалегідь
       </div>
       <div style={{ marginTop: 10 }}>
         <GoldDivider width={420} progress={line} />
@@ -268,172 +322,78 @@ const Title: React.FC = () => {
   );
 };
 
-const CELL = 108;
-const GAP = 14;
+const POINTS = [
+  "Зручний час — тим, хто записався наперед",
+  "Наступний візит — одразу після процедури",
+  "Вечори та вихідні розбирають першими",
+];
 
-const DayCell: React.FC<{ day: number; index: number }> = ({ day, index }) => {
+const Points: React.FC = () => {
   const frame = useCurrentFrame();
-  const appear = prog(frame, 64 + index * 1.2, 84 + index * 1.2);
-  const isFree = FREE_DAYS.includes(day);
-  const order = fillOrder.indexOf(day);
-  const fillAt =
-    FILL_FROM + (order / Math.max(1, fillOrder.length - 1)) * (FILL_TO - FILL_FROM);
-  const filled = isFree ? 0 : prog(frame, fillAt, fillAt + 10);
-  // free days start to glow once the rest are taken
-  const glow = isFree ? prog(frame, FILL_TO - 10, FILL_TO + 20) : 0;
-  const pulse = glow * (0.75 + 0.25 * Math.sin((frame - FILL_TO) / 7));
-
-  return (
-    <div
-      style={{
-        width: CELL,
-        height: CELL,
-        position: "relative",
-        opacity: appear,
-        transform: `translateY(${(1 - appear) * 14}px)`,
-        border: `1.5px solid rgba(201,163,106,${0.28 + 0.62 * glow})`,
-        boxShadow: glow
-          ? `0 0 ${28 * pulse}px rgba(232,207,159,${0.45 * pulse}), inset 0 0 ${18 * pulse}px rgba(232,207,159,${0.2 * pulse})`
-          : undefined,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: `linear-gradient(145deg, ${WINE}, #2d0710)`,
-          transform: `scale(${filled})`,
-          opacity: filled,
-        }}
-      />
-      <div
-        style={{
-          position: "relative",
-          fontFamily: cormorant,
-          fontWeight: 500 + Math.round(glow * 2) * 100,
-          fontSize: 50,
-          color: isFree
-            ? glow > 0.5
-              ? GOLD_LIGHT
-              : IVORY
-            : `rgba(242,236,226,${1 - 0.65 * filled})`,
-        }}
-      >
-        {day}
-      </div>
-      {/* gold strike-through on a booked day */}
-      <div
-        style={{
-          position: "absolute",
-          width: 80,
-          height: 2,
-          background: GOLD,
-          opacity: 0.7 * filled,
-          transform: `rotate(-45deg) scaleX(${filled})`,
-        }}
-      />
-    </div>
-  );
-};
-
-const Calendar: React.FC = () => {
-  const frame = useCurrentFrame();
-  const head = prog(frame, 58, 80);
-  const cells: (number | null)[] = [
-    ...Array<null>(FIRST_WEEKDAY).fill(null),
-    ...Array.from({ length: DAYS }, (_, i) => i + 1),
-  ];
   return (
     <div
       style={{
         position: "absolute",
-        top: 740,
-        left: 0,
-        right: 0,
+        top: 1080,
+        left: 120,
+        right: 120,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        gap: 16,
+        gap: 44,
       }}
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(7, ${CELL}px)`,
-          columnGap: GAP,
-          opacity: head,
-        }}
-      >
-        {WEEKDAYS.map((d) => (
+      {POINTS.map((text, i) => {
+        const p = prog(frame, 100 + i * 28, 124 + i * 28);
+        return (
           <div
-            key={d}
+            key={text}
             style={{
-              textAlign: "center",
-              fontFamily: cormorant,
-              fontWeight: 600,
-              fontSize: 26,
-              letterSpacing: 4,
-              color: GOLD,
+              display: "flex",
+              alignItems: "center",
+              gap: 30,
+              opacity: p,
+              transform: `translateX(${(1 - p) * -30}px)`,
             }}
           >
-            {d}
+            <div
+              style={{
+                width: 14,
+                height: 14,
+                flexShrink: 0,
+                background: GOLD,
+                transform: "rotate(45deg)",
+              }}
+            />
+            <div
+              style={{
+                fontFamily: cormorant,
+                fontWeight: 500,
+                fontSize: 40,
+                lineHeight: 1.2,
+                color: IVORY,
+              }}
+            >
+              {text}
+            </div>
           </div>
-        ))}
-      </div>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(7, ${CELL}px)`,
-          gap: GAP,
-        }}
-      >
-        {cells.map((d, i) =>
-          d === null ? <div key={`e${i}`} /> : <DayCell key={d} day={d} index={i} />,
-        )}
-      </div>
+        );
+      })}
     </div>
   );
 };
 
-const Legend: React.FC = () => {
-  const frame = useCurrentFrame();
-  const p = prog(frame, FILL_TO, FILL_TO + 24);
-  return (
-    <div
-      style={{
-        position: "absolute",
-        top: 1425,
-        left: 0,
-        right: 0,
-        textAlign: "center",
-        fontFamily: cormorant,
-        fontStyle: "italic",
-        fontSize: 48,
-        lineHeight: 1.2,
-        color: IVORY,
-        opacity: p,
-        transform: `translateY(${(1 - p) * 18}px)`,
-      }}
-    >
-      Святкові дати розбирають першими
-    </div>
-  );
-};
+const CTA_AT = 200;
 
 const Cta: React.FC = () => {
   const frame = useCurrentFrame();
-  const p = prog(frame, FILL_TO + 30, FILL_TO + 58);
+  const p = prog(frame, CTA_AT, CTA_AT + 28);
   // a light sweep across the button every couple of seconds
-  const sweep = ((frame - FILL_TO - 60) % 70) / 70;
+  const sweep = ((frame - CTA_AT - 30) % 70) / 70;
   return (
     <div
       style={{
         position: "absolute",
-        top: 1520,
+        top: 1430,
         left: 0,
         right: 0,
         display: "flex",
@@ -459,7 +419,7 @@ const Cta: React.FC = () => {
         }}
       >
         НАПИШІТЬ «ЗАПИС» У DIRECT
-        {frame > FILL_TO + 60 ? (
+        {frame > CTA_AT + 30 ? (
           <div
             style={{
               position: "absolute",
@@ -473,18 +433,6 @@ const Cta: React.FC = () => {
           />
         ) : null}
       </div>
-      <div
-        style={{
-          fontFamily: cormorant,
-          fontWeight: 500,
-          fontSize: 30,
-          letterSpacing: 3,
-          color: IVORY,
-          opacity: 0.8,
-        }}
-      >
-        Оберіть свою дату заздалегідь
-      </div>
     </div>
   );
 };
@@ -495,9 +443,9 @@ export const BookingStory: React.FC = () => {
       <Backdrop />
       <Frame />
       <Logo />
+      <Clock />
       <Title />
-      <Calendar />
-      <Legend />
+      <Points />
       <Cta />
     </AbsoluteFill>
   );
