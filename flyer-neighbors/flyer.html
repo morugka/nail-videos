@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Манікюр та педикюр — листівка для під'їзду</title>
+<style>
+  @font-face { font-family: "Cormorant"; src: url("fonts/Cormorant.ttf"); font-weight: 300 700; }
+  @page { size: A4 landscape; margin: 0; }
+  :root {
+    --bg: #0b0a0a;
+    --ivory: #f4eee4;
+    --muted: rgba(244, 238, 228, 0.62);
+    --line: rgba(244, 238, 228, 0.18);
+    --gold: #c9a36a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 297mm; height: 210mm; background: var(--bg); }
+  body {
+    font-family: "Cormorant", serif;
+    color: var(--ivory);
+    font-variant-numeric: lining-nums;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .sheet {
+    position: relative;
+    width: 297mm;
+    height: 210mm;
+    padding: 16mm 18mm 14mm;
+    display: grid;
+    grid-template-columns: 1fr 106mm;
+    gap: 16mm;
+    background: radial-gradient(ellipse 70% 80% at 30% 40%, #1a1817 0%, #0b0a0a 70%);
+  }
+  .frame {
+    position: absolute;
+    inset: 7mm;
+    border: 0.3mm solid var(--line);
+    pointer-events: none;
+  }
+  .caps { text-transform: uppercase; }
+  .kicker {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 13pt;
+    letter-spacing: 0.42em;
+    color: var(--gold);
+  }
+  h1 {
+    margin-top: 5mm;
+    font-weight: 500;
+    font-size: 54pt;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .where {
+    margin-top: 7mm;
+    font-weight: 600;
+    font-size: 17pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .where span { color: var(--gold); padding: 0 0.35em; }
+  .rule {
+    width: 70mm;
+    height: 0.3mm;
+    margin: 9mm 0 8mm;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+  .perks { display: flex; flex-direction: column; gap: 7mm; }
+  .perk { display: flex; gap: 6mm; align-items: flex-start; }
+  .perk svg { flex: 0 0 13mm; width: 13mm; height: 13mm; margin-top: 1mm; }
+  .perk b {
+    display: block;
+    font-weight: 700;
+    font-size: 19pt;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .perk p {
+    margin-top: 1.5mm;
+    font-weight: 500;
+    font-size: 15.5pt;
+    line-height: 1.25;
+    color: var(--muted);
+  }
+  .welcome {
+    position: absolute;
+    left: 18mm;
+    bottom: 14mm;
+    font-weight: 600;
+    font-size: 15pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .book {
+    align-self: stretch;
+    border: 0.4mm solid rgba(201, 163, 106, 0.55);
+    border-radius: 5mm;
+    padding: 9mm 8mm 8mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.025);
+  }
+  .book .label {
+    font-weight: 600;
+    font-size: 14pt;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-right: -0.45em;
+  }
+  .phone {
+    margin-top: 5mm;
+    font-weight: 700;
+    font-size: 25pt;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+  .apps {
+    margin-top: 1.5mm;
+    font-weight: 600;
+    font-size: 13pt;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .qrs {
+    margin: auto 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+    width: 100%;
+  }
+  /* Both codes sit on identical white cards, matching Instagram's own QR card */
+  .qr {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 6%;
+    background: #fff;
+    overflow: hidden;
+  }
+  .qr > img.full { display: block; width: 100%; height: 100%; }
+  .qr .code { position: absolute; left: 20%; top: 11%; width: 60%; height: 60%; }
+  .qr .name {
+    position: absolute;
+    left: 0; right: 0; bottom: 7%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 12.5pt;
+    letter-spacing: 0.08em;
+    color: #262727;
+    text-transform: uppercase;
+  }
+  .qrs .cap {
+    margin-top: 2.5mm;
+    font-weight: 600;
+    font-size: 11pt;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .hint {
+    font-weight: 500;
+    font-size: 13pt;
+    line-height: 1.25;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="frame"></div>
+
+    <main>
+      <div class="kicker">Сусіди, запрошую</div>
+      <h1>Манікюр<br>та&nbsp;педикюр</h1>
+      <div class="where">1 під'їзд<span>·</span>кв. 85<span>·</span>11 поверх</div>
+      <div class="rule"></div>
+
+      <div class="perks">
+        <div class="perk">
+          <!-- lamp -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M24 6a12 12 0 0 0-7 21.8c1.3 1 2 2.4 2 4V34h10v-2.2c0-1.6.7-3 2-4A12 12 0 0 0 24 6z"/>
+            <path d="M19 39h10M21 43h6"/>
+          </svg>
+          <div>
+            <b>Працюю навіть без світла</b>
+            <p>Є автономне освітлення, тож записуйтеся,<br>не орієнтуючись на графіки відключень.</p>
+          </div>
+        </div>
+        <div class="perk">
+          <!-- battery charging -->
+          <svg viewBox="0 0 48 48" fill="none" stroke="#c9a36a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="14" width="32" height="20" rx="3"/>
+            <path d="M42 21v6"/>
+            <path d="M23 18l-5 7h7l-4 6"/>
+          </svg>
+          <div>
+            <b>Підзарядка для сусідів</b>
+            <p>Поки ви в мене, можна зарядити<br>телефон чи павербанк.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="welcome">Катя · буду рада бачити сусідів</div>
+    </main>
+
+    <aside class="book">
+      <div class="label">Запис</div>
+      <div class="phone">+380 50 686 98 43</div>
+      <div class="apps">Viber · Telegram</div>
+      <div class="qrs">
+        <div>
+          <div class="qr"><img class="code" src="qr-telegram.svg" alt="QR: Telegram"><div class="name">Telegram</div></div>
+          <div class="cap">Записатися</div>
+        </div>
+        <div>
+          <div class="qr"><img class="full" src="instagram-card.png" alt="QR: Instagram @moruga_nailart"></div>
+          <div class="cap">Мої роботи</div>
+        </div>
+      </div>
+      <div class="hint">Наведіть камеру телефону<br>на QR-код</div>
+    </aside>
+  </div>
+</body>
+</html>
