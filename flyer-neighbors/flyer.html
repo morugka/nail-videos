@@ -95,16 +95,9 @@
   .apps { margin-top: 1mm; font-weight: 600; font-size: 13pt; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
   .hint { margin-top: 5mm; font-weight: 500; font-size: 13pt; line-height: 1.25; color: var(--muted); }
 
-  .qrs { display: grid; grid-template-columns: repeat(2, 36mm); gap: 5mm; text-align: center; }
-  /* Both codes sit on identical white cards, matching Instagram's own QR card */
-  .qr { position: relative; width: 100%; aspect-ratio: 1; border-radius: 6%; background: #fff; overflow: hidden; }
-  .qr > img.full { display: block; width: 100%; height: 100%; }
-  .qr .code { position: absolute; left: 20%; top: 11%; width: 60%; height: 60%; }
-  .qr .name {
-    position: absolute; left: 0; right: 0; bottom: 7%;
-    font-family: Arial, Helvetica, sans-serif; font-weight: 500; font-size: 9.5pt;
-    letter-spacing: 0.08em; color: #262727; text-transform: uppercase;
-  }
+  .qrs { display: grid; grid-template-columns: auto auto; gap: 5mm; text-align: center; }
+  /* The owner's own QR cards from Telegram and Instagram, shown at the same height */
+  .qr { display: block; height: 38mm; width: auto; margin: 0 auto; }
   .cap { margin-top: 2mm; font-weight: 600; font-size: 10.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 </style>
 </head>
@@ -171,11 +164,11 @@
       </div>
       <div class="qrs">
         <div>
-          <div class="qr"><img class="code" src="qr-telegram.svg" alt="QR: Telegram"><div class="name">Telegram</div></div>
+          <img class="qr" src="telegram-card.png" alt="QR: Telegram @gremuchka">
           <div class="cap">Записатися</div>
         </div>
         <div>
-          <div class="qr"><img class="full" src="instagram-card.png" alt="QR: Instagram @moruga_nailart"></div>
+          <img class="qr" src="instagram-card.png" alt="QR: Instagram @moruga_nailart">
           <div class="cap">Мої роботи</div>
         </div>
       </div>
