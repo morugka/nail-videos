@@ -47,6 +47,15 @@ export const texts = {
     ],
     twoVisitsOutro: "Бронируй оба визита сразу —\nпока есть выбор времени",
     signature: "Катя · Днепр",
+
+    lastSlotTitle: "Новогодняя\nзапись",
+    lastSlotBookEarly: "Записывайся заранее —\nпоследние дни перед Новым годом\nразлетаются",
+    lastSlotDate: "29 декабря",
+    busy: "занято",
+    lastSlotLabel: "последнее свободное",
+    lastSlotOutro: "А дальше я ухожу\nв новогодний загул",
+    lastSlotCta: "Пиши «ЁЛКА» в директ",
+
   },
   uk: {
     reminder: "Нагадування",
@@ -83,6 +92,15 @@ export const texts = {
     ],
     twoVisitsOutro: "Бронюй обидва візити одразу —\nпоки є вибір часу",
     signature: "Катя · Дніпро",
+
+    lastSlotTitle: "Новорічний\nзапис",
+    lastSlotBookEarly: "Записуйся заздалегідь —\nостанні дні перед Новим роком\nрозлітаються",
+    lastSlotDate: "29 грудня",
+    busy: "зайнято",
+    lastSlotLabel: "останнє вільне",
+    lastSlotOutro: "А далі я йду\nв новорічний загул",
+    lastSlotCta: "Пиши «ЯЛИНКА» в дірект",
+
   },
 };
 

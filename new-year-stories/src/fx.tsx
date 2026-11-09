@@ -150,19 +150,22 @@ const BOKEH = new Array(14).fill(0).map((_, i) => ({
 }));
 
 // Night-black backdrop with warm glow, out-of-focus lights and falling snow
-export const Backdrop: React.FC<{ glowY?: number; snow?: number }> = ({
+export const Backdrop: React.FC<{ glowY?: number; snow?: number; plain?: boolean }> = ({
   glowY = 40,
+  plain = false,
   snow = 1,
 }) => {
   const frame = useCurrentFrame();
   return (
     <AbsoluteFill
       style={{
-        background: `radial-gradient(ellipse 85% 55% at 50% ${glowY}%, #2a1d12 0%, #120d0b 45%, #050405 100%)`,
+        background: plain
+          ? `radial-gradient(ellipse 85% 55% at 50% ${glowY}%, #1b1a19 0%, #0c0b0b 50%, #040404 100%)`
+          : `radial-gradient(ellipse 85% 55% at 50% ${glowY}%, #2a1d12 0%, #120d0b 45%, #050405 100%)`,
         overflow: "hidden",
       }}
     >
-      {BOKEH.map((b, i) => (
+      {(plain ? [] : BOKEH).map((b, i) => (
         <div
           key={i}
           style={{

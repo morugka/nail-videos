@@ -4,6 +4,7 @@ import { Calendar } from "./stories/Calendar";
 import { Checklist } from "./stories/Checklist";
 import { Countdown } from "./stories/Countdown";
 import { Cta } from "./stories/Cta";
+import { LastSlot } from "./stories/LastSlot";
 import { TwoVisits } from "./stories/TwoVisits";
 import { FPS, H, W } from "./theme";
 
@@ -19,6 +20,7 @@ const STORIES: { id: string; seconds: number; C: React.FC<Props> }[] = [
   { id: "2-Calendar", seconds: 8, C: ({ lang }) => <Calendar t={texts[lang]} /> },
   { id: "3-TwoVisits", seconds: 8, C: ({ lang }) => <TwoVisits t={texts[lang]} /> },
   { id: "4-Checklist", seconds: 8, C: ({ lang }) => <Checklist t={texts[lang]} /> },
+  { id: "6-LastSlot", seconds: 10, C: ({ lang }) => <LastSlot t={texts[lang]} /> },
   { id: "5-Booking", seconds: 8, C: ({ lang }) => <Cta t={texts[lang]} /> },
 ];
 
