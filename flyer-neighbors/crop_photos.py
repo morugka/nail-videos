@@ -14,12 +14,18 @@ PHOTOS = {
     "5-violet":   (0.95, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/9015da72-image.jpg", (0.34, 0.81, 0.41, 0.65)),
 }
 LIGHT = {
-    "1-red":       (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/0e14f453-image.jpg", (0.17, 0.77, 0.18, 0.53)),
-    "2-lightblue": (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/25848f47-image.jpg", (0.30, 0.70, 0.27, 0.58)),
-    "3-navy":      (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/d897d3c6-image.jpg", (0.13, 0.81, 0.32, 0.74)),
-    "4-stiletto":  (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/fb7ec19d-image.jpg", (0.28, 0.78, 0.22, 0.59)),
-    "5-coral":     (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/8e0fe90d-image.jpg", (0.13, 0.68, 0.14, 0.75)),
-    "6-blueart":   (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/e7ab64d4-image.jpg", (0.09, 0.88, 0.08, 0.66)),
+    "red":       (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/0e14f453-image.jpg", (0.17, 0.77, 0.18, 0.53)),
+    "lightblue": (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/25848f47-image.jpg", (0.30, 0.70, 0.27, 0.58)),
+    "navy":      (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/d897d3c6-image.jpg", (0.12, 0.82, 0.31, 0.75)),
+    "stiletto":  (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/fb7ec19d-image.jpg", (0.28, 0.78, 0.22, 0.59)),
+    "coral":     (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/8e0fe90d-image.jpg", (0.12, 0.69, 0.10, 0.81)),
+    "blueart":   (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/e7ab64d4-image.jpg", (0.09, 0.88, 0.08, 0.66)),
+    "mocha":     (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/7ecf7c92-image.jpg", (0.22, 0.63, 0.22, 0.64)),
+    "pinkbear":  (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/2716fe98-image.jpg", (0.31, 0.79, 0.27, 0.64)),
+    "greensnake":(1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/3aae2cdb-image.jpg", (0.22, 0.76, 0.19, 0.80)),
+    "orangefr":  (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/c74fe700-image.jpg", (0.14, 0.92, 0.38, 0.76)),
+    "leopard":   (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/2df4a268-image.jpg", (0.20, 0.87, 0.41, 0.76)),
+    "kawaii":    (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/34b13171-image.jpg", (0.19, 0.80, 0.15, 0.90)),
 }
 light = len(sys.argv) > 1 and sys.argv[1] == "light"
 OUT = "photos-light" if light else "photos"
