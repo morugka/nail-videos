@@ -49,6 +49,8 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .hint { position: absolute; left: ${PHOTO_W + 40}px; right: 56px; bottom: 64px; font-family: M, sans-serif; font-weight: 400; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; color: #c9a45c; }
 .logo { width: 140px; margin-bottom: 60px; }
 /* фінальний слайд без фото */
+.bleed { position: absolute; }
+.shade-l { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,.82) 0px, rgba(10,10,10,.6) 380px, rgba(10,10,10,0) 560px); }
 .solo { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 140px; }
 .solo .rule { margin: 40px auto 36px; width: 320px; }
 .solo h1 { font-size: 130px; }
@@ -57,9 +59,9 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .solo .logo { margin: 0 0 80px; }
 `;
 
-// одне фото — на всю висоту, два — одне над одним, чотири — сіткою 2×2;
+// фото вставляються як є, прямокутником: одне — на всю висоту, два — одне над одним, чотири — сіткою 2×2;
 // pos — object-position, zoom — додаткове наближення, label — підпис у кутку фото
-const photos = (list, pw = PHOTO_W) => {
+const photos = (list, pw = PHOTO_W, fade = false) => {
   const cols = list.length === 4 ? 2 : 1;
   const rows = list.length / cols;
   const w = (pw - GAP * (cols - 1)) / cols;
@@ -70,7 +72,7 @@ const photos = (list, pw = PHOTO_W) => {
     const y = Math.floor(i / cols) * (h + GAP);
     const label = p.label ? `<div class="lbl">${p.label}</div>` : '';
     return `<div class="ph" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="file://${path.join(dir, p.src)}" style="object-position:${p.pos || '50% 50%'};transform:scale(${z});transform-origin:${p.pos || '50% 50%'}">${label}</div>`;
-  }).join('') + `<div class="fade" style="left:${pw - 70}px"></div>`;
+  }).join('') + (fade ? `<div class="fade" style="left:${pw - 70}px"></div>` : '');
 };
 const rule = '<div class="rule"><i></i></div>';
 const logo = `<img class="logo" src="file://${dir}/assets/km-logo.png">`;
@@ -80,15 +82,26 @@ const pad = (n) => String(n).padStart(2, '0');
 const pages = [];
 const c = data.cover;
 const cw = c.photoW || PHOTO_W;
-pages.push(`${photos(c.photos, cw)}
+pages.push(`${photos(c.photos, cw, true)}
 <div class="panel" style="left:${cw}px">${logo}<div class="tag">${c.kicker}</div><h1 class="big">${c.title}</h1>${rule}<div class="sub">${c.sub}</div></div>
 <div class="hint" style="left:${cw + 40}px">${c.hint}</div>`);
 data.slides.forEach((s, i) => {
-  pages.push(`${photos(s.photos)}
-<div class="top"><span>Види френчу</span><span>${pad(i + 1)} / ${pad(total)}</span></div>
-<div class="panel"><div class="num">${pad(i + 1)}</div><div class="tag">${s.tag}</div><h1>${s.title}</h1>${rule}<p>${s.text}</p>
+  const text = `<div class="num">${pad(i + 1)}</div><div class="tag">${s.tag}</div><h1>${s.title}</h1>${rule}<p>${s.text}</p>
 <div class="who"><b>Клієнткам</b><span>${s.client}</span></div>
-<div class="who"><b>Майстрам</b><span>${s.master}</span></div></div>`);
+<div class="who"><b>Майстрам</b><span>${s.master}</span></div>`;
+  const top = `<span>Види френчу</span><span>${pad(i + 1)} / ${pad(total)}</span>`;
+  if (s.bleed) {
+    // фото на темному фоні праворуч, нігті заходять під текст ліворуч
+    const b = s.bleed;
+    pages.push(`<img class="bleed" src="file://${path.join(dir, b.src)}" style="height:${b.height}px;right:${b.right || 0}px;top:${b.top || 0}px">
+<div class="shade-l"></div>
+<div class="top" style="left:56px;right:${W - PHOTO_W + 40}px">${top}</div>
+<div class="panel" style="left:0;right:auto;width:${W - PHOTO_W}px;padding:70px 40px 70px 56px">${text}</div>`);
+    return;
+  }
+  pages.push(`${photos(s.photos)}
+<div class="top">${top}</div>
+<div class="panel">${text}</div>`);
 });
 const e = data.end;
 pages.push(`<div class="solo">${logo}<h1>${e.title}</h1>${rule}<p>${e.text}</p><div class="hint">${e.hint}</div></div>`);
