@@ -300,8 +300,9 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D10-6",
-    photo: "photos/work-curse.jpg",
+    photo: "photos/work-pink.jpg",
     pos: "bottom",
+    focus: "50% 40%",
     paragraphs: [
       "Дуже люблю навчатися:\nщороку — кілька курсів.",
       "*Вдосконалюю техніку,\nосвоюю нові напрямки.*",
@@ -510,10 +511,11 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D8-8",
-    photo: "photos/work-curse.jpg",
+    photo: "photos/work-red-stiletto.jpg",
     pos: "bottom",
+    focus: "50% 30%",
     paragraphs: [
-      "А це вже —\nCURSE OF THE DEEP.",
+      "Кожна нова робота —\nкрок далі.",
       "*Шлях, який почався\nз крапочок.*",
     ],
   },
