@@ -57,6 +57,10 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .solo p { font-size: 30px; }
 .solo .hint { position: static; margin-top: 70px; }
 .solo .logo { margin: 0 0 80px; }
+.icons { display: flex; gap: 70px; margin-top: 80px; }
+.ic { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.ic svg { width: 64px; height: 64px; fill: none; stroke: #c9a45c; stroke-width: 1.2; stroke-linejoin: round; stroke-linecap: round; }
+.ic span { font-family: M, sans-serif; font-weight: 400; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; color: #e9e4dc; }
 `;
 
 // фото вставляються як є, прямокутником, без масштабування понад кадр (інакше втрачається різкість).
@@ -110,7 +114,19 @@ data.slides.forEach((s, i) => {
 <div class="panel">${text}</div>`);
 });
 const e = data.end;
-pages.push(`<div class="solo">${logo}<h1>${e.title}</h1>${rule}<p>${e.text}</p><div class="hint">${e.hint}</div></div>`);
+pages.push(`<div class="solo">${logo}<h1>${e.title}</h1>${rule}<p>${e.text}</p>${e.hint ? `<div class="hint">${e.hint}</div>` : ''}</div>`);
+
+// останній слайд: «Сподобалось?» з іконками «зберегти», «вподобати», «поділитися»
+const icon = {
+  save: '<path d="M6 3h12v18l-6-4.5L6 21z"/>',
+  like: '<path d="M12 20s-7.5-4.6-9.3-9.2C1.4 7.4 3.6 4 7 4c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.4 0 5.6 3.4 4.3 6.8C19.5 15.4 12 20 12 20z"/>',
+  share: '<path d="M21 3 10 14M21 3l-7 18-4-7-7-4z"/>',
+};
+const o = data.outro;
+if (o) {
+  const icons = o.icons.map((x) => `<div class="ic"><svg viewBox="0 0 24 24">${icon[x.icon]}</svg><span>${x.label}</span></div>`).join('');
+  pages.push(`<div class="solo">${logo}<h1>${o.title}</h1>${rule}<p>${o.text}</p><div class="icons">${icons}</div></div>`);
+}
 
 (async () => {
   fs.mkdirSync(path.join(dir, 'out'), { recursive: true });
