@@ -1,5 +1,8 @@
 # Crops each work photo to a 6:5 tile so the nails fill the same share of every tile.
+# Usage: python3 crop_photos.py        -> photos/       (dark flyer)
+#        python3 crop_photos.py light  -> photos-light/ (light flyer)
 # box = nail area as fractions of the original (x0, x1, y0, y1); zoom evens out nail size between photos.
+import os, sys
 from PIL import Image
 R, FILL = 1.2, 0.78
 PHOTOS = {
@@ -10,7 +13,18 @@ PHOTOS = {
     "6-black":    (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/4329541a-image.jpg", (0.29, 0.85, 0.26, 0.63)),
     "5-violet":   (0.95, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/9015da72-image.jpg", (0.34, 0.81, 0.41, 0.65)),
 }
-for name, (zoom, src, (x0, x1, y0, y1)) in PHOTOS.items():
+LIGHT = {
+    "1-red":       (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/0e14f453-image.jpg", (0.17, 0.77, 0.18, 0.53)),
+    "2-lightblue": (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/25848f47-image.jpg", (0.30, 0.70, 0.27, 0.58)),
+    "3-navy":      (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/d897d3c6-image.jpg", (0.13, 0.81, 0.32, 0.74)),
+    "4-stiletto":  (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/fb7ec19d-image.jpg", (0.28, 0.78, 0.22, 0.59)),
+    "5-coral":     (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/8e0fe90d-image.jpg", (0.13, 0.68, 0.14, 0.75)),
+    "6-blueart":   (1.0, "/root/.claude/uploads/b5200142-a841-52fb-b455-56b14ba612ff/e7ab64d4-image.jpg", (0.09, 0.88, 0.08, 0.66)),
+}
+light = len(sys.argv) > 1 and sys.argv[1] == "light"
+OUT = "photos-light" if light else "photos"
+os.makedirs(OUT, exist_ok=True)
+for name, (zoom, src, (x0, x1, y0, y1)) in (LIGHT if light else PHOTOS).items():
     im = Image.open(src).convert("RGB"); W, H = im.size
     bw, bh = (x1 - x0) * W, (y1 - y0) * H
     w = max(bw / FILL, bh / FILL * R) / zoom; h = w / R
@@ -19,4 +33,4 @@ for name, (zoom, src, (x0, x1, y0, y1)) in PHOTOS.items():
     cx, cy = (x0 + x1) / 2 * W, (y0 + y1) / 2 * H
     x = max(0, min(cx - w / 2, W - w)); y = max(0, min(cy - h / 2, H - h))
     c = im.crop((int(x), int(y), int(x + w), int(y + h))); c.thumbnail((1000, 1000))
-    c.save(f"photos/{name}.jpg", quality=92); print(name, c.size)
+    c.save(f"{OUT}/{name}.jpg", quality=92); print(name, c.size)
