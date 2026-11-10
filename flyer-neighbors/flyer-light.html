@@ -2,15 +2,14 @@
 <html lang="uk">
 <head>
 <meta charset="utf-8">
-<title>Манікюр та педикюр — листівка для під'їзду</title>
+<title>Манікюр та педикюр — листівка (світла)</title>
 <style>
   @font-face { font-family: "Cormorant"; src: url("fonts/Cormorant.ttf"); font-weight: 300 700; }
   @page { size: A4 portrait; margin: 0; }
   :root {
-    /* light version: --ivory is the main text colour here */
-    --bg: #f5f0e8;
-    --ivory: #1d1a17;
-    --muted: rgba(29, 26, 23, 0.68);
+    --bg: #f6f1ea;
+    --ink: #1d1a17;
+    --muted: rgba(29, 26, 23, 0.66);
     --line: rgba(29, 26, 23, 0.16);
     --gold: #9a7440;
   }
@@ -18,7 +17,7 @@
   html, body { width: 210mm; height: 297mm; background: var(--bg); }
   body {
     font-family: "Cormorant", serif;
-    color: var(--ivory);
+    color: var(--ink);
     font-variant-numeric: lining-nums;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -27,81 +26,98 @@
     position: relative;
     width: 210mm;
     height: 297mm;
-    padding: 14mm 16mm 13mm;
+    padding: 15mm 14mm 13mm;
     display: flex;
     flex-direction: column;
-    background: radial-gradient(ellipse 90% 60% at 40% 25%, #fbf8f3 0%, #f2ece2 70%);
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(ellipse 90% 50% at 50% 0%, #fdfbf7 0%, #f6f1ea 60%, #efe7db 100%);
   }
   .sheet > * { flex-shrink: 0; }
-  .frame { position: absolute; inset: 7mm; border: 0.3mm solid var(--line); pointer-events: none; }
+  .frame { position: absolute; inset: 6mm; border: 0.3mm solid var(--line); pointer-events: none; }
 
-  .kicker {
-    font-weight: 600;
-    font-size: 13pt;
-    letter-spacing: 0.42em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
+  /* Header: one-line title, centred, between hairlines */
+  .rule { display: flex; align-items: center; gap: 4mm; width: 120mm; }
+  .rule::before, .rule::after { content: ""; flex: 1; height: 0.3mm; background: var(--gold); opacity: 0.7; }
+  .rule i { width: 2.2mm; height: 2.2mm; background: var(--gold); transform: rotate(45deg); }
   h1 {
-    margin-top: 2mm;
+    margin: 5mm 0 3mm;
     font-weight: 500;
-    font-size: 48pt;
+    font-size: 40pt;
     line-height: 1;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .where {
-    margin-top: 5mm;
+    margin-bottom: 5mm;
     font-weight: 600;
-    font-size: 16pt;
-    letter-spacing: 0.22em;
+    font-size: 14pt;
+    letter-spacing: 0.32em;
     text-transform: uppercase;
+    color: var(--gold);
   }
-  .where span { color: var(--gold); padding: 0 0.35em; }
-  .rule { width: 70mm; height: 0.3mm; margin: 5mm 0 5mm; background: linear-gradient(90deg, var(--gold), transparent); }
 
-  .perks { display: flex; flex-direction: column; gap: 3.5mm; }
-  .perk { display: flex; gap: 5mm; align-items: flex-start; }
-  .perk svg { flex: 0 0 11mm; width: 11mm; height: 11mm; margin-top: 0.5mm; }
-  .perk b {
-    display: block;
-    font-weight: 700;
-    font-size: 16.5pt;
-    line-height: 1.1;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .perk p { margin-top: 1mm; font-weight: 500; font-size: 14pt; line-height: 1.2; color: var(--muted); }
-
-  .strip {
-    margin-top: auto;
+  /* Three perks side by side */
+  .perks {
+    margin-top: 7mm;
+    width: 100%;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .perk { padding: 0 3mm; display: flex; flex-direction: column; align-items: center; }
+  .perk + .perk { border-left: 0.3mm solid var(--line); }
+  .perk svg { width: 10mm; height: 10mm; }
+  .perk b {
+    margin-top: 2mm;
+    font-weight: 700;
+    font-size: 12.5pt;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .perk p { margin-top: 1.2mm; font-weight: 500; font-size: 12pt; line-height: 1.2; color: var(--muted); }
+
+  /* 4 x 2 grid of portrait photos */
+  .grid {
+    margin-top: 9mm;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 3mm;
   }
-  .strip img { box-shadow: 0 0.6mm 2mm rgba(0, 0, 0, 0.18); width: 100%; aspect-ratio: 6 / 5; object-fit: cover; border-radius: 2mm; display: block; }
+  .grid img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 2mm;
+    box-shadow: 0 0.6mm 2mm rgba(0, 0, 0, 0.16);
+  }
 
+  /* Booking band */
   .book {
-    margin-top: 6mm;
-    border: 0.4mm solid rgba(154, 116, 64, 0.55);
+    margin-top: auto;
+    width: 100%;
+    padding: 6mm 8mm;
     border-radius: 5mm;
-    padding: 5mm 8mm;
+    background: #fff;
+    box-shadow: 0 0.6mm 3mm rgba(0, 0, 0, 0.08);
+    border: 0.3mm solid rgba(154, 116, 64, 0.45);
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 8mm;
     align-items: center;
-    background: rgba(255, 255, 255, 0.55);
+    text-align: left;
   }
-  .book .label { font-weight: 600; font-size: 14pt; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; }
-  .phone { margin-top: 3mm; font-weight: 700; font-size: 24pt; letter-spacing: 0.02em; white-space: nowrap; }
-  .apps { margin-top: 1mm; font-weight: 600; font-size: 13pt; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
-  .insta { margin-top: 3mm; font-weight: 600; font-size: 13pt; letter-spacing: 0.12em; color: var(--muted); }
-  .insta b { font-weight: 700; font-size: 16pt; letter-spacing: 0.03em; color: var(--ivory); padding-left: 0.4em; }
-  .hint { margin-top: 5mm; font-weight: 500; font-size: 13pt; line-height: 1.25; color: var(--muted); }
-
+  .label { font-weight: 600; font-size: 13pt; letter-spacing: 0.32em; color: var(--gold); text-transform: uppercase; }
+  .phone { margin-top: 2.5mm; font-weight: 700; font-size: 25pt; letter-spacing: 0.02em; white-space: nowrap; }
+  .apps { margin-top: 0.5mm; font-weight: 600; font-size: 12.5pt; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .insta { margin-top: 3mm; font-weight: 600; font-size: 12.5pt; letter-spacing: 0.12em; color: var(--muted); }
+  .insta b { font-weight: 700; font-size: 15.5pt; letter-spacing: 0.03em; color: var(--ink); padding-left: 0.4em; }
   .qrs { display: grid; grid-template-columns: auto auto; gap: 5mm; text-align: center; }
-  /* The owner's own QR cards from Telegram and Instagram, shown at the same height */
-  .qr { box-shadow: 0 0.4mm 1.6mm rgba(0, 0, 0, 0.16); border-radius: 3mm; display: block; height: 38mm; width: auto; margin: 0 auto; }
+  .qr { display: block; height: 36mm; width: auto; margin: 0 auto; border-radius: 3mm; box-shadow: 0 0 0 0.3mm rgba(0, 0, 0, 0.12); }
   .cap { margin-top: 2mm; font-weight: 600; font-size: 10.5pt; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
 </style>
 </head>
@@ -109,63 +125,56 @@
   <div class="sheet">
     <div class="frame"></div>
 
-    <h1>Манікюр<br>та&nbsp;педикюр</h1>
-    <div class="where">1 під'їзд<span>·</span>11 поверх</div>
-    <div class="rule"></div>
+    <div class="rule"><i></i></div>
+    <h1>Манікюр та педикюр</h1>
+    <div class="where">1 під'їзд · 11 поверх</div>
+    <div class="rule"><i></i></div>
 
     <div class="perks">
       <div class="perk">
-        <!-- lamp -->
         <svg viewBox="0 0 48 48" fill="none" stroke="#9a7440" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M24 6a12 12 0 0 0-7 21.8c1.3 1 2 2.4 2 4V34h10v-2.2c0-1.6.7-3 2-4A12 12 0 0 0 24 6z"/>
           <path d="M19 39h10M21 43h6"/>
         </svg>
-        <div>
-          <b>Працюю навіть без світла</b>
-          <p>Є автономне освітлення — записуйтеся, не орієнтуючись на графіки.</p>
-        </div>
+        <b>Працюю навіть<br>без світла</b>
+        <p>Є автономне освітлення — записуйтеся без огляду на графіки</p>
       </div>
       <div class="perk">
-        <!-- battery charging -->
         <svg viewBox="0 0 48 48" fill="none" stroke="#9a7440" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="6" y="14" width="32" height="20" rx="3"/>
           <path d="M42 21v6"/>
           <path d="M23 18l-5 7h7l-4 6"/>
         </svg>
-        <div>
-          <b>Підзарядка для сусідів</b>
-          <p>Поки ви в мене, можна зарядити телефон чи павербанк.</p>
-        </div>
+        <b>Підзарядка<br>для сусідів</b>
+        <p>Поки ви в мене, можна зарядити телефон чи павербанк</p>
       </div>
       <div class="perk">
-        <!-- palette -->
         <svg viewBox="0 0 48 48" fill="none" stroke="#9a7440" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M24 6C13 6 6 14 6 23c0 9 7 17 16 17 3 0 4-2 3-4-1-2 0-4 3-4h5c6 0 9-4 9-9C42 13 34 6 24 6z"/>
           <circle cx="15" cy="21" r="2.2"/><circle cx="21" cy="13.5" r="2.2"/><circle cx="30" cy="13.5" r="2.2"/><circle cx="35" cy="21" r="2.2"/>
         </svg>
-        <div>
-          <b>Великий вибір кольорів і дизайнів</b>
-          <p>Від спокійної класики до яскравого арту.</p>
-        </div>
+        <b>Великий вибір<br>кольорів і дизайнів</b>
+        <p>Від спокійної класики до яскравого арту</p>
       </div>
     </div>
 
-    <div class="strip">
+    <div class="grid">
       <img src="photos-light/pinkbear.jpg" alt="">
-      <img src="photos-light/red.jpg" alt="">
       <img src="photos-light/lightblue.jpg" alt="">
-      <img src="photos-light/greensnake.jpg" alt="">
+      <img src="photos-light/red.jpg" alt="">
       <img src="photos-light/navy.jpg" alt="">
+      <img src="photos-light/stiletto.jpg" alt="">
+      <img src="photos-light/greensnake.jpg" alt="">
+      <img src="photos-light/blueart.jpg" alt="">
       <img src="photos-light/coral.jpg" alt="">
     </div>
 
     <div class="book">
       <div>
-        <div class="label">Майстер Катя</div>
+        <div class="label">Майстер Катя · запис</div>
         <div class="phone">+380 50 686 98 43</div>
         <div class="apps">Viber · Telegram</div>
         <div class="insta">Instagram <b>@moruga_nailart</b></div>
-        <div class="hint">Або наведіть камеру на QR-код</div>
       </div>
       <div class="qrs">
         <div>

@@ -3,7 +3,7 @@
 A4 вертикальна, українською, для кольорового принтера (під скло в під'їзді).
 
 - `flyer-A4.pdf` — темна версія для друку (друкувати в масштабі 100%)
-- `flyer-light-A4.pdf` — світла версія (`flyer-light.html`, `flyer-light-preview.png`, постановочні фото в `photos-light/`)
+- `flyer-light-A4.pdf` — світла версія, окремий шаблон: заголовок по центру, 3 пункти в ряд, 8 постановочних фото сіткою 4×2 (`flyer-light.html`, `flyer-light-preview.png`, фото в `photos-light/`)
 - `flyer-preview.png` — превʼю
 - `flyer.html` — сам макет: текст і кольори правляться тут
 - `instagram-card.png` — QR-картка Instagram (@moruga_nailart), вирізана з оригіналу
