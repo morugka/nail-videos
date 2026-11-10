@@ -8,7 +8,7 @@ const dir = __dirname;
 const data = JSON.parse(fs.readFileSync(path.resolve(process.argv[2] || path.join(dir, 'slides.json')), 'utf8'));
 const W = 1080;
 const H = 1350;
-const PHOTO_W = 590; // ширина фото зліва
+const PHOTO_W = 540; // ширина фото зліва: половина висоти = рівно 4:5
 const GAP = 6; // проміжок між двома фото
 
 const font = (fam, file, weight) => ['cyrillic', 'latin'].map((s) =>
@@ -59,21 +59,27 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .solo .logo { margin: 0 0 80px; }
 `;
 
-// фото вставляються як є, прямокутником: одне — на всю висоту, два — одне над одним, чотири — сіткою 2×2;
-// pos — object-position, zoom — додаткове наближення, label — підпис у кутку фото
-const photos = (list, pw = PHOTO_W, fade = false) => {
-  const cols = list.length === 4 ? 2 : 1;
-  const rows = list.length / cols;
+// фото вставляються як є, прямокутником, без масштабування понад кадр (інакше втрачається різкість).
+// Розкладка за кількістю: 1 — на всю висоту, 2 — одне над одним (4:5), 3 — три смуги,
+// layout "1+2" — зверху одне 4:5, знизу два вузькі поруч, 4 — сітка 2×2.
+// pos — object-position, fit: "none" — фрагмент у натуральному розмірі (крупний план без втрати різкості), label — підпис у кутку фото
+const rects = (n, layout, pw) => {
+  const half = (H - GAP) / 2;
+  if (layout === '1+2') {
+    const w = (pw - GAP) / 2;
+    return [[0, 0, pw, half], [0, half + GAP, w, half], [w + GAP, half + GAP, w, half]];
+  }
+  const cols = n === 4 ? 2 : 1;
+  const rows = n / cols;
   const w = (pw - GAP * (cols - 1)) / cols;
   const h = (H - GAP * (rows - 1)) / rows;
-  return list.map((p, i) => {
-    const z = p.zoom || 1;
-    const x = (i % cols) * (w + GAP);
-    const y = Math.floor(i / cols) * (h + GAP);
-    const label = p.label ? `<div class="lbl">${p.label}</div>` : '';
-    return `<div class="ph" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="file://${path.join(dir, p.src)}" style="object-position:${p.pos || '50% 50%'};transform:scale(${z});transform-origin:${p.pos || '50% 50%'}">${label}</div>`;
-  }).join('') + (fade ? `<div class="fade" style="left:${pw - 70}px"></div>` : '');
+  return Array.from({ length: n }, (_, i) => [(i % cols) * (w + GAP), Math.floor(i / cols) * (h + GAP), w, h]);
 };
+const photos = (list, pw = PHOTO_W, fade = false, layout) => rects(list.length, layout, pw).map(([x, y, w, h], i) => {
+  const p = list[i];
+  const label = p.label ? `<div class="lbl">${p.label}</div>` : '';
+  return `<div class="ph" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="file://${path.join(dir, p.src)}" style="object-position:${p.pos || '50% 50%'};object-fit:${p.fit || 'cover'}">${label}</div>`;
+}).join('') + (fade ? `<div class="fade" style="left:${pw - 70}px"></div>` : '');
 const rule = '<div class="rule"><i></i></div>';
 const logo = `<img class="logo" src="file://${dir}/assets/km-logo.png">`;
 const total = data.slides.length;
@@ -99,7 +105,7 @@ data.slides.forEach((s, i) => {
 <div class="panel" style="left:0;right:auto;width:${W - PHOTO_W}px;padding:70px 40px 70px 56px">${text}</div>`);
     return;
   }
-  pages.push(`${photos(s.photos)}
+  pages.push(`${photos(s.photos, PHOTO_W, false, s.layout)}
 <div class="top">${top}</div>
 <div class="panel">${text}</div>`);
 });
