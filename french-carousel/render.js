@@ -48,6 +48,7 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .sub { font-family: M, sans-serif; font-weight: 400; font-size: 21px; letter-spacing: 5px; text-transform: uppercase; color: #e9e4dc; line-height: 1.7; }
 .hint { position: absolute; left: ${PHOTO_W + 40}px; right: 56px; bottom: 64px; font-family: M, sans-serif; font-weight: 400; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; color: #c9a45c; }
 .logo { width: 140px; margin-bottom: 60px; }
+.logo.corner { position: absolute; top: 56px; right: 56px; width: 120px; margin: 0; }
 /* фінальний слайд без фото */
 .bleed { position: absolute; }
 .shade-l { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,.82) 0px, rgba(10,10,10,.6) 380px, rgba(10,10,10,0) 560px); }
@@ -92,8 +93,11 @@ const pad = (n) => String(n).padStart(2, '0');
 const pages = [];
 const c = data.cover;
 const cw = c.photoW || PHOTO_W;
-pages.push(`${photos(c.photos, cw, true)}
-<div class="panel" style="left:${cw}px">${logo}<div class="tag">${c.kicker}</div><h1 class="big">${c.title}</h1>${rule}<div class="sub">${c.sub}</div></div>
+// обкладинка: фон панелі — у тон чорного фону фото, логотип у правому верхньому куті
+pages.push(`<style>body { background: #030303; } .fade { background: linear-gradient(90deg, rgba(3,3,3,0), #030303); } .rule i { box-shadow: 0 0 0 6px #030303; }</style>
+${photos(c.photos, cw, true)}
+<img class="logo corner" src="file://${dir}/assets/km-logo.png">
+<div class="panel" style="left:${cw}px"><div class="tag">${c.kicker}</div><h1 class="big">${c.title}</h1>${rule}<div class="sub">${c.sub}</div></div>
 <div class="hint" style="left:${cw + 40}px">${c.hint}</div>`);
 data.slides.forEach((s, i) => {
   const text = `<div class="num">${pad(i + 1)}</div><div class="tag">${s.tag}</div><h1>${s.title}</h1>${rule}<p>${s.text}</p>
