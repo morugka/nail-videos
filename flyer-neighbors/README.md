@@ -3,7 +3,7 @@
 A4 вертикальна, українською, для кольорового принтера (під скло в під'їзді).
 
 - `flyer-A4.pdf` — темна версія для друку (друкувати в масштабі 100%)
-- `flyer-light-1/2/3-A4.pdf` — світла версія, три варіанти добірки фото (`flyer-light-N.html`, `flyer-light-N-preview.png`, фото в `photos-light/`)
+- `flyer-light-A4.pdf` — світла версія (`flyer-light.html`, `flyer-light-preview.png`, постановочні фото в `photos-light/`)
 - `flyer-preview.png` — превʼю
 - `flyer.html` — сам макет: текст і кольори правляться тут
 - `instagram-card.png` — QR-картка Instagram (@moruga_nailart), вирізана з оригіналу
@@ -14,5 +14,5 @@ A4 вертикальна, українською, для кольорового
 
 ```bash
 NODE_PATH=$(npm root -g) node render.js              # темна
-NODE_PATH=$(npm root -g) node render.js flyer-light-1  # світла, варіант 1 (2, 3 так само)
+NODE_PATH=$(npm root -g) node render.js flyer-light  # світла
 ```
