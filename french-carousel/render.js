@@ -25,6 +25,8 @@ ${font('M', 'montserrat-%-400-normal', 400)}
 body { width: ${W}px; height: ${H}px; position: relative; overflow: hidden; background: #0a0a0a; color: #f2ece2; font-variant-numeric: lining-nums; }
 .ph { position: absolute; left: 0; width: ${PHOTO_W}px; overflow: hidden; background: #1a1816; }
 .ph img { width: 100%; height: 100%; object-fit: cover; }
+.lbl { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 20px 18px; background: linear-gradient(rgba(10,10,10,0), rgba(10,10,10,.75));
+  font-family: M, sans-serif; font-weight: 400; font-size: 16px; letter-spacing: 4px; text-transform: uppercase; color: #f2ece2; }
 /* м'який перехід фото в темну панель */
 .fade { position: absolute; left: ${PHOTO_W - 70}px; top: 0; width: 70px; height: ${H}px; background: linear-gradient(90deg, rgba(10,10,10,0), #0a0a0a); }
 .panel { position: absolute; left: ${PHOTO_W}px; right: 0; top: 0; bottom: 0; padding: 70px 56px 70px 40px; display: flex; flex-direction: column; justify-content: center; }
@@ -55,13 +57,20 @@ p { font-family: M, sans-serif; font-weight: 300; font-size: 25px; line-height: 
 .solo .logo { margin: 0 0 80px; }
 `;
 
-// одне фото — на всю висоту, два — одне над одним; pos — object-position, zoom — додаткове наближення
-const photos = (list) => {
-  const h = (H - GAP * (list.length - 1)) / list.length;
+// одне фото — на всю висоту, два — одне над одним, чотири — сіткою 2×2;
+// pos — object-position, zoom — додаткове наближення, label — підпис у кутку фото
+const photos = (list, pw = PHOTO_W) => {
+  const cols = list.length === 4 ? 2 : 1;
+  const rows = list.length / cols;
+  const w = (pw - GAP * (cols - 1)) / cols;
+  const h = (H - GAP * (rows - 1)) / rows;
   return list.map((p, i) => {
     const z = p.zoom || 1;
-    return `<div class="ph" style="top:${i * (h + GAP)}px;height:${h}px"><img src="file://${path.join(dir, p.src)}" style="object-position:${p.pos || '50% 50%'};transform:scale(${z});transform-origin:${p.pos || '50% 50%'}"></div>`;
-  }).join('') + '<div class="fade"></div>';
+    const x = (i % cols) * (w + GAP);
+    const y = Math.floor(i / cols) * (h + GAP);
+    const label = p.label ? `<div class="lbl">${p.label}</div>` : '';
+    return `<div class="ph" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><img src="file://${path.join(dir, p.src)}" style="object-position:${p.pos || '50% 50%'};transform:scale(${z});transform-origin:${p.pos || '50% 50%'}">${label}</div>`;
+  }).join('') + `<div class="fade" style="left:${pw - 70}px"></div>`;
 };
 const rule = '<div class="rule"><i></i></div>';
 const logo = `<img class="logo" src="file://${dir}/assets/km-logo.png">`;
@@ -70,9 +79,10 @@ const pad = (n) => String(n).padStart(2, '0');
 
 const pages = [];
 const c = data.cover;
-pages.push(`${photos(c.photos)}
-<div class="panel">${logo}<div class="tag">${c.kicker}</div><h1 class="big">${c.title}</h1>${rule}<div class="sub">${c.sub}</div></div>
-<div class="hint">${c.hint}</div>`);
+const cw = c.photoW || PHOTO_W;
+pages.push(`${photos(c.photos, cw)}
+<div class="panel" style="left:${cw}px">${logo}<div class="tag">${c.kicker}</div><h1 class="big">${c.title}</h1>${rule}<div class="sub">${c.sub}</div></div>
+<div class="hint" style="left:${cw + 40}px">${c.hint}</div>`);
 data.slides.forEach((s, i) => {
   pages.push(`${photos(s.photos)}
 <div class="top"><span>Види френчу</span><span>${pad(i + 1)} / ${pad(total)}</span></div>
