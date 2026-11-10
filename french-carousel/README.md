@@ -8,7 +8,7 @@ Instagram 4:5 (1080×1350), 9 слайдів: обкладинка, 6 видів
 |---|---|---|
 | 01 | обкладинка | rainbow-chain |
 | 02 | Кольорове покриття (гель-лак + білий край) | burgundy, grey |
-| 03 | Френч на базі (молочна / нюдова) | milky-blue, nude-orange |
+| 03 | Френч на гелі (молочний / нюдовий гель) | milky-blue, nude-orange |
 | 04 | Френч + графіка (загальний і крупний план) | milky-graphic |
 | 05 | Колір + колір | pink-mint, orange-chocolate |
 | 06 | Френч + принт (зверху 4:5, знизу два вузькі) | white-leopard, black-leopard, pink-stiletto |
