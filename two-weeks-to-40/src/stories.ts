@@ -527,4 +527,78 @@ export const STORIES: Slide[] = [
     paragraphs: ["Що змінилося\nнайбільше?"],
     poll: true,
   },
+
+  // Day 7 — Чого я боюсь
+  {
+    id: "D7-2",
+    photo: "photos/land-night-houses.jpg",
+    pos: "top",
+    paragraphs: [
+      "7 днів до 40.\nПоловина шляху.",
+      "*Сьогодні — найчесніша тема.\nПро страхи.*",
+    ],
+  },
+  {
+    id: "D7-3",
+    photo: "photos/work-candle.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "Я боюсь не втілити в життя",
+      "*всі свої задумки\nта проєкти.*",
+    ],
+  },
+  {
+    id: "D7-4",
+    photo: "photos/land-foggy-night.jpg",
+    pos: "top",
+    paragraphs: [
+      "Через страх бути нецікавою.",
+      "*Засудженою людьми.\nНепотрібною.*",
+    ],
+  },
+  {
+    id: "D7-5",
+    photo: "photos/land-ducks.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "Боюсь, що в мене так\nнічого і не вийде —",
+      "*і я залишуся на одному\nй тому ж місці.*",
+    ],
+  },
+  {
+    id: "D7-6",
+    photo: "photos/land-snow-pool.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "І ще один страх:\nщо не встигаю жити.",
+      "*Час летить, а життя\nніби на паузі.*",
+    ],
+  },
+  {
+    id: "D7-7",
+    photo: "photos/land-sky-sun.jpg",
+    pos: "bottom",
+    focus: "60% 30%",
+    paragraphs: [
+      "Але я помітила:",
+      "*коли страх названий\nвголос — він стає меншим.*",
+    ],
+  },
+  {
+    id: "D7-8",
+    photo: "photos/me-look-up.jpg",
+    pos: "top",
+    paragraphs: [
+      "Нова професія в 35,\nправа в 38 — це теж\nбуло страшно.\nА я все одно зробила.",
+      "*Тож і зараз — просто роблю.\nКрок за кроком.*",
+    ],
+  },
+  {
+    id: "D7-9",
+    photo: "photos/land-rods-city.jpg",
+    pos: "top",
+    title: "Питання дня",
+    paragraphs: ["А чого\nбоїтеся ви?"],
+    poll: true,
+  },
 ];
