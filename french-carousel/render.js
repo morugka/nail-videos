@@ -107,7 +107,9 @@ pages.push(`<div class="solo">${logo}<h1>${e.title}</h1>${rule}<p>${e.text}</p><
       const box = h.parentElement;
       const max = box.clientWidth - parseFloat(getComputedStyle(box).paddingLeft) - parseFloat(getComputedStyle(box).paddingRight);
       let size = parseFloat(getComputedStyle(h).fontSize);
-      while (h.scrollWidth > max && size > 40) h.style.fontSize = `${(size -= 2)}px`;
+      const r = document.createRange();
+      r.selectNodeContents(h);
+      while (r.getBoundingClientRect().width > max && size > 40) h.style.fontSize = `${(size -= 2)}px`;
     }));
     const overflow = await page.evaluate(() => {
       const p = document.querySelector('.panel');
