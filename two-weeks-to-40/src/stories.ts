@@ -601,4 +601,83 @@ export const STORIES: Slide[] = [
     paragraphs: ["А чого\nбоїтеся ви?"],
     poll: true,
   },
+
+  // Days 6 + 5 — Втома і цінність (posted together)
+  {
+    id: "D5-2",
+    paragraphs: [
+      "Вчора мене тут не було —",
+      "*довелося зупинитися\nй подбати про здоров'я.*",
+      "Тож сьогодні — одразу\nза два дні.",
+    ],
+  },
+  {
+    id: "D5-3",
+    photo: "photos/land-night-skyline.jpg",
+    pos: "top",
+    paragraphs: [
+      "Про що зазвичай мовчать:\nвигорання.",
+      "*Буває, навіть улюблена\nсправа перестає радувати.*",
+    ],
+  },
+  {
+    id: "D5-4",
+    photo: "photos/land-field.jpg",
+    pos: "bottom",
+    paragraphs: [
+      "Я так захоплююсь роботою,\nнавчанням і новими ідеями,",
+      "*що забуваю\nпро відпочинок.*",
+    ],
+  },
+  {
+    id: "D5-5",
+    photo: "photos/land-autumn-bridge.jpg",
+    pos: "top",
+    paragraphs: [
+      "А тіло не забуває.",
+      "*Іноді воно просто\nзупиняє тебе саме.*",
+    ],
+  },
+  {
+    id: "D5-6",
+    paragraphs: [
+      "Тому в 40 я не беру з собою\nзвичку працювати\nбез зупинок.",
+      "*Вчуся не вимагати від себе\nнеможливого.*",
+    ],
+  },
+  {
+    id: "D5-7",
+    photo: "photos/new-nude.jpg",
+    pos: "top",
+    focus: "50% 60%",
+    paragraphs: [
+      "А ще я довго ставила ціни так,\n«щоб не образились».",
+      "*Знайомо?*",
+    ],
+  },
+  {
+    id: "D5-8",
+    photo: "photos/new-black.jpg",
+    pos: "bottom",
+    focus: "50% 35%",
+    paragraphs: [
+      "Моя робота — це роки\nнавчання, курси щороку,\nякісні матеріали й досвід.",
+      "*А не «просто нігті».*",
+    ],
+  },
+  {
+    id: "D5-9",
+    photo: "photos/land-fountain.jpg",
+    pos: "top",
+    paragraphs: ["Цінувати свою працю —\nі себе —", "*це теж дорослішання.*"],
+  },
+  {
+    id: "D5-10",
+    photo: "photos/land-sunrise-bridge.jpg",
+    pos: "top",
+    focus: "25% 50%",
+    title: "Питання дня",
+    paragraphs: ["А ви вмієте\nвідпочивати?"],
+    poll: true,
+  },
 ];
