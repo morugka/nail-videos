@@ -67,12 +67,12 @@ def grade(x, vig):
 
     # Peacock eye / feathers keep their colour but get richer
     other = np.clip(1 - nails - skin - bg, 0, 1)
-    hsv[..., 1] = np.clip(hsv[..., 1] * (1 + 0.25 * other), 0, 1)
+    hsv[..., 1] = np.clip(hsv[..., 1] * (1 + 0.25 * other) * (1 - 0.22 * skin), 0, 1)
     y = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-    # Skin: warmer, a touch darker so it doesn't glow against the black
+    # Skin: calmer and a touch rosier (less orange), slightly darker against the black
     sk = skin[..., None]
-    y = y * (1 + sk * np.array([-0.05, -0.01, 0.03], np.float32)) * (1 - 0.06 * sk)
+    y = y * (1 + sk * np.array([0.04, 0.0, 0.01], np.float32)) * (1 - 0.05 * sk)
 
     # Backdrop: crush to near black
     y = y * (1 - bg[..., None] * 0.95)
