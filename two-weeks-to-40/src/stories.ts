@@ -686,4 +686,81 @@ export const STORIES: Slide[] = [
     paragraphs: ["А ви вмієте\nвідпочивати?"],
     poll: true,
   },
+
+  // Day 2 — Подяка
+  {
+    id: "D2-2",
+    paragraphs: [
+      "2 дні до 40.",
+      "*Мене не було кілька днів.*",
+      "Тож одразу до головного.",
+    ],
+  },
+  {
+    id: "D2-3",
+    photo: "photos/me-hands-thanks.jpg",
+    pos: "bottom",
+    focus: "50% 40%",
+    paragraphs: ["Хочу подякувати.", "*Вам.*"],
+  },
+  {
+    id: "D2-4",
+    photo: "photos/day-10.jpg",
+    pos: "bottom",
+    focus: "50% 35%",
+    paragraphs: [
+      "Кожній дівчині, яка хоч раз\nсіла за мій стіл, —",
+      "*за довіру.*",
+      "І тим, хто зі мною досі,\nі тим, з ким шляхи розійшлися.",
+    ],
+  },
+  {
+    id: "D2-5",
+    photo: "photos/family-bridge.jpg",
+    pos: "bottom",
+    focus: "50% 30%",
+    paragraphs: ["Рідним —", "*за терпіння і підтримку.*"],
+  },
+  {
+    id: "D2-6",
+    photo: "photos/land-pink-river.jpg",
+    pos: "top",
+    title: "Питання дня",
+    paragraphs: ["Кому б ви хотіли\nсказати «дякую»\nсьогодні?"],
+    poll: true,
+  },
+
+  // Day 1 — Завтра
+  {
+    id: "D1-2",
+    photo: "photos/land-thistle.jpg",
+    pos: "bottom",
+    focus: "50% 30%",
+    paragraphs: ["Завтра", "*мені 40.*"],
+  },
+  {
+    id: "D1-3",
+    photo: "photos/me-embankment-dress.jpg",
+    pos: "bottom-right",
+    focus: "40% 50%",
+    paragraphs: [
+      "За ці два тижні\nя згадала перемоги,\nпомилки, страхи —",
+      "*і зрозуміла, що головне\nвже маю.*",
+    ],
+  },
+  {
+    id: "D1-4",
+    photo: "photos/land-sunrise-tree.jpg",
+    pos: "top",
+    paragraphs: [
+      "Що я забираю з собою в 40:",
+      "*цікавість, сміливість\nпочинати нове і вміння\nбути вдячною.*",
+    ],
+  },
+  {
+    id: "D1-5",
+    title: "До завтра",
+    paragraphs: ["Побачимось\nзавтра 🤍"],
+    poll: true,
+  },
 ];
