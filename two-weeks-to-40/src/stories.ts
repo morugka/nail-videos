@@ -743,11 +743,14 @@ export const STORIES: Slide[] = [
   },
   {
     id: "D2-8",
-    photo: "photos/land-pink-river.jpg",
-    pos: "top",
-    title: "Питання дня",
-    paragraphs: ["Кому б ви хотіли\nсказати «дякую»\nсьогодні?"],
-    poll: true,
+    photo: "photos/me-magnolia.jpg",
+    fit: true,
+    ratio: 1,
+    paragraphs: [
+      "І собі —",
+      "*за те, що не здалася,\nпопри все.*",
+      "І стараюся йти вперед.",
+    ],
   },
 
   // Day 1 — Завтра
