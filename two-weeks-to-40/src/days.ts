@@ -46,7 +46,12 @@ export const DAYS: Day[] = [
   },
   { n: 4, label: "дні до 40", theme: "Що для мене дім" },
   { n: 3, label: "дні до 40", theme: "Мрії до 50", photo: "photos/day-03.jpg" },
-  { n: 2, label: "дні до 40", theme: "Подяка", photo: "photos/day-02.jpg" },
+  {
+    n: 2,
+    label: "дні до 40",
+    theme: "Подяка",
+    photo: "photos/land-sunrise-bridge.jpg",
+  },
   { n: 1, label: "день до 40", theme: "Завтра" },
   { n: 40, label: "сьогодні", theme: "З днем народження мене" },
 ];
