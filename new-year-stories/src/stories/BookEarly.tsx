@@ -4,7 +4,6 @@ import { Texts } from "../i18n";
 import { ease, GOLD, IVORY, serif } from "../theme";
 
 // Full-bleed dark photo with a slow push-in; text sits in the empty dark top part
-const MUTED = "rgba(244,238,228,0.7)";
 
 export const BookEarly: React.FC<{ t: Texts }> = ({ t }) => {
   const frame = useCurrentFrame();
@@ -25,25 +24,9 @@ export const BookEarly: React.FC<{ t: Texts }> = ({ t }) => {
         }}
       />
       <AbsoluteFill style={{ alignItems: "center", paddingTop: 300 }}>
-        <Appear start={6}>
-          <div
-            style={{
-              fontFamily: serif,
-              fontWeight: 600,
-              fontSize: 34,
-              letterSpacing: 14,
-              color: MUTED,
-              textTransform: "uppercase",
-              marginRight: -14,
-            }}
-          >
-            {t.bookEarlyKicker}
-          </div>
-        </Appear>
         <Appear start={12} dur={24}>
           <div
             style={{
-              marginTop: 28,
               fontFamily: serif,
               fontWeight: 500,
               fontSize: 112,
