@@ -11,6 +11,7 @@
 | 4 | `4-Checklist.mp4` | Чек-лист: подарки ✓, наряд ✓, маникюр и педикюр — «не забудь!» |
 | 5 | `5-Booking.mp4` | Призыв записаться: «Напиши в дірект слово «ЯЛИНКА»» (ru: «ЁЛКА») |
 | 6 | `6-LastSlot.mp4` | Напоминание без лишнего золота: записывайся заранее, на 29.12 осталось только 18:00, дальше — новогодний загул (10 с) |
+| 7 | `7-BookEarly.mp4` | «Записуйся заздалегідь» на тёмном фото (оранжевый ноготь), без привязки к празднику, 8 с |
 
 Готовые ролики: `out/uk/` (українська, основная) и `out/ru/` (русский).
 
@@ -30,4 +31,4 @@ npx remotion studio                                         # предпросм
 npx remotion render ru-1-Countdown out/ru/1-Countdown.mp4 --crf=18
 ```
 
-ID композиций: `ru-1-Countdown`, `ru-2-Calendar`, `ru-3-TwoVisits`, `ru-4-Checklist`, `ru-5-Booking`, `ru-6-LastSlot` (и то же с `uk-`).
+ID композиций: `ru-1-Countdown`, `ru-2-Calendar`, `ru-3-TwoVisits`, `ru-4-Checklist`, `ru-5-Booking`, `ru-6-LastSlot`, `ru-7-BookEarly` (и то же с `uk-`).

@@ -56,6 +56,11 @@ export const texts = {
     lastSlotOutro: "А дальше я ухожу\nв новогодний загул",
     lastSlotCta: "Пиши «ЁЛКА» в директ",
 
+    bookEarlyKicker: "Мастер Катя",
+    bookEarlyTitle: "Записывайся\nзаранее",
+    bookEarlyText: "Удобное время\nразбирают первым",
+    bookEarlyCta: "Пиши в Telegram или директ",
+
   },
   uk: {
     reminder: "Нагадування",
@@ -100,6 +105,11 @@ export const texts = {
     lastSlotLabel: "останнє вільне",
     lastSlotOutro: "А далі я йду\nв новорічний загул",
     lastSlotCta: "Пиши «ЯЛИНКА» в дірект",
+
+    bookEarlyKicker: "Майстер Катя",
+    bookEarlyTitle: "Записуйся\nзаздалегідь",
+    bookEarlyText: "Зручний час\nрозбирають першим",
+    bookEarlyCta: "Пиши в Telegram або дірект",
 
   },
 };
