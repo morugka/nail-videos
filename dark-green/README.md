@@ -5,6 +5,7 @@
 
 - `out/dark-green-0056-reels.mp4` — готовий ролик (без звуку: трек додається в Instagram)
 - `out/covers/` — обкладинка «Я від цього відмовилася і тільки виграла» (фото `7-branch.jpg`), `src/Hands.tsx`
+- `out/pinterest/` — обкладинки дошок Pinterest (2:3, головне в центральному квадраті), `src/Boards.tsx`
 - `public/photos/` — фото в порядку появи; `graded/` — ті самі фото з підсиленим зеленим
 - `public/logo-full.png`, `public/logo-km.png` — логотип для фіналу і маленький знак
 - `scripts/green.py` — підсилює темно-зелений на нігтях, не чіпаючи шкіру й фон
@@ -18,4 +19,5 @@ npm i
 npx remotion studio                                                   # попередній перегляд
 npx remotion render GreenReel out/dark-green-0056-reels.mp4 --crf=16 --concurrency=1  # рендер
 npx remotion still BranchCover out/covers/vidmovylasia-cover.jpg --jpeg-quality=95  # обкладинка
+npx remotion still BoardCare out/pinterest/board-care.jpg --jpeg-quality=95  # обкладинка дошки Pinterest
 ```

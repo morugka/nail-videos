@@ -1,4 +1,5 @@
 import { MyComposition } from "./Composition";
+import { BoardStills } from "./Boards";
 import { HandsComposition } from "./Hands";
 
 export const RemotionRoot: React.FC = () => {
@@ -6,6 +7,7 @@ export const RemotionRoot: React.FC = () => {
     <>
       <MyComposition />
       <HandsComposition />
+      <BoardStills />
     </>
   );
 };
