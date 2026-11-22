@@ -7,6 +7,7 @@ import { Cta } from "./stories/Cta";
 import { BookEarly } from "./stories/BookEarly";
 import { LastSlot } from "./stories/LastSlot";
 import { TwoVisits } from "./stories/TwoVisits";
+import { CatTyping } from "./cat/CatTyping";
 import { FPS, H, W } from "./theme";
 
 // Days from the posting date to 1 January (1 Nov 2026 -> 61)
@@ -30,6 +31,7 @@ const LANGS: Lang[] = ["uk", "ru"];
 
 export const RemotionRoot: React.FC = () => (
   <>
+    <Composition id="cat-typing" component={CatTyping} durationInFrames={450} fps={FPS} width={W} height={H} />
     {LANGS.map((lang) => (
       <Folder key={lang} name={lang}>
         {STORIES.map(({ id, seconds, C }) => (

@@ -32,3 +32,13 @@ npx remotion render ru-1-Countdown out/ru/1-Countdown.mp4 --crf=18
 ```
 
 ID композиций: `ru-1-Countdown`, `ru-2-Calendar`, `ru-3-TwoVisits`, `ru-4-Checklist`, `ru-5-Booking`, `ru-6-LastSlot`, `ru-7-BookEarly` (и то же с `uk-`).
+
+## Кіт друкує (окремий ролик)
+
+`out/cat/cat-typing.mp4` — сторіз 15 с: кіт «друкує» текст з помилками, зі звуком клавіш.
+Текст правиться в `scripts/cat_typing.py` (STEPS), потім:
+
+```bash
+python3 scripts/cat_typing.py            # таймлайн і звук клавіш
+npx remotion render cat-typing out/cat/cat-typing.mp4 --crf=18
+```
