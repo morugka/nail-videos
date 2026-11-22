@@ -1,4 +1,4 @@
-"""Builds the cat-typing script: keystroke timeline (JSON for Remotion) + matching key-click track (WAV).
+"""Builds the cat-typing script: keystroke timeline (JSON for Remotion) + matching typewriter sound track (WAV).
 
 Run from the project root:  python3 scripts/cat_typing.py
 Edit STEPS to change the text. Each step: ("type", text) | ("pause", seconds) | ("erase", n_chars) | ("mash", text)
@@ -53,15 +53,59 @@ for kind, arg in STEPS:
 frames = [{"f": round(tt * FPS), "text": tx} for tt, tx in events]
 json.dump({"frames": frames, "end": round(t * FPS)}, open("src/cat/script.json", "w"), ensure_ascii=False, indent=0)
 
-# soft key-click track
+# typewriter sound: a sharp metallic "clack" per key, bell + carriage-return ratchet on each new line
+rng = np.random.default_rng(3)
 dur = t + 4
 audio = np.zeros(int(SR * dur))
-for tt, _ in events:
-    n = int(SR * 0.035)
-    env = np.exp(-np.linspace(0, 9, n))
-    click = (np.random.uniform(-1, 1, n) * 0.6 + np.sin(np.linspace(0, 2 * np.pi * random.uniform(1800, 2600) * 0.035, n)) * 0.4) * env
-    i = int(tt * SR)
-    audio[i:i + n] += click * random.uniform(0.18, 0.28)
+
+
+def add(sig, at):
+    i = int(at * SR)
+    audio[i:i + len(sig)] += sig[: max(0, len(audio) - i)]
+
+
+def clack():
+    n = int(SR * 0.09)
+    tt = np.arange(n) / SR
+    noise = rng.uniform(-1, 1, n)
+    hi = np.diff(noise, prepend=0)  # crude high-pass: bright strike
+    strike = hi * np.exp(-tt * 160)
+    body = np.sin(2 * np.pi * rng.uniform(170, 230) * tt) * np.exp(-tt * 55) * 0.8  # wooden thud
+    ring = np.sin(2 * np.pi * rng.uniform(3200, 3900) * tt) * np.exp(-tt * 90) * 0.25  # metal type bar
+    return (strike * 0.9 + body + ring) * rng.uniform(0.32, 0.42)
+
+
+def bell():
+    n = int(SR * 0.9)
+    tt = np.arange(n) / SR
+    f = 2100
+    s_ = sum(a * np.sin(2 * np.pi * f * m * tt) for m, a in ((1, 1), (2.76, 0.4), (5.4, 0.15)))
+    return s_ * np.exp(-tt * 5) * 0.22
+
+
+def carriage():
+    n = int(SR * 0.32)
+    tt = np.arange(n) / SR
+    clicks = np.zeros(n)
+    for k in range(14):  # ratchet teeth
+        i = int((0.012 + k * 0.019) * SR)
+        m = int(SR * 0.006)
+        clicks[i:i + m] += rng.uniform(-1, 1, m) * np.exp(-np.arange(m) / SR * 600)
+    slide = rng.uniform(-1, 1, n) * 0.08 * np.sin(np.pi * tt / tt[-1])
+    thunk = np.sin(2 * np.pi * 140 * tt) * np.exp(-(tt - tt[-1]) ** 2 * 4000) * 0.6
+    return (clicks * 0.45 + slide + thunk) * 0.7
+
+
+prev = ""
+for tt, tx in events:
+    if len(tx) > len(prev) and tx.endswith("\n"):
+        add(bell(), tt - 0.12)
+        add(carriage(), tt)
+    else:
+        add(clack(), tt)
+    prev = tx
+
+audio /= max(1.0, np.abs(audio).max() / 0.9)
 pcm = (np.clip(audio, -1, 1) * 32767).astype(np.int16)
 with wave.open("public/cat/keys.wav", "wb") as w:
     w.setnchannels(1)

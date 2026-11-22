@@ -21,6 +21,11 @@ export const CatTyping: React.FC = () => {
   const cursorOn = typing || Math.floor(frame / 15) % 2 === 0;
   const cardIn = interpolate(frame, [0, 10], [0, 1], { extrapolateRight: "clamp" });
   const dots = ".".repeat((Math.floor(frame / 8) % 3) + 1);
+  // the "typing..." label fades once the cat is done
+  const headerOn = interpolate(frame, [script.end + 6, script.end + 18], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
   return (
     <AbsoluteFill style={{ backgroundColor: "black" }}>
       <Video src={staticFile("cat/cat.mp4")} playbackRate={0.92} muted objectFit="cover" style={{ width: "100%", height: "100%" }} />
@@ -38,8 +43,8 @@ export const CatTyping: React.FC = () => {
             fontFamily: SANS,
           }}
         >
-          <div style={{ fontSize: 30, color: "#8a8a8e", marginBottom: 14 }}>
-            {typing ? `кіт друкує${dots}` : "кіт надрукував"}
+          <div style={{ fontSize: 30, color: "#8a8a8e", marginBottom: 14, opacity: headerOn }}>
+            {`Лєссі печатає${dots}`}
           </div>
           <div
             style={{
